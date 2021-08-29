@@ -23,12 +23,12 @@ const PonyCartoonModel = ()=> {
   )
 }
 
-//useGLTF.preload('./resources/gltf/Pony Cartoon.glb')
+
 
 const App=()=>{
 
   return( 
-    <div style={{width:'100vw',height:'100vh',border:'1px solid #000'}}>
+    <div style={{width:'100vw',height:'100vh'}}>
     <Canvas
       concurrent//這個關掉會很慘
       camera={{position:[0,0,13],fov:40}}
@@ -46,3 +46,5 @@ const App=()=>{
 }
 
 export default App;
+
+useGLTF.preload('/glb/ponycartoon.glb')
