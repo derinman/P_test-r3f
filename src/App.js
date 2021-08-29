@@ -8,7 +8,7 @@ import gltfNodeToMesh from './controller/gltfNodeToMesh.js'
 
 const PonyCartoonModel = ()=> {
 
-  const gltf_ = useGLTF('../PonyCartoon.glb')
+  const gltf_ = useGLTF('/glb/PonyCartoon.glb')
   const group = useRef()
   
   let nodes = gltf_.nodes
