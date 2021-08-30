@@ -7,11 +7,11 @@ import { useGLTF } from "@react-three/drei"
 import gltfNodeToMesh from './controller/gltfNodeToMesh.js'
 
 
-import url from './glb/box.glb'
+// import url from '/glb/box.glb'
 
 const PonyCartoonModel = (props)=> {
 
-  const gltf = useGLTF(url)
+  const gltf = useGLTF('/glb/box.glb')
   const group = useRef()
   
   let nodes = gltf.nodes
