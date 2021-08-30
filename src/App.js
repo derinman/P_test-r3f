@@ -12,7 +12,7 @@ import url from './glb/box.gltf'
 
 const PonyCartoonModel = (props)=> {
 
-  const gltf = useGLTF(url)
+  const gltf = useGLTF('/glb/box.gltf')
   const group = useRef()
   
   console.log(dumpObject(gltf.scene).join('\n'))
