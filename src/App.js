@@ -6,12 +6,14 @@ import { useGLTF } from "@react-three/drei"
 
 import gltfNodeToMesh from './controller/gltfNodeToMesh.js'
 
-const PonyCartoonModel = ()=> {
+import url from './glb/ponycartoon.glb'
 
-  const gltf_ = useGLTF('/glb/ponycartoon.glb')
+const PonyCartoonModel = (props)=> {
+
+  const gltf = useGLTF(url)
   const group = useRef()
   
-  let nodes = gltf_.nodes
+  let nodes = gltf.nodes
   let nodesMeshOnly = Object.values(nodes).filter(data=>data.type==='Mesh')
 
   return (
@@ -26,6 +28,8 @@ const PonyCartoonModel = ()=> {
 
 
 const App=()=>{
+
+  
 
   return( 
     <div style={{width:'100vw',height:'100vh'}}>
@@ -47,4 +51,4 @@ const App=()=>{
 
 export default App;
 
-useGLTF.preload('/glb/ponycartoon.glb')
+//useGLTF.preload('/glb/ponycartoon.glb')
