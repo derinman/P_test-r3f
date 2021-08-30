@@ -5,15 +5,19 @@ import { Canvas} from '@react-three/fiber'
 import { useGLTF } from "@react-three/drei"
 
 import gltfNodeToMesh from './controller/gltfNodeToMesh.js'
+import dumpObject from './controller/dump.js'
 
+import url from './glb/box.gltf'
 
-// import url from '/glb/box.glb'
 
 const PonyCartoonModel = (props)=> {
 
-  const gltf = useGLTF('/glb/box.glb')
+  const gltf = useGLTF(url)
   const group = useRef()
   
+  console.log(dumpObject(gltf.scene).join('\n'))
+
+
   let nodes = gltf.nodes
   let nodesMeshOnly = Object.values(nodes).filter(data=>data.type==='Mesh')
 
