@@ -11,7 +11,7 @@ import dumpObject from './controller/dump.js'
 
 const PonyCartoonModel = (props)=> {
   
-  const gltf = useGLTF('/box.glb')
+  const gltf = useGLTF('/box.jpg')
   const group = useRef()
   console.log(dumpObject(gltf.scene).join('\n'))
 
