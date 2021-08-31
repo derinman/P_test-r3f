@@ -9,9 +9,11 @@ import { useGLTF } from "@react-three/drei"
 import gltfNodeToMesh from './controller/gltfNodeToMesh.js'
 import dumpObject from './controller/dump.js'
 
+import url from './glb/ponycartoon.glb'
+
 const PonyCartoonModel = (props)=> {
   
-  const gltf = useGLTF('/box.jpg')
+  const gltf = useGLTF(url)
   const group = useRef()
   console.log(dumpObject(gltf.scene).join('\n'))
 
@@ -26,8 +28,6 @@ const PonyCartoonModel = (props)=> {
     </group>
   )
 }
-
-
 
 const App=()=>{
 
