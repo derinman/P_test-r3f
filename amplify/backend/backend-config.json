@@ -1,0 +1,16 @@
+{
+  "auth": {
+    "ptestr3fa6f2182f": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  },
+  "storage": {
+    "r3f": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation"
+    }
+  }
+}
