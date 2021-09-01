@@ -35,7 +35,7 @@ const PonyCartoonModel = ()=> {
 
 const App=()=>{
   
-  const [ptLight1, setptLight1]= useState({x:-4,y:5,z:4, intensity:2})
+  const [ptLight1, setptLight1]= useState({x:0,y:1,z:0, intensity:5})
 
   const canvasRef = useRef()
   const mainCameraRef = useRef()
