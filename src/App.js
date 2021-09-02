@@ -1,4 +1,4 @@
-import React, {useState, useRef ,Suspense} from 'react'
+import React, {useState, useRef ,Suspense, useEffect} from 'react'
 
 import { Canvas} from '@react-three/fiber'
 import { useGLTF, OrbitControls,PerspectiveCamera } from "@react-three/drei"
@@ -6,11 +6,14 @@ import { useGLTF, OrbitControls,PerspectiveCamera } from "@react-three/drei"
 import Slider from 'react-rangeslider'
 import 'react-rangeslider/lib/index.css'
 
-import gltfNodeToMesh from './controller/gltfNodeToMesh.js'
-import dumpObject from './controller/dump.js'
+import { SketchPicker } from 'react-color'
+
+import gltfNodeToMesh from './helper/gltfNodeToMesh.js'
+import dumpObject from './helper/dump.js'
 
 // import glbUrl from './glb/ponycartoon.glb'
-import glbUrl from './glb/polly.glb'
+// import glbUrl from './glb/polly.glb'
+import glbUrl from './glb/dinosaur.glb'
 
 const PonyCartoonModel = ()=> {
   
@@ -21,26 +24,51 @@ const PonyCartoonModel = ()=> {
   
   const nodes = glb.nodes
   
-  const nodesMeshOnly = Object.values(nodes).filter(data=>data.type==='Mesh')
+  
 
   return (
     <group
       ref={group}
     >
-      <primitive object={glb.scene} />
-      {/* {gltfNodeToMesh(nodesMeshOnly)} */}
+      {/* <primitive object={glb.scene} /> */}
+      {gltfNodeToMesh(nodes)}
     </group>
   )
 }
 
 const App=()=>{
   
-  const [ptLight1, setptLight1]= useState({x:0,y:1,z:0, intensity:5})
+  const [up, setUp] = useState([0,1,0])
+
+  const [ptLight1, setptLight1]= useState(
+    { x:0,
+      y:1,
+      z:0, 
+      intensity:5,
+      color:'#FFFFFF',
+      distance:0,
+      penumbra:0.5,
+      angle:Math.PI/7,
+      targetX:0,
+      targetY:0,
+      targetZ:0
+    }
+  )
 
   const canvasRef = useRef()
   const mainCameraRef = useRef()
+  const axesHelperRef = useRef()
   const controlsRef = useRef()
-  const spotLight1 = useRef()
+  const spotLight1Ref = useRef()
+  const targetRef = useRef()
+
+  useEffect(()=>{
+    //console.log(axesHelperRef)
+    console.log(spotLight1Ref)
+  },
+    []
+  )
+  
 
   return( 
     <div style={{width:'100vw',height:'100vh'}}>
@@ -51,14 +79,18 @@ const App=()=>{
         <Suspense fallback={null}>
           <PonyCartoonModel />
         </Suspense>
-        <axesHelper />
+        <axesHelper 
+          ref={axesHelperRef}
+          scale={[10,10,10]}
+          up={up}//世界座標的向量
+        />
         <PerspectiveCamera
           makeDefault
           ref={mainCameraRef}
           position-x={ 0}
           position-y={0}
-          position-z={5}
-          up={[0, 1, 0]}//世界座標的向量
+          position-z={25}
+          up={up}//世界座標的向量
           fov={ 30 }
           //aspect={ width / height }
           near={ 1 }
@@ -90,12 +122,12 @@ const App=()=>{
           castShadow
         />
         <spotLight
-            ref={spotLight1}
+            ref={spotLight1Ref}
             position={[ptLight1.x,ptLight1.y,ptLight1.z]}
-            color={'#f2ca66'}
-            distance={0}//Default is 0 (no limit)
-            penumbra={0.5}//values between zero and 1. Default is zero.
-            angle={Math.PI/7}//upper bound is Math.PI/2
+            color={ptLight1.color}
+            distance={ptLight1.distance}//Default is 0 (no limit)
+            penumbra={ptLight1.penumbra}//values between zero and 1. Default is zero.
+            angle={ptLight1.angle}//upper bound is Math.PI/2
             intensity={ptLight1.intensity}//Default is 1
             decay={2}
             castShadow
@@ -103,13 +135,26 @@ const App=()=>{
             shadow-mapSize-width={1024/512}//試試1024/500~1024
             shadow-bias={0.05}//試試0.01~0.07
             shadow-focus={0.001}//試試0.1~2
-            target-position={[0, 0, 0]}
+            target={targetRef.current}
             visible={true}
         />
         <mesh
           visible
-          userData={{ test: "hello" }}
           position={[ptLight1.x,ptLight1.y,ptLight1.z]}
+          rotation={[0, 0, 0]}
+          castShadow
+        >
+          <sphereGeometry attach="geometry" args={[0.1, 16, 16]} />
+          <meshStandardMaterial
+            attach="material"
+            color="white"
+            wireframe={true}
+          />
+        </mesh>
+        <mesh
+          ref={targetRef}
+          visible
+          position={[ptLight1.targetX,ptLight1.targetY,ptLight1.targetZ]}
           rotation={[0, 0, 0]}
           castShadow
         >
@@ -122,13 +167,14 @@ const App=()=>{
         </mesh>
       </Canvas>
       
-      <div style={{position:'absolute',top:'0.5%',right:2,width:200,height:'99%', border:'1px solid #000'}}>
+      <div style={{position:'absolute',top:'0.5%',right:2,width:250,height:'99%', border:'1px solid #000'}}>
         ptLightPos1
         <Slider
           tooltip={false}
           handleLabel={ptLight1.x}
           value={ptLight1.x}
-          max={10}
+          step={0.25}
+          max={20}
           min={-10}
           orientation="horizontal"
           onChange={e=>setptLight1({...ptLight1,x:e})}
@@ -137,7 +183,8 @@ const App=()=>{
           tooltip={false}
           handleLabel={ptLight1.y}
           value={ptLight1.y}
-          max={10}
+          step={0.25}
+          max={20}
           min={-10}
           orientation="horizontal"
           onChange={e=>setptLight1({...ptLight1,y:e})}
@@ -146,7 +193,8 @@ const App=()=>{
           tooltip={false}
           handleLabel={ptLight1.z}
           value={ptLight1.z}
-          max={10}
+          step={0.25}
+          max={20}
           min={-10}
           orientation="horizontal"
           onChange={e=>setptLight1({...ptLight1,z:e})}
@@ -156,10 +204,80 @@ const App=()=>{
           tooltip={false}
           handleLabel={ptLight1.intensity}
           value={ptLight1.intensity}
+          step={0.25}
           max={10}
           min={0}
           orientation="horizontal"
           onChange={e=>setptLight1({...ptLight1,intensity:e})}
+        />
+        Distance
+        <Slider
+          tooltip={false}
+          handleLabel={ptLight1.distance}
+          value={ptLight1.distance}
+          step={0.25}
+          max={5}
+          min={0}
+          orientation="horizontal"
+          onChange={e=>setptLight1({...ptLight1,distance:e})}
+        />
+        Penumbra
+        <Slider
+          tooltip={false}
+          handleLabel={ptLight1.penumbra}
+          value={ptLight1.penumbra}
+          step={0.1}
+          max={1}
+          min={0}
+          orientation="horizontal"
+          onChange={e=>setptLight1({...ptLight1,penumbra:e})}
+        />
+        Angle
+        <Slider
+          tooltip={false}
+          handleLabel={ptLight1.angle}
+          value={ptLight1.angle}
+          step={0.1}
+          max={Math.PI/2}
+          min={0}
+          orientation="horizontal"
+          onChange={e=>setptLight1({...ptLight1,angle:e})}
+        />
+        Target
+        <Slider
+          tooltip={false}
+          handleLabel={ptLight1.targetX}
+          value={ptLight1.targetX}
+          step={0.25}
+          max={10}
+          min={-10}
+          orientation="horizontal"
+          onChange={e=>setptLight1({...ptLight1,targetX:e})}
+        />
+        <Slider
+          tooltip={false}
+          handleLabel={ptLight1.targetY}
+          value={ptLight1.targetY}
+          step={0.25}
+          max={10}
+          min={-10}
+          orientation="horizontal"
+          onChange={e=>setptLight1({...ptLight1,targetY:e})}
+        />
+        <Slider
+          tooltip={false}
+          handleLabel={ptLight1.targetZ}
+          value={ptLight1.targetZ}
+          step={0.25}
+          max={10}
+          min={-10}
+          orientation="horizontal"
+          onChange={e=>setptLight1({...ptLight1,targetZ:e})}
+        />
+        <SketchPicker
+          color={ ptLight1.color }
+          onChangeComplete={ e=>setptLight1({...ptLight1,color:e.hex}) }
+          presetColors={[]}
         />
       </div>
 
@@ -169,5 +287,5 @@ const App=()=>{
 
 export default App
 
-// //useGLTF.preload('/glb/ponycartoon.glb')
+useGLTF.preload(glbUrl)
 
