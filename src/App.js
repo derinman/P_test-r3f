@@ -3,6 +3,8 @@ import React, { useState, useRef, Suspense, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { useGLTF, OrbitControls, PerspectiveCamera, Html } from "@react-three/drei";
 
+import styled from 'styled-components'
+
 import Slider from "react-rangeslider";
 import "react-rangeslider/lib/index.css";
 
@@ -14,6 +16,39 @@ import dumpObject from "./helper/dump.js";
 // import glbUrl from './glb/ponycartoon.glb'
 import glbUrl from "./glb/polly.glb";
 // import glbUrl from './glb/dinosaur.glb'
+
+const Wrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  overflow: hidden;
+  // border:1px solid #000;
+`
+const GuiWrapper = styled.div`
+  background-color:rgba(255,255,255,0.5);
+  position: absolute;
+  top: 2.5vh;
+  right: 2.5vh;
+  width: 250px;
+  height: 95%;
+  border: 2px solid #555;
+  border-radius:1rem;
+  overflow:auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  //border: 1px solid #000;
+`
+const GuiCompBtn = styled.div`
+  border-bottom:1px solid #000;
+  margin:1rem;
+`
+const GuiCompWrapper = styled.div`
+  border: 2px solid #555;
+  margin:0.5rem;
+`
 
 const HTML_TEXT_FACTOR = 3
 
@@ -33,12 +68,61 @@ const PonyCartoonModel = () => {
   );
 };
 
+const PointLight = (props) => {
+  const { name, pointLightConfig } = props;
+  const targetRef = useRef();
+  const tmp = useRef();
+
+  //useEffect(() => console.log(name,':',tmp.current), []);
+
+  return (
+    <>
+      <pointLight
+        ref={tmp}
+        position={[pointLightConfig.x, pointLightConfig.y, pointLightConfig.z]}
+        color={pointLightConfig.color}
+        distance={pointLightConfig.distance} //Default is 0 (no limit)
+        penumbra={pointLightConfig.penumbra} //values between zero and 1. Default is zero.
+        angle={pointLightConfig.angle} //upper bound is Math.PI/2
+        intensity={pointLightConfig.intensity} //Default is 1
+        decay={2}
+        castShadow
+        shadow-mapSize-height={1024 / 512} //試試1024/500~1024
+        shadow-mapSize-width={1024 / 512} //試試1024/500~1024
+        shadow-bias={0.05} //試試0.01~0.07
+        shadow-focus={0.001} //試試0.1~2
+        target={targetRef.current}
+        visible={true}
+      />
+      <mesh
+        ref={tmp}
+        visible
+        position={[pointLightConfig.x, pointLightConfig.y, pointLightConfig.z]}
+        rotation={[0, 0, 0]}
+        castShadow
+      >
+        <sphereGeometry attach="geometry" args={[0.1, 16, 16]} />
+        <meshStandardMaterial
+          attach="material"
+          color={pointLightConfig.color}
+          wireframe={true}
+        />
+        <Html distanceFactor={HTML_TEXT_FACTOR}>
+          <div>
+            {name}
+          </div>
+        </Html>
+      </mesh>
+    </>
+  );
+};
+
 const SpotLight = (props) => {
   const { name, spotLightConfig } = props;
   const targetRef = useRef();
   const tmp = useRef();
 
-  useEffect(() => console.log(tmp.current), []);
+  //useEffect(() => console.log(tmp.current), []);
 
   return (
     <>
@@ -112,10 +196,10 @@ const SpotLightGUI = (props) => {
 
   return (
     <>
-      <div onClick={() => setIsClose((c) => !c)}>{name}</div>
+      <GuiCompBtn onClick={() => setIsClose((c) => !c)}>{name}</GuiCompBtn>
 
       {!isClose && (
-        <>
+        <GuiCompWrapper>
           <div onClick={() => console.log(spotLightConfig)}>snapshot</div>
           <Slider
             tooltip={false}
@@ -243,7 +327,7 @@ const SpotLightGUI = (props) => {
             }
             presetColors={[]}
           />
-        </>
+        </GuiCompWrapper>
       )}
     </>
   );
@@ -270,10 +354,10 @@ const AmbientLightGUI = (props) => {
 
   return (
     <>
-      <div onClick={() => setIsClose((c) => !c)}>{name}</div>
+      <GuiCompBtn onClick={() => setIsClose((c) => !c)}>{name}</GuiCompBtn>
 
       {!isClose && (
-        <>
+        <GuiCompWrapper>
           <div onClick={() => console.log(ambientLightConfig)}>snapshot</div>
           intensity
           <Slider
@@ -295,7 +379,7 @@ const AmbientLightGUI = (props) => {
             }
             presetColors={[]}
           />
-        </>
+        </GuiCompWrapper>
       )}
     </>
   );
@@ -305,7 +389,7 @@ const HemisphereLight = (props) => {
   const { hemisphereLightConfig } = props;
   const tmp = useRef();
 
-  useEffect(() => console.log(tmp.current));
+  //useEffect(() => console.log(tmp.current));
 
   return (
     <hemisphereLight
@@ -323,10 +407,10 @@ const HemisphereLightGUI = (props) => {
 
   return (
     <>
-      <div onClick={() => setIsClose((c) => !c)}>{name}</div>
+      <GuiCompBtn onClick={() => setIsClose((c) => !c)}>{name}</GuiCompBtn>
 
       {!isClose && (
-        <>
+        <GuiCompWrapper>
           <div onClick={() => console.log(hemisphereLightConfig)}>snapshot</div>
           intensity
           <Slider
@@ -364,7 +448,7 @@ const HemisphereLightGUI = (props) => {
             }
             presetColors={[]}
           />
-        </>
+        </GuiCompWrapper>
       )}
     </>
   );
@@ -424,17 +508,7 @@ const App = () => {
   }, []);
 
   return (
-    <div
-      style={{
-        position: "relative",
-        width: "100%",
-        height: "100%",
-        top: "0px",
-        left: "0px",
-        overflow: "hidden",
-        // border:'1px solid #000'
-      }}
-    >
+    <Wrapper>
       <Canvas ref={canvasRef} concurrent>
         <Suspense fallback={null}>
           <PonyCartoonModel />
@@ -472,12 +546,6 @@ const App = () => {
           target-z={0}
         />
 
-        {/* <hemisphereLight
-          intensity={0.5}
-          skyColor={"#ff0800"}
-          groundColor={"#f77b77"}
-          castShadow
-        /> */}
         {/* <pointLight color="white" intensity={1} position={[10, 10, 10]} /> */}
         <SpotLight 
           name={"spotLight1"}
@@ -491,16 +559,7 @@ const App = () => {
         <HemisphereLight hemisphereLightConfig={hemisphereLight1} />
       </Canvas>
 
-      <div
-        style={{
-          position: "absolute",
-          top: "2.5vh",
-          right: "2.5vh",
-          width: "250px",
-          height: "95%",
-          border: "1px solid #000",
-        }}
-      >
+      <GuiWrapper>
         <SpotLightGUI
           name={"spotLight1"}
           spotLightConfig={spotLight1}
@@ -521,8 +580,8 @@ const App = () => {
           hemisphereLightConfig={hemisphereLight1}
           setHemisphereLightConfig={setHemisphereLight1}
         />
-      </div>
-    </div>
+      </GuiWrapper>
+    </Wrapper>
   );
 };
 
