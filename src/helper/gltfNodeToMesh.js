@@ -8,7 +8,7 @@ const gltfNodeToMesh =(nodes)=>{
 
     const nodesMeshOnly = Object.values(nodes).filter(data=>data.type.includes('Mesh')  )
     
-    console.log(nodesMeshOnly)
+    //console.log(nodesMeshOnly)
 
     // nodesMeshOnly.forEach((data) => {
     //     console.log(data)  
