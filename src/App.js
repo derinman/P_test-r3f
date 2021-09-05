@@ -1,11 +1,7 @@
 import React, { useState, useRef, Suspense, useEffect } from "react";
 
 import { Canvas } from "@react-three/fiber";
-import {
-  useGLTF,
-  OrbitControls,
-  PerspectiveCamera,
-} from "@react-three/drei";
+import { useGLTF, OrbitControls, PerspectiveCamera } from "@react-three/drei";
 
 import styled from "styled-components";
 
@@ -83,7 +79,7 @@ const App = () => {
     targetX: 0,
     targetY: 0,
     targetZ: 0,
-  })
+  });
 
   const [spotLight1, setSpotLight1] = useState({
     x: 0,
@@ -97,7 +93,7 @@ const App = () => {
     targetX: 0,
     targetY: 0,
     targetZ: 0,
-    visible:true,
+    visible: true,
   });
 
   const [spotLight2, setSpotLight2] = useState({
@@ -112,20 +108,20 @@ const App = () => {
     targetX: 0,
     targetY: 0,
     targetZ: 0,
-    visible:true,
+    visible: true,
   });
 
   const [ambientLight1, setAmbientLight1] = useState({
     intensity: 1,
     color: "#FFFFFF",
-    visible:true,
+    visible: true,
   });
 
   const [hemisphereLight1, setHemisphereLight1] = useState({
     intensity: 1,
     skyColor: "#FFFFFF",
     groundColor: "#FFFFFF",
-    visible:true,
+    visible: true,
   });
 
   const canvasRef = useRef();
@@ -178,24 +174,11 @@ const App = () => {
           target-z={0}
         />
 
-        <PointLight
-          name={'pointLight1'}
-          pointLightConfig={pointLight1}
-        />
-        <SpotLight 
-          name={"spotLight1"} 
-          spotLightConfig={spotLight1} 
-        />
-        <SpotLight 
-          name={"spotLight2"} 
-          spotLightConfig={spotLight2} 
-        />
-        <AmbientLight 
-          ambientLightConfig={ambientLight1} 
-        />
-        <HemisphereLight 
-          hemisphereLightConfig={hemisphereLight1} 
-        />
+        <PointLight name={"pointLight1"} pointLightConfig={pointLight1} />
+        <SpotLight name={"spotLight1"} spotLightConfig={spotLight1} />
+        <SpotLight name={"spotLight2"} spotLightConfig={spotLight2} />
+        <AmbientLight ambientLightConfig={ambientLight1} />
+        <HemisphereLight hemisphereLightConfig={hemisphereLight1} />
       </Canvas>
 
       <GuiWrapper>
