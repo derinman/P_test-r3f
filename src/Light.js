@@ -28,53 +28,59 @@ const GuiCheckBox = styled.div`
   border: 1px solid #555;
 `;
 
+const LightLabel = styled.div`
+  color:#fff;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding:0.2rem;
+  border-radius:0.3rem;
+`
+
 const HTML_TEXT_FACTOR = 3;
+const Light_SPHERE_ARGS = [0.05, 16, 16];
 
 const PointLight = (props) => {
   const { name, pointLightConfig } = props;
   const targetRef = useRef();
   const tmp = useRef();
 
-  // useEffect(() => console.log(name, ":", tmp.current), []);
+  // useEffect(() => console.log(name, ":", tmp.current),[]);
+  // useEffect(() => console.log(name, ":", tmp.current));
 
   return (
     <>
       <pointLight
         ref={tmp}
-        position={[pointLightConfig.x, pointLightConfig.y, pointLightConfig.z]}
-        distance={pointLightConfig.distance}
+        castShadow={pointLightConfig.castShadow}
         color={pointLightConfig.color}
-        intensity={pointLightConfig.intensity} //Default is 1
-        decay={2}
-        castShadow
-        shadow-mapSize-height={1024 / 512} //試試1024/500~1024
-        shadow-mapSize-width={1024 / 512} //試試1024/500~1024
-        shadow-bias={0.05} //試試0.01~0.07
-        shadow-focus={0.001} //試試0.1~2
+        decay={pointLightConfig.decay}
+        distance={pointLightConfig.distance}
+        intensity={pointLightConfig.intensity}
+        name={pointLightConfig.name}
+        position={[pointLightConfig.x, pointLightConfig.y, pointLightConfig.z]}
         visible={pointLightConfig.visible}
       />
       <mesh
         position={[pointLightConfig.x, pointLightConfig.y, pointLightConfig.z]}
-        rotation={[0, 0, 0]}
-        castShadow
         visible={pointLightConfig.visible}
       >
-        <sphereGeometry attach="geometry" args={[0.1, 16, 16]} />
+        <sphereGeometry attach="geometry" args={Light_SPHERE_ARGS} />
         <meshStandardMaterial
           attach="material"
           color={pointLightConfig.color}
           wireframe={true}
         />
-        <Html distanceFactor={HTML_TEXT_FACTOR}>
-          <div>{name}</div>
-        </Html>
+        {pointLightConfig.visible && (
+          <Html distanceFactor={HTML_TEXT_FACTOR}>
+            <LightLabel>{pointLightConfig.name}</LightLabel>
+          </Html>
+        )}
       </mesh>
     </>
   );
 };
 
 const PointLightGUI = (props) => {
-  const { name, pointLightConfig, setPointLightConfig } = props;
+  const { pointLightConfig, setPointLightConfig } = props;
   const [isClose, setIsClose] = useState(true);
 
   return (
@@ -89,59 +95,46 @@ const PointLightGUI = (props) => {
             });
           }}
         />
-        <div onClick={() => setIsClose((c) => !c)}>{name}</div>
+        <div onClick={() => setIsClose((c) => !c)}>{pointLightConfig.name}</div>
       </GuiCompBtn>
 
       {!isClose && (
         <GuiCompWrapper>
           <div onClick={() => console.log(pointLightConfig)}>snapshot</div>
-          <Slider
-            tooltip={false}
-            handleLabel={pointLightConfig.x}
-            value={pointLightConfig.x}
-            step={0.25}
-            max={20}
-            min={-10}
-            orientation="horizontal"
-            onChange={(e) => setPointLightConfig({ ...pointLightConfig, x: e })}
+          <br />
+          castShadow
+          <GuiCheckBox
+            visible={pointLightConfig.castShadow}
+            onClick={() =>
+              setPointLightConfig({
+                ...pointLightConfig,
+                castShadow: !pointLightConfig.castShadow,
+              })
+            }
           />
-          <Slider
-            tooltip={false}
-            handleLabel={pointLightConfig.y}
-            value={pointLightConfig.y}
-            step={0.25}
-            max={20}
-            min={-10}
-            orientation="horizontal"
-            onChange={(e) => setPointLightConfig({ ...pointLightConfig, y: e })}
+          color
+          <SketchPicker
+            color={pointLightConfig.color}
+            onChangeComplete={(e) =>
+              setPointLightConfig({ ...pointLightConfig, color: e.hex })
+            }
+            presetColors={[]}
           />
+          decay
           <Slider
             tooltip={false}
-            handleLabel={pointLightConfig.z}
-            value={pointLightConfig.z}
+            value={pointLightConfig.decay}
             step={0.25}
-            max={20}
-            min={-10}
-            orientation="horizontal"
-            onChange={(e) => setPointLightConfig({ ...pointLightConfig, z: e })}
-          />
-          intensity
-          <Slider
-            tooltip={false}
-            handleLabel={pointLightConfig.intensity}
-            value={pointLightConfig.intensity}
-            step={0.25}
-            max={10}
+            max={5}
             min={0}
             orientation="horizontal"
             onChange={(e) =>
-              setPointLightConfig({ ...pointLightConfig, intensity: e })
+              setPointLightConfig({ ...pointLightConfig, decay: e })
             }
           />
           Distance
           <Slider
             tooltip={false}
-            handleLabel={pointLightConfig.distance}
             value={pointLightConfig.distance}
             step={0.25}
             max={5}
@@ -151,12 +144,47 @@ const PointLightGUI = (props) => {
               setPointLightConfig({ ...pointLightConfig, distance: e })
             }
           />
-          <SketchPicker
-            color={pointLightConfig.color}
-            onChangeComplete={(e) =>
-              setPointLightConfig({ ...pointLightConfig, color: e.hex })
+          intensity
+          <Slider
+            tooltip={false}
+            value={pointLightConfig.intensity}
+            step={0.25}
+            max={10}
+            min={0}
+            orientation="horizontal"
+            onChange={(e) =>
+              setPointLightConfig({ ...pointLightConfig, intensity: e })
             }
-            presetColors={[]}
+          />
+          X
+          <Slider
+            tooltip={false}
+            value={pointLightConfig.x}
+            step={0.25}
+            max={20}
+            min={-10}
+            orientation="horizontal"
+            onChange={(e) => setPointLightConfig({ ...pointLightConfig, x: e })}
+          />
+          Y
+          <Slider
+            tooltip={false}
+            value={pointLightConfig.y}
+            step={0.25}
+            max={20}
+            min={-10}
+            orientation="horizontal"
+            onChange={(e) => setPointLightConfig({ ...pointLightConfig, y: e })}
+          />
+          Z
+          <Slider
+            tooltip={false}
+            value={pointLightConfig.z}
+            step={0.25}
+            max={20}
+            min={-10}
+            orientation="horizontal"
+            onChange={(e) => setPointLightConfig({ ...pointLightConfig, z: e })}
           />
         </GuiCompWrapper>
       )}
@@ -165,79 +193,74 @@ const PointLightGUI = (props) => {
 };
 
 const SpotLight = (props) => {
-  const { name, spotLightConfig } = props;
-  const targetRef = useRef();
+  const { spotLightConfig } = props;
+
   const tmp = useRef();
-
-  // useEffect(() => console.log(name, ":", tmp.current), []);
-
+  const targetRef = useRef();
+  // useEffect(() => console.log(spotLightConfig.name, ":", tmp.current), []);
+  // useEffect(() => console.log(spotLightConfig.name, ":", tmp.current));
   return (
     <>
       <spotLight
-        //ref={}
-        position={[spotLightConfig.x, spotLightConfig.y, spotLightConfig.z]}
-        color={spotLightConfig.color}
-        distance={spotLightConfig.distance} //Default is 0 (no limit)
-        penumbra={spotLightConfig.penumbra} //values between zero and 1. Default is zero.
+        ref={tmp}
         angle={spotLightConfig.angle} //upper bound is Math.PI/2
+        castShadow={spotLightConfig.castShadow}
+        color={spotLightConfig.color}
+        decay={spotLightConfig.decay}
+        distance={spotLightConfig.distance} //Default is 0 (no limit)
         intensity={spotLightConfig.intensity} //Default is 1
-        decay={2}
-        castShadow
-        shadow-mapSize-height={1024 / 512} //試試1024/500~1024
-        shadow-mapSize-width={1024 / 512} //試試1024/500~1024
-        shadow-bias={0.05} //試試0.01~0.07
-        shadow-focus={0.001} //試試0.1~2
+        penumbra={spotLightConfig.penumbra} //values between zero and 1. Default is zero.
+        position={[spotLightConfig.x, spotLightConfig.y, spotLightConfig.z]}
         target={targetRef.current}
         visible={spotLightConfig.visible}
       />
       <mesh
-        ref={tmp}
-        visible
         position={[spotLightConfig.x, spotLightConfig.y, spotLightConfig.z]}
-        rotation={[0, 0, 0]}
-        castShadow
+        visible={spotLightConfig.visible}
       >
-        <sphereGeometry attach="geometry" args={[0.1, 16, 16]} />
+        <sphereGeometry attach="geometry" args={Light_SPHERE_ARGS} />
         <meshStandardMaterial
           attach="material"
           color={spotLightConfig.color}
           wireframe={true}
         />
-        <Html distanceFactor={HTML_TEXT_FACTOR}>
-          <div>{name}</div>
-        </Html>
+        {spotLightConfig.visible && (
+          <Html distanceFactor={HTML_TEXT_FACTOR}>
+            <LightLabel>{spotLightConfig.name}</LightLabel>
+          </Html>
+        )}
       </mesh>
       <mesh
         ref={targetRef}
-        visible
         position={[
           spotLightConfig.targetX,
           spotLightConfig.targetY,
           spotLightConfig.targetZ,
         ]}
-        castShadow
+        visible={spotLightConfig.visible}
       >
-        <sphereGeometry attach="geometry" args={[0.1, 16, 16]} />
+        <sphereGeometry attach="geometry" args={Light_SPHERE_ARGS} />
         <meshStandardMaterial
-          ref={tmp}
           attach="material"
           color={spotLightConfig.color}
           wireframe={true}
         />
-        <Html distanceFactor={HTML_TEXT_FACTOR}>
-          <div>
-            {name}
-            <br />
-            target
-          </div>
-        </Html>
+        {spotLightConfig.visible && (
+          <Html distanceFactor={HTML_TEXT_FACTOR}>
+            <LightLabel>
+              {spotLightConfig.name}
+              <br />
+              target
+            </LightLabel>
+          </Html>
+        )}
       </mesh>
     </>
   );
 };
 
 const SpotLightGUI = (props) => {
-  const { name, spotLightConfig, setSpotLightConfig } = props;
+  const { spotLightConfig, setSpotLightConfig } = props;
   const [isClose, setIsClose] = useState(true);
 
   return (
@@ -252,85 +275,14 @@ const SpotLightGUI = (props) => {
             });
           }}
         />
-        <div onClick={() => setIsClose((c) => !c)}>{name}</div>
+        <div onClick={() => setIsClose((c) => !c)}>{spotLightConfig.name}</div>
       </GuiCompBtn>
-
       {!isClose && (
         <GuiCompWrapper>
           <div onClick={() => console.log(spotLightConfig)}>snapshot</div>
-          <Slider
-            tooltip={false}
-            handleLabel={spotLightConfig.x}
-            value={spotLightConfig.x}
-            step={0.25}
-            max={20}
-            min={-10}
-            orientation="horizontal"
-            onChange={(e) => setSpotLightConfig({ ...spotLightConfig, x: e })}
-          />
-          <Slider
-            tooltip={false}
-            handleLabel={spotLightConfig.y}
-            value={spotLightConfig.y}
-            step={0.25}
-            max={20}
-            min={-10}
-            orientation="horizontal"
-            onChange={(e) => setSpotLightConfig({ ...spotLightConfig, y: e })}
-          />
-          <Slider
-            tooltip={false}
-            handleLabel={spotLightConfig.z}
-            value={spotLightConfig.z}
-            step={0.25}
-            max={20}
-            min={-10}
-            orientation="horizontal"
-            onChange={(e) => setSpotLightConfig({ ...spotLightConfig, z: e })}
-          />
-          intensity
-          <Slider
-            tooltip={false}
-            handleLabel={spotLightConfig.intensity}
-            value={spotLightConfig.intensity}
-            step={0.25}
-            max={10}
-            min={0}
-            orientation="horizontal"
-            onChange={(e) =>
-              setSpotLightConfig({ ...spotLightConfig, intensity: e })
-            }
-          />
-          Distance
-          <Slider
-            tooltip={false}
-            handleLabel={spotLightConfig.distance}
-            value={spotLightConfig.distance}
-            step={0.25}
-            max={5}
-            min={0}
-            orientation="horizontal"
-            onChange={(e) =>
-              setSpotLightConfig({ ...spotLightConfig, distance: e })
-            }
-          />
-          Penumbra
-          <Slider
-            tooltip={false}
-            handleLabel={spotLightConfig.penumbra}
-            value={spotLightConfig.penumbra}
-            step={0.1}
-            max={1}
-            min={0}
-            orientation="horizontal"
-            onChange={(e) =>
-              setSpotLightConfig({ ...spotLightConfig, penumbra: e })
-            }
-          />
           Angle
           <Slider
             tooltip={false}
-            handleLabel={spotLightConfig.angle}
             value={spotLightConfig.angle}
             step={0.1}
             max={Math.PI / 2}
@@ -340,10 +292,104 @@ const SpotLightGUI = (props) => {
               setSpotLightConfig({ ...spotLightConfig, angle: e })
             }
           />
-          Target
+          CastShadow
+          <GuiCheckBox
+            visible={spotLightConfig.castShadow}
+            onClick={() =>
+              setSpotLightConfig({
+                ...spotLightConfig,
+                castShadow: !spotLightConfig.castShadow,
+              })
+            }
+          />
+          <SketchPicker
+            color={spotLightConfig.color}
+            onChangeComplete={(e) =>
+              setSpotLightConfig({ ...spotLightConfig, color: e.hex })
+            }
+            presetColors={[]}
+          />
+          decay
           <Slider
             tooltip={false}
-            handleLabel={spotLightConfig.targetX}
+            value={spotLightConfig.decay}
+            step={0.25}
+            max={5}
+            min={0}
+            orientation="horizontal"
+            onChange={(e) =>
+              setSpotLightConfig({ ...spotLightConfig, decay: e })
+            }
+          />
+          Distance
+          <Slider
+            tooltip={false}
+            value={spotLightConfig.distance}
+            step={0.25}
+            max={5}
+            min={0}
+            orientation="horizontal"
+            onChange={(e) =>
+              setSpotLightConfig({ ...spotLightConfig, distance: e })
+            }
+          />
+          intensity
+          <Slider
+            tooltip={false}
+            value={spotLightConfig.intensity}
+            step={0.25}
+            max={10}
+            min={0}
+            orientation="horizontal"
+            onChange={(e) =>
+              setSpotLightConfig({ ...spotLightConfig, intensity: e })
+            }
+          />
+          Penumbra
+          <Slider
+            tooltip={false}
+            value={spotLightConfig.penumbra}
+            step={0.1}
+            max={1}
+            min={0}
+            orientation="horizontal"
+            onChange={(e) =>
+              setSpotLightConfig({ ...spotLightConfig, penumbra: e })
+            }
+          />
+          X
+          <Slider
+            tooltip={false}
+            value={spotLightConfig.x}
+            step={0.25}
+            max={20}
+            min={-10}
+            orientation="horizontal"
+            onChange={(e) => setSpotLightConfig({ ...spotLightConfig, x: e })}
+          />
+          Y
+          <Slider
+            tooltip={false}
+            value={spotLightConfig.y}
+            step={0.25}
+            max={20}
+            min={-10}
+            orientation="horizontal"
+            onChange={(e) => setSpotLightConfig({ ...spotLightConfig, y: e })}
+          />
+          Z
+          <Slider
+            tooltip={false}
+            value={spotLightConfig.z}
+            step={0.25}
+            max={20}
+            min={-10}
+            orientation="horizontal"
+            onChange={(e) => setSpotLightConfig({ ...spotLightConfig, z: e })}
+          />
+          TargetX
+          <Slider
+            tooltip={false}
             value={spotLightConfig.targetX}
             step={0.25}
             max={10}
@@ -353,9 +399,9 @@ const SpotLightGUI = (props) => {
               setSpotLightConfig({ ...spotLightConfig, targetX: e })
             }
           />
+          TargetY
           <Slider
             tooltip={false}
-            handleLabel={spotLightConfig.targetY}
             value={spotLightConfig.targetY}
             step={0.25}
             max={10}
@@ -365,9 +411,9 @@ const SpotLightGUI = (props) => {
               setSpotLightConfig({ ...spotLightConfig, targetY: e })
             }
           />
+          TargetZ
           <Slider
             tooltip={false}
-            handleLabel={spotLightConfig.targetZ}
             value={spotLightConfig.targetZ}
             step={0.25}
             max={10}
@@ -376,13 +422,6 @@ const SpotLightGUI = (props) => {
             onChange={(e) =>
               setSpotLightConfig({ ...spotLightConfig, targetZ: e })
             }
-          />
-          <SketchPicker
-            color={spotLightConfig.color}
-            onChangeComplete={(e) =>
-              setSpotLightConfig({ ...spotLightConfig, color: e.hex })
-            }
-            presetColors={[]}
           />
         </GuiCompWrapper>
       )}
@@ -394,20 +433,22 @@ const AmbientLight = (props) => {
   const { ambientLightConfig } = props;
   const tmp = useRef();
 
-  // useEffect(() => console.log(name, ":", tmp.current), []);
+  // useEffect(() => console.log(ambientLightConfig.name, ":", tmp.current), []);
+  // useEffect(() => console.log(ambientLightConfig.name, ":", tmp.current));
 
   return (
     <ambientLight
       ref={tmp}
-      intensity={ambientLightConfig.intensity}
+      castShadow={ambientLightConfig.castShadow}
       color={ambientLightConfig.color}
+      intensity={ambientLightConfig.intensity}
       visible={ambientLightConfig.visible}
     />
   );
 };
 
 const AmbientLightGUI = (props) => {
-  const { name, ambientLightConfig, setAmbientLightConfig } = props;
+  const { ambientLightConfig, setAmbientLightConfig } = props;
   const [isClose, setIsClose] = useState(true);
 
   return (
@@ -422,16 +463,35 @@ const AmbientLightGUI = (props) => {
             });
           }}
         />
-        <div onClick={() => setIsClose((c) => !c)}>{name}</div>
+        <div onClick={() => setIsClose((c) => !c)}>
+          {ambientLightConfig.name}
+        </div>
       </GuiCompBtn>
 
       {!isClose && (
         <GuiCompWrapper>
           <div onClick={() => console.log(ambientLightConfig)}>snapshot</div>
-          intensity
+          CastShadow
+          <GuiCheckBox
+            visible={ambientLightConfig.castShadow}
+            onClick={() =>
+              setAmbientLightConfig({
+                ...ambientLightConfig,
+                castShadow: !ambientLightConfig.castShadow,
+              })
+            }
+          />
+          Color
+          <SketchPicker
+            color={ambientLightConfig.color}
+            onChangeComplete={(e) =>
+              setAmbientLightConfig({ ...ambientLightConfig, color: e.hex })
+            }
+            presetColors={[]}
+          />
+          Intensity
           <Slider
             tooltip={false}
-            handleLabel={ambientLightConfig.intensity}
             value={ambientLightConfig.intensity}
             step={0.25}
             max={10}
@@ -440,13 +500,6 @@ const AmbientLightGUI = (props) => {
             onChange={(e) =>
               setAmbientLightConfig({ ...ambientLightConfig, intensity: e })
             }
-          />
-          <SketchPicker
-            color={ambientLightConfig.color}
-            onChangeComplete={(e) =>
-              setAmbientLightConfig({ ...ambientLightConfig, color: e.hex })
-            }
-            presetColors={[]}
           />
         </GuiCompWrapper>
       )}
@@ -458,26 +511,29 @@ const HemisphereLight = (props) => {
   const { hemisphereLightConfig } = props;
   const tmp = useRef();
 
-  // useEffect(() => console.log(name, ":", tmp.current), []);
+  // useEffect(() => console.log(hemisphereLightConfig.name, ":", tmp.current), []);
+  // useEffect(() => console.log(hemisphereLightConfig.name, ":", tmp.current));
 
   return (
     <hemisphereLight
       ref={tmp}
+      castShadow={hemisphereLightConfig.castShadow}
+      color={hemisphereLightConfig.color}
+      groundColor={hemisphereLightConfig.groundColor}
       intensity={hemisphereLightConfig.intensity}
       skyColor={hemisphereLightConfig.skyColor}
-      groundColor={hemisphereLightConfig.groundColor}
       visible={hemisphereLightConfig.visible}
     />
   );
 };
 
 const HemisphereLightGUI = (props) => {
-  const { name, hemisphereLightConfig, setHemisphereLightConfig } = props;
+  const { hemisphereLightConfig, setHemisphereLightConfig } = props;
   const [isClose, setIsClose] = useState(true);
 
   return (
     <>
-      <GuiCompBtn >
+      <GuiCompBtn>
         <GuiCheckBox
           visible={hemisphereLightConfig.visible}
           onClick={() => {
@@ -488,17 +544,59 @@ const HemisphereLightGUI = (props) => {
           }}
         />
         <div onClick={() => setIsClose((c) => !c)}>
-          {name}
-        </div> 
+          {hemisphereLightConfig.name}
+        </div>
       </GuiCompBtn>
 
       {!isClose && (
         <GuiCompWrapper>
           <div onClick={() => console.log(hemisphereLightConfig)}>snapshot</div>
-          intensity
+          CastShadow
+          <GuiCheckBox
+            visible={hemisphereLightConfig.castShadow}
+            onClick={() =>
+              setHemisphereLightConfig({
+                ...hemisphereLightConfig,
+                castShadow: !hemisphereLightConfig.castShadow,
+              })
+            }
+          />
+          Color
+          <SketchPicker
+            color={hemisphereLightConfig.color}
+            onChangeComplete={(e) =>
+              setHemisphereLightConfig({
+                ...hemisphereLightConfig,
+                color: e.hex,
+              })
+            }
+            presetColors={[]}
+          />
+          SkyColor
+          <SketchPicker
+            color={hemisphereLightConfig.skyColor}
+            onChangeComplete={(e) =>
+              setHemisphereLightConfig({
+                ...hemisphereLightConfig,
+                skyColor: e.hex,
+              })
+            }
+            presetColors={[]}
+          />
+          GroundColor
+          <SketchPicker
+            color={hemisphereLightConfig.groundColor}
+            onChangeComplete={(e) =>
+              setHemisphereLightConfig({
+                ...hemisphereLightConfig,
+                groundColor: e.hex,
+              })
+            }
+            presetColors={[]}
+          />
+          Intensity
           <Slider
             tooltip={false}
-            handleLabel={hemisphereLightConfig.intensity}
             value={hemisphereLightConfig.intensity}
             step={0.25}
             max={10}
@@ -510,26 +608,6 @@ const HemisphereLightGUI = (props) => {
                 intensity: e,
               })
             }
-          />
-          <SketchPicker
-            color={hemisphereLightConfig.skyColor}
-            onChangeComplete={(e) =>
-              setHemisphereLightConfig({
-                ...hemisphereLightConfig,
-                skyColor: e.hex,
-              })
-            }
-            presetColors={[]}
-          />
-          <SketchPicker
-            color={hemisphereLightConfig.groundColor}
-            onChangeComplete={(e) =>
-              setHemisphereLightConfig({
-                ...hemisphereLightConfig,
-                groundColor: e.hex,
-              })
-            }
-            presetColors={[]}
           />
         </GuiCompWrapper>
       )}

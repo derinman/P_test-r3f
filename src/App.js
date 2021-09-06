@@ -68,59 +68,51 @@ const App = () => {
   const [up, setUp] = useState([0, 1, 0]);
 
   const [pointLight1, setPointLight1] = useState({
+    castShadow: true,
+    color: "#FFFFFF",
+    decay: 2,
+    distance: 0,
+    intensity: 1,
+    name: "pointLight1",
     x: 0,
     y: 1,
     z: 0,
-    intensity: 5,
-    color: "#FFFFFF",
-    distance: 0,
-    penumbra: 0.5,
-    angle: Math.PI / 7,
-    targetX: 0,
-    targetY: 0,
-    targetZ: 0,
-  });
-
-  const [spotLight1, setSpotLight1] = useState({
-    x: 0,
-    y: 1,
-    z: 0,
-    intensity: 5,
-    color: "#FFFFFF",
-    distance: 0,
-    penumbra: 0.5,
-    angle: Math.PI / 7,
-    targetX: 0,
-    targetY: 0,
-    targetZ: 0,
     visible: true,
   });
 
-  const [spotLight2, setSpotLight2] = useState({
+  const [spotLight1, setSpotLight1] = useState({
+    angle: Math.PI / 7,
+    castShadow: true,
+    color: "#FFFFFF",
+    decay: 2,
+    distance: 0,
+    intensity: 1,
+    name: "spotLight1",
+    penumbra: 0.5,
     x: 1,
     y: 1,
     z: 0,
-    intensity: 5,
-    color: "#FFFFFF",
-    distance: 0,
-    penumbra: 0.5,
-    angle: Math.PI / 7,
     targetX: 0,
-    targetY: 0,
+    targetY: 0.5,
     targetZ: 0,
     visible: true,
   });
 
   const [ambientLight1, setAmbientLight1] = useState({
-    intensity: 1,
+    castShadow: true,
     color: "#FFFFFF",
+    intensity: 1,
+    name: "ambientLight1",
     visible: true,
   });
 
   const [hemisphereLight1, setHemisphereLight1] = useState({
-    intensity: 1,
-    skyColor: "#FFFFFF",
+    castShadow: true,
+    color: "#FFFFFF",
     groundColor: "#FFFFFF",
+    intensity: 1,
+    name: "hemisphereLight1",
+    skyColor: "#FFFFFF",
     visible: true,
   });
 
@@ -174,36 +166,26 @@ const App = () => {
           target-z={0}
         />
 
-        <PointLight name={"pointLight1"} pointLightConfig={pointLight1} />
-        <SpotLight name={"spotLight1"} spotLightConfig={spotLight1} />
-        <SpotLight name={"spotLight2"} spotLightConfig={spotLight2} />
+        <PointLight pointLightConfig={pointLight1} />
+        <SpotLight spotLightConfig={spotLight1} />
         <AmbientLight ambientLightConfig={ambientLight1} />
         <HemisphereLight hemisphereLightConfig={hemisphereLight1} />
       </Canvas>
 
       <GuiWrapper>
         <PointLightGUI
-          name={"pointLight1"}
           pointLightConfig={pointLight1}
           setPointLightConfig={setPointLight1}
         />
         <SpotLightGUI
-          name={"spotLight1"}
           spotLightConfig={spotLight1}
           setSpotLightConfig={setSpotLight1}
         />
-        <SpotLightGUI
-          name={"spotLight2"}
-          spotLightConfig={spotLight2}
-          setSpotLightConfig={setSpotLight2}
-        />
         <AmbientLightGUI
-          name={"ambientLight1"}
           ambientLightConfig={ambientLight1}
           setAmbientLightConfig={setAmbientLight1}
         />
         <HemisphereLightGUI
-          name={"hemisphereLight1"}
           hemisphereLightConfig={hemisphereLight1}
           setHemisphereLightConfig={setHemisphereLight1}
         />
