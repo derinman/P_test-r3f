@@ -1,7 +1,8 @@
 import React, { useState, useRef, Suspense, useEffect } from "react";
 
+import * as THREE from 'three'
 import { Canvas } from "@react-three/fiber";
-import { useGLTF, OrbitControls, PerspectiveCamera } from "@react-three/drei";
+import { useGLTF, OrbitControls, PerspectiveCamera,softShadows } from "@react-three/drei";
 
 import styled from "styled-components";
 
@@ -9,6 +10,10 @@ import pointLightJson from "./config/pointLight.json";
 import spotLightJson from "./config/spotLight.json";
 import ambientLightJson from "./config/ambientLight.json";
 import hemisphereLightJson from "./config/hemisphereLight.json";
+import directionalLightJson from "./config/directionalLight.json";
+import rectAreaLightJson from "./config/rectAreaLight.json";
+
+
 
 import {
   PointLight,
@@ -19,6 +24,10 @@ import {
   AmbientLightGUI,
   HemisphereLight,
   HemisphereLightGUI,
+  DirectionalLight,
+  DirectionalLightGUI,
+  RectAreaLight,
+  RectAreaLightGUI
 } from "./Light.js";
 
 import gltfNodeToMesh from "./helper/gltfNodeToMesh.js";
@@ -82,20 +91,40 @@ const App = () => {
 
   const [hemisphereLight1, setHemisphereLight1] = useState(hemisphereLightJson.hemisphereLight1);
 
+  const [directionalLight1, setDirectionalLight1] = useState(directionalLightJson.directionalLight1);
+
+  const [rectAreaLight1, setRectAreaLight1] = useState(rectAreaLightJson.rectAreaLight1);
+
   const canvasRef = useRef();
   const mainCameraRef = useRef();
   const axesHelperRef = useRef();
   const controlsRef = useRef();
 
   useEffect(() => {
-    //console.log(axesHelperRef)
-    // console.log(spotLight1Ref)
-    // console.log(mainCameraRef)
+    console.log('canvasRef:',canvasRef)
+    // console.log(axesHelperRef)
+    // console.log('mainCameraRef',':',mainCameraRef)
   }, []);
 
   return (
     <Wrapper>
-      <Canvas ref={canvasRef} concurrent>
+      <Canvas 
+        ref={canvasRef} 
+        concurrent
+        colorManagement  
+        shadows
+        // gl={{ antialias: true }}
+        //           onCreated={({ gl }) => {gl.toneMapping = THREE.NoToneMapping;
+        //                                   //gl.toneMapping = THREE.LinearToneMapping;
+        //                                   //gl.toneMapping = THREE.ReinhardToneMapping;
+        //                                   //gl.toneMapping = THREE.CineonToneMapping;
+        //                                   //gl.toneMapping = THREE.ACESFilmicToneMapping;
+        //                                   gl.toneMappingExposure = 1.5;
+        //                                   // gl.shadowMap.enabled = true;
+        //                                   // gl.shadowMap.type = THREE.PCFSoftShadowMap
+                                          
+        //           }}
+      >
         <Suspense fallback={null}>
           <PonyCartoonModel />
         </Suspense>
@@ -138,6 +167,8 @@ const App = () => {
         <SpotLight spotLightConfig={spotLight1} />
         <AmbientLight ambientLightConfig={ambientLight1} />
         <HemisphereLight hemisphereLightConfig={hemisphereLight1} />
+        <DirectionalLight directionalLightConfig={directionalLight1}/>
+        <RectAreaLight rectAreaLightConfig={rectAreaLight1}/>
       </Canvas>
 
       <GuiWrapper>
@@ -164,6 +195,14 @@ const App = () => {
         <HemisphereLightGUI
           hemisphereLightConfig={hemisphereLight1}
           setHemisphereLightConfig={setHemisphereLight1}
+        />
+        <DirectionalLightGUI
+          directionalLightConfig={directionalLight1}
+          setDirectionalLightConfig={setDirectionalLight1}          
+        />
+        <RectAreaLightGUI
+          rectAreaLightConfig={rectAreaLight1}
+          setRectAreaLightConfig={setRectAreaLight1}
         />
       </GuiWrapper>
     </Wrapper>

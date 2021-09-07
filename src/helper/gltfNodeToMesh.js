@@ -8,7 +8,7 @@ const gltfNodeToMesh =(nodes)=>{
 
     const nodesMeshOnly = Object.values(nodes).filter(data=>data.type.includes('Mesh')  )
     
-    //console.log(nodesMeshOnly)
+    // console.log(nodesMeshOnly)
 
     // nodesMeshOnly.forEach((data) => {
     //     console.log(data)  
@@ -21,10 +21,10 @@ const gltfNodeToMesh =(nodes)=>{
             geometry={data.geometry}
             material={data.material}
             position={[data.position.x,data.position.y,data.position.z]}
-            //castShadow
-            receiveShadow
+            castShadow={true}
+            receiveShadow={true}
         />
-        
+
         ))
 }
 

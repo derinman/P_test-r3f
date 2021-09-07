@@ -29,11 +29,11 @@ const GuiCheckBox = styled.div`
 `;
 
 const LightLabel = styled.div`
-  color:#fff;
+  color: #fff;
   background-color: rgba(0, 0, 0, 0.3);
-  padding:0.2rem;
-  border-radius:0.3rem;
-`
+  padding: 0.2rem;
+  border-radius: 0.3rem;
+`;
 
 const HTML_TEXT_FACTOR = 3;
 const Light_SPHERE_ARGS = [0.05, 16, 16];
@@ -100,7 +100,9 @@ const PointLightGUI = (props) => {
 
       {!isClose && (
         <GuiCompWrapper>
-          <div onClick={() => console.log(JSON.stringify(pointLightConfig))}>snapshot</div>
+          <div onClick={() => console.log(JSON.stringify(pointLightConfig))}>
+            snapshot
+          </div>
           <br />
           castShadow
           <GuiCheckBox
@@ -279,7 +281,9 @@ const SpotLightGUI = (props) => {
       </GuiCompBtn>
       {!isClose && (
         <GuiCompWrapper>
-          <div onClick={() => console.log(JSON.stringify(spotLightConfig))}>snapshot</div>
+          <div onClick={() => console.log(JSON.stringify(spotLightConfig))}>
+            snapshot
+          </div>
           Angle
           <Slider
             tooltip={false}
@@ -439,7 +443,6 @@ const AmbientLight = (props) => {
   return (
     <ambientLight
       ref={tmp}
-      castShadow={ambientLightConfig.castShadow}
       color={ambientLightConfig.color}
       intensity={ambientLightConfig.intensity}
       visible={ambientLightConfig.visible}
@@ -470,17 +473,9 @@ const AmbientLightGUI = (props) => {
 
       {!isClose && (
         <GuiCompWrapper>
-          <div onClick={() => console.log(JSON.stringify(ambientLightConfig))}>snapshot</div>
-          CastShadow
-          <GuiCheckBox
-            visible={ambientLightConfig.castShadow}
-            onClick={() =>
-              setAmbientLightConfig({
-                ...ambientLightConfig,
-                castShadow: !ambientLightConfig.castShadow,
-              })
-            }
-          />
+          <div onClick={() => console.log(JSON.stringify(ambientLightConfig))}>
+            snapshot
+          </div>
           Color
           <SketchPicker
             color={ambientLightConfig.color}
@@ -517,7 +512,6 @@ const HemisphereLight = (props) => {
   return (
     <hemisphereLight
       ref={tmp}
-      castShadow={hemisphereLightConfig.castShadow}
       color={hemisphereLightConfig.color}
       groundColor={hemisphereLightConfig.groundColor}
       intensity={hemisphereLightConfig.intensity}
@@ -550,17 +544,11 @@ const HemisphereLightGUI = (props) => {
 
       {!isClose && (
         <GuiCompWrapper>
-          <div onClick={() => console.log(JSON.stringify(hemisphereLightConfig))}>snapshot</div>
-          CastShadow
-          <GuiCheckBox
-            visible={hemisphereLightConfig.castShadow}
-            onClick={() =>
-              setHemisphereLightConfig({
-                ...hemisphereLightConfig,
-                castShadow: !hemisphereLightConfig.castShadow,
-              })
-            }
-          />
+          <div
+            onClick={() => console.log(JSON.stringify(hemisphereLightConfig))}
+          >
+            snapshot
+          </div>
           Color
           <SketchPicker
             color={hemisphereLightConfig.color}
@@ -615,6 +603,439 @@ const HemisphereLightGUI = (props) => {
   );
 };
 
+const DirectionalLight = (props) => {
+  const { directionalLightConfig } = props;
+  const tmp = useRef();
+  const targetRef = useRef();
+
+  // useEffect(() => console.log(directionalLightConfig.name, ":", tmp.current),[]);
+  // useEffect(() => console.log(directionalLightConfig.name, ":", tmp.current));
+
+  return (
+    <>
+      <directionalLight
+        ref={tmp}
+        castShadow={directionalLightConfig.castShadow}
+        color={directionalLightConfig.color}
+        intensity={directionalLightConfig.intensity}
+        position={[
+          directionalLightConfig.x,
+          directionalLightConfig.y,
+          directionalLightConfig.z,
+        ]}
+        target={targetRef.current}
+        visible={directionalLightConfig.visible}
+      />
+      <mesh
+        position={[
+          directionalLightConfig.x,
+          directionalLightConfig.y,
+          directionalLightConfig.z,
+        ]}
+        visible={directionalLightConfig.visible}
+      >
+        <sphereGeometry attach="geometry" args={Light_SPHERE_ARGS} />
+        <meshStandardMaterial
+          attach="material"
+          color={directionalLightConfig.color}
+          wireframe={true}
+        />
+        {directionalLightConfig.visible && (
+          <Html distanceFactor={HTML_TEXT_FACTOR}>
+            <LightLabel>{directionalLightConfig.name}</LightLabel>
+          </Html>
+        )}
+      </mesh>
+      <mesh
+        ref={targetRef}
+        position={[
+          directionalLightConfig.targetX,
+          directionalLightConfig.targetY,
+          directionalLightConfig.targetZ,
+        ]}
+        visible={directionalLightConfig.visible}
+      >
+        <sphereGeometry attach="geometry" args={Light_SPHERE_ARGS} />
+        <meshStandardMaterial
+          attach="material"
+          color={directionalLightConfig.color}
+          wireframe={true}
+        />
+        {directionalLightConfig.visible && (
+          <Html distanceFactor={HTML_TEXT_FACTOR}>
+            <LightLabel>
+              {directionalLightConfig.name}
+              <br />
+              target
+            </LightLabel>
+          </Html>
+        )}
+      </mesh>
+    </>
+  );
+};
+
+const DirectionalLightGUI = (props) => {
+  const { directionalLightConfig, setDirectionalLightConfig } = props;
+  const [isClose, setIsClose] = useState(true);
+
+  return (
+    <>
+      <GuiCompBtn>
+        <GuiCheckBox
+          visible={directionalLightConfig.visible}
+          onClick={() => {
+            setDirectionalLightConfig({
+              ...directionalLightConfig,
+              visible: !directionalLightConfig.visible,
+            });
+          }}
+        />
+        <div onClick={() => setIsClose((c) => !c)}>
+          {directionalLightConfig.name}
+        </div>
+      </GuiCompBtn>
+      {!isClose && (
+        <GuiCompWrapper>
+          <div
+            onClick={() => console.log(JSON.stringify(directionalLightConfig))}
+          >
+            snapshot
+          </div>
+          CastShadow
+          <GuiCheckBox
+            visible={directionalLightConfig.castShadow}
+            onClick={() =>
+              setDirectionalLightConfig({
+                ...directionalLightConfig,
+                castShadow: !directionalLightConfig.castShadow,
+              })
+            }
+          />
+          <SketchPicker
+            color={directionalLightConfig.color}
+            onChangeComplete={(e) =>
+              setDirectionalLightConfig({
+                ...directionalLightConfig,
+                color: e.hex,
+              })
+            }
+            presetColors={[]}
+          />
+          intensity
+          <Slider
+            tooltip={false}
+            value={directionalLightConfig.intensity}
+            step={0.25}
+            max={10}
+            min={0}
+            orientation="horizontal"
+            onChange={(e) =>
+              setDirectionalLightConfig({
+                ...directionalLightConfig,
+                intensity: e,
+              })
+            }
+          />
+          X
+          <Slider
+            tooltip={false}
+            value={directionalLightConfig.x}
+            step={0.25}
+            max={20}
+            min={-10}
+            orientation="horizontal"
+            onChange={(e) =>
+              setDirectionalLightConfig({ ...directionalLightConfig, x: e })
+            }
+          />
+          Y
+          <Slider
+            tooltip={false}
+            value={directionalLightConfig.y}
+            step={0.25}
+            max={20}
+            min={-10}
+            orientation="horizontal"
+            onChange={(e) =>
+              setDirectionalLightConfig({ ...directionalLightConfig, y: e })
+            }
+          />
+          Z
+          <Slider
+            tooltip={false}
+            value={directionalLightConfig.z}
+            step={0.25}
+            max={20}
+            min={-10}
+            orientation="horizontal"
+            onChange={(e) =>
+              setDirectionalLightConfig({ ...directionalLightConfig, z: e })
+            }
+          />
+          TargetX
+          <Slider
+            tooltip={false}
+            value={directionalLightConfig.targetX}
+            step={0.25}
+            max={10}
+            min={-10}
+            orientation="horizontal"
+            onChange={(e) =>
+              setDirectionalLightConfig({
+                ...directionalLightConfig,
+                targetX: e,
+              })
+            }
+          />
+          TargetY
+          <Slider
+            tooltip={false}
+            value={directionalLightConfig.targetY}
+            step={0.25}
+            max={10}
+            min={-10}
+            orientation="horizontal"
+            onChange={(e) =>
+              setDirectionalLightConfig({
+                ...directionalLightConfig,
+                targetY: e,
+              })
+            }
+          />
+          TargetZ
+          <Slider
+            tooltip={false}
+            value={directionalLightConfig.targetZ}
+            step={0.25}
+            max={10}
+            min={-10}
+            orientation="horizontal"
+            onChange={(e) =>
+              setDirectionalLightConfig({
+                ...directionalLightConfig,
+                targetZ: e,
+              })
+            }
+          />
+        </GuiCompWrapper>
+      )}
+    </>
+  );
+};
+
+const RectAreaLight = (props) => {
+  const { rectAreaLightConfig } = props;
+  const tmp = useRef();
+
+  // useEffect(() => console.log(directionalLightConfig.name, ":", tmp.current),[]);
+  // useEffect(() => console.log(rectAreaLightConfig.name, ":", tmp.current));
+
+  return (
+    <>
+      <rectAreaLight
+        ref={tmp}
+        color={rectAreaLightConfig.color}
+        intensity={rectAreaLightConfig.intensity}
+        height={rectAreaLightConfig.height}
+        width={rectAreaLightConfig.width}
+        position={[
+          rectAreaLightConfig.x,
+          rectAreaLightConfig.y,
+          rectAreaLightConfig.z,
+        ]}
+        rotation={[
+          rectAreaLightConfig.rotationX,
+          rectAreaLightConfig.rotationY,
+          0
+        ]}
+        visible={rectAreaLightConfig.visible}
+      />
+      <mesh
+        position={[
+          rectAreaLightConfig.x,
+          rectAreaLightConfig.y,
+          rectAreaLightConfig.z
+        ]}
+        rotation={[
+          rectAreaLightConfig.rotationX,
+          rectAreaLightConfig.rotationY,
+          0
+        ]}
+        visible={rectAreaLightConfig.visible}
+      >
+        <planeGeometry 
+          attach="geometry" 
+          args={[rectAreaLightConfig.width, rectAreaLightConfig.height]} />
+        <meshStandardMaterial
+          attach="material"
+          color={rectAreaLightConfig.color}
+          wireframe={true}
+        />
+        {rectAreaLightConfig.visible && (
+          <Html distanceFactor={HTML_TEXT_FACTOR}>
+            <LightLabel>{rectAreaLightConfig.name}</LightLabel>
+          </Html>
+        )}
+      </mesh>
+    </>
+  );
+};
+
+const RectAreaLightGUI = (props) => {
+  const { rectAreaLightConfig, setRectAreaLightConfig } = props;
+  const [isClose, setIsClose] = useState(true);
+
+  return (
+    <>
+      <GuiCompBtn>
+        <GuiCheckBox
+          visible={rectAreaLightConfig.visible}
+          onClick={() => {
+            setRectAreaLightConfig({
+              ...rectAreaLightConfig,
+              visible: !rectAreaLightConfig.visible,
+            });
+          }}
+        />
+        <div onClick={() => setIsClose((c) => !c)}>
+          {rectAreaLightConfig.name}
+        </div>
+      </GuiCompBtn>
+      {!isClose && (
+        <GuiCompWrapper>
+          <div
+            onClick={() => console.log(JSON.stringify(rectAreaLightConfig))}
+          >
+            snapshot
+          </div>
+          <SketchPicker
+            color={rectAreaLightConfig.color}
+            onChangeComplete={(e) =>
+              setRectAreaLightConfig({
+                ...rectAreaLightConfig,
+                color: e.hex,
+              })
+            }
+            presetColors={[]}
+          />
+          intensity
+          <Slider
+            tooltip={false}
+            value={rectAreaLightConfig.intensity}
+            step={0.25}
+            max={10}
+            min={0}
+            orientation="horizontal"
+            onChange={(e) =>
+              setRectAreaLightConfig({
+                ...rectAreaLightConfig,
+                intensity: e,
+              })
+            }
+          />
+          height
+          <Slider
+            tooltip={false}
+            value={rectAreaLightConfig.height}
+            step={0.25}
+            max={20}
+            min={0}
+            orientation="horizontal"
+            onChange={(e) =>
+              setRectAreaLightConfig({
+                ...rectAreaLightConfig,
+                height: e,
+              })
+            }
+          />
+          width
+          <Slider
+            tooltip={false}
+            value={rectAreaLightConfig.width}
+            step={0.25}
+            max={20}
+            min={0}
+            orientation="horizontal"
+            onChange={(e) =>
+              setRectAreaLightConfig({
+                ...rectAreaLightConfig,
+                width: e,
+              })
+            }
+          />
+          X
+          <Slider
+            tooltip={false}
+            value={rectAreaLightConfig.x}
+            step={0.25}
+            max={20}
+            min={-10}
+            orientation="horizontal"
+            onChange={(e) =>
+              setRectAreaLightConfig({ ...rectAreaLightConfig, x: e })
+            }
+          />
+          Y
+          <Slider
+            tooltip={false}
+            value={rectAreaLightConfig.y}
+            step={0.25}
+            max={20}
+            min={-10}
+            orientation="horizontal"
+            onChange={(e) =>
+              setRectAreaLightConfig({ ...rectAreaLightConfig, y: e })
+            }
+          />
+          Z
+          <Slider
+            tooltip={false}
+            value={rectAreaLightConfig.z}
+            step={0.25}
+            max={20}
+            min={-10}
+            orientation="horizontal"
+            onChange={(e) =>
+              setRectAreaLightConfig({ ...rectAreaLightConfig, z: e })
+            }
+          />
+          RotationX
+          <Slider
+            tooltip={false}
+            value={rectAreaLightConfig.rotationX}
+            step={0.25}
+            max={Math.PI*2}
+            min={0}
+            orientation="horizontal"
+            onChange={(e) =>
+              setRectAreaLightConfig({
+                ...rectAreaLightConfig,
+                rotationX: e,
+              })
+            }
+          />
+          RotationY
+          <Slider
+            tooltip={false}
+            value={rectAreaLightConfig.rotationY}
+            step={0.25}
+            max={Math.PI*2}
+            min={0}
+            orientation="horizontal"
+            onChange={(e) =>
+              setRectAreaLightConfig({
+                ...rectAreaLightConfig,
+                rotationY: e,
+              })
+            }
+          />
+        </GuiCompWrapper>
+      )}
+    </>
+  );
+};
+
 export {
   PointLight,
   PointLightGUI,
@@ -624,4 +1045,8 @@ export {
   AmbientLightGUI,
   HemisphereLight,
   HemisphereLightGUI,
+  DirectionalLight,
+  DirectionalLightGUI,
+  RectAreaLight,
+  RectAreaLightGUI
 };
