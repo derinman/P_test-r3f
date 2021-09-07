@@ -1,0 +1,9 @@
+{
+    "ambientLight1":{
+        "castShadow": true,
+        "color": "#FFFFFF",
+        "intensity": 1,
+        "name": "ambientLight1",
+        "visible": true
+    }
+}

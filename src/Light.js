@@ -100,7 +100,7 @@ const PointLightGUI = (props) => {
 
       {!isClose && (
         <GuiCompWrapper>
-          <div onClick={() => console.log(pointLightConfig)}>snapshot</div>
+          <div onClick={() => console.log(JSON.stringify(pointLightConfig))}>snapshot</div>
           <br />
           castShadow
           <GuiCheckBox
@@ -279,7 +279,7 @@ const SpotLightGUI = (props) => {
       </GuiCompBtn>
       {!isClose && (
         <GuiCompWrapper>
-          <div onClick={() => console.log(spotLightConfig)}>snapshot</div>
+          <div onClick={() => console.log(JSON.stringify(spotLightConfig))}>snapshot</div>
           Angle
           <Slider
             tooltip={false}
@@ -470,7 +470,7 @@ const AmbientLightGUI = (props) => {
 
       {!isClose && (
         <GuiCompWrapper>
-          <div onClick={() => console.log(ambientLightConfig)}>snapshot</div>
+          <div onClick={() => console.log(JSON.stringify(ambientLightConfig))}>snapshot</div>
           CastShadow
           <GuiCheckBox
             visible={ambientLightConfig.castShadow}
@@ -550,7 +550,7 @@ const HemisphereLightGUI = (props) => {
 
       {!isClose && (
         <GuiCompWrapper>
-          <div onClick={() => console.log(hemisphereLightConfig)}>snapshot</div>
+          <div onClick={() => console.log(JSON.stringify(hemisphereLightConfig))}>snapshot</div>
           CastShadow
           <GuiCheckBox
             visible={hemisphereLightConfig.castShadow}

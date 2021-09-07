@@ -1,0 +1,11 @@
+{
+  "hemisphereLight1": {
+    "castShadow": true,
+    "color": "#FFFFFF",
+    "groundColor": "#FFFFFF",
+    "intensity": 1,
+    "name": "hemisphereLight1",
+    "skyColor": "#FFFFFF",
+    "visible": true
+  }
+}

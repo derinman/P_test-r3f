@@ -5,6 +5,11 @@ import { useGLTF, OrbitControls, PerspectiveCamera } from "@react-three/drei";
 
 import styled from "styled-components";
 
+import pointLightJson from "./config/pointLight.json";
+import spotLightJson from "./config/spotLight.json";
+import ambientLightJson from "./config/ambientLight.json";
+import hemisphereLightJson from "./config/hemisphereLight.json";
+
 import {
   PointLight,
   PointLightGUI,
@@ -67,54 +72,15 @@ const PonyCartoonModel = () => {
 const App = () => {
   const [up, setUp] = useState([0, 1, 0]);
 
-  const [pointLight1, setPointLight1] = useState({
-    castShadow: true,
-    color: "#FFFFFF",
-    decay: 2,
-    distance: 0,
-    intensity: 1,
-    name: "pointLight1",
-    x: 0,
-    y: 1,
-    z: 0,
-    visible: true,
-  });
+  const [pointLight1, setPointLight1] = useState(pointLightJson.pointLight1);
+  const [pointLight2, setPointLight2] = useState(pointLightJson.pointLight2);
+  const [pointLight3, setPointLight3] = useState(pointLightJson.pointLight3);
 
-  const [spotLight1, setSpotLight1] = useState({
-    angle: Math.PI / 7,
-    castShadow: true,
-    color: "#FFFFFF",
-    decay: 2,
-    distance: 0,
-    intensity: 1,
-    name: "spotLight1",
-    penumbra: 0.5,
-    x: 1,
-    y: 1,
-    z: 0,
-    targetX: 0,
-    targetY: 0.5,
-    targetZ: 0,
-    visible: true,
-  });
+  const [spotLight1, setSpotLight1] = useState(spotLightJson.spotLight1);
 
-  const [ambientLight1, setAmbientLight1] = useState({
-    castShadow: true,
-    color: "#FFFFFF",
-    intensity: 1,
-    name: "ambientLight1",
-    visible: true,
-  });
+  const [ambientLight1, setAmbientLight1] = useState(ambientLightJson.ambientLight1);
 
-  const [hemisphereLight1, setHemisphereLight1] = useState({
-    castShadow: true,
-    color: "#FFFFFF",
-    groundColor: "#FFFFFF",
-    intensity: 1,
-    name: "hemisphereLight1",
-    skyColor: "#FFFFFF",
-    visible: true,
-  });
+  const [hemisphereLight1, setHemisphereLight1] = useState(hemisphereLightJson.hemisphereLight1);
 
   const canvasRef = useRef();
   const mainCameraRef = useRef();
@@ -167,6 +133,8 @@ const App = () => {
         />
 
         <PointLight pointLightConfig={pointLight1} />
+        <PointLight pointLightConfig={pointLight2} />
+        <PointLight pointLightConfig={pointLight3} />
         <SpotLight spotLightConfig={spotLight1} />
         <AmbientLight ambientLightConfig={ambientLight1} />
         <HemisphereLight hemisphereLightConfig={hemisphereLight1} />
@@ -176,6 +144,14 @@ const App = () => {
         <PointLightGUI
           pointLightConfig={pointLight1}
           setPointLightConfig={setPointLight1}
+        />
+        <PointLightGUI
+          pointLightConfig={pointLight2}
+          setPointLightConfig={setPointLight2}
+        />
+        <PointLightGUI
+          pointLightConfig={pointLight3}
+          setPointLightConfig={setPointLight3}
         />
         <SpotLightGUI
           spotLightConfig={spotLight1}

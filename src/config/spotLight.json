@@ -1,0 +1,19 @@
+{
+  "spotLight1": {
+    "angle": 0.4488,
+    "castShadow": true,
+    "color": "#c6dd64",
+    "decay": 2,
+    "distance": 0,
+    "intensity": 10,
+    "name": "spotLight1",
+    "penumbra": 0.5,
+    "x": 1,
+    "y": 1,
+    "z": 0,
+    "targetX": 0,
+    "targetY": 0.5,
+    "targetZ": 0,
+    "visible": true
+  }
+}
