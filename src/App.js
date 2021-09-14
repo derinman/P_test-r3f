@@ -13,8 +13,6 @@ import hemisphereLightJson from "./config/hemisphereLight.json";
 import directionalLightJson from "./config/directionalLight.json";
 import rectAreaLightJson from "./config/rectAreaLight.json";
 
-
-
 import {
   PointLight,
   PointLightGUI,
@@ -27,15 +25,12 @@ import {
   DirectionalLight,
   DirectionalLightGUI,
   RectAreaLight,
-  RectAreaLightGUI
+  RectAreaLightGUI,
+  GuiWrapper
 } from "./Light.js";
 
-import gltfNodeToMesh from "./helper/gltfNodeToMesh.js";
-import dumpObject from "./helper/dump.js";
-
-// import glbUrl from './glb/ponycartoon.glb'
-import glbUrl from "./glb/polly.glb";
-// import glbUrl from './glb/dinosaur.glb'
+import PollyDogModel from "./devObject/PollyDog";
+import PonyCartoon from "./devObject/PonyCartoon";
 
 const Wrapper = styled.div`
   position: relative;
@@ -44,42 +39,13 @@ const Wrapper = styled.div`
   top: 0px;
   left: 0px;
   overflow: hidden;
-  // border:1px solid #000;
+  //border:1px solid #000;
 `;
-const GuiWrapper = styled.div`
-  background-color: rgba(255, 255, 255, 0.5);
-  position: absolute;
-  top: 2.5vh;
-  right: 2.5vh;
-  width: 250px;
-  height: 95%;
-  border: 2px solid #555;
-  border-radius: 1rem;
-  overflow: auto;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  //border: 1px solid #000;
-`;
-
-const PonyCartoonModel = () => {
-  const glb = useGLTF(glbUrl);
-  // console.log('glb/gltf:',glb)
-  const group = useRef();
-  // console.log(dumpObject(glb.scene).join('\n'))
-
-  const nodes = glb.nodes;
-
-  return (
-    <group ref={group}>
-      {/* <primitive object={glb.scene} /> */}
-      {gltfNodeToMesh(nodes)}
-    </group>
-  );
-};
 
 const App = () => {
   const [up, setUp] = useState([0, 1, 0]);
+
+  const [isM, setIsM] = useState(false)
 
   const [pointLight1, setPointLight1] = useState(pointLightJson.pointLight1);
   const [pointLight2, setPointLight2] = useState(pointLightJson.pointLight2);
@@ -126,7 +92,9 @@ const App = () => {
         //           }}
       >
         <Suspense fallback={null}>
-          <PonyCartoonModel />
+          {isM ?
+          <PollyDogModel/>:
+          <PonyCartoon/>}
         </Suspense>
         <axesHelper
           ref={axesHelperRef}
@@ -211,4 +179,4 @@ const App = () => {
 
 export default App;
 
-useGLTF.preload(glbUrl);
+

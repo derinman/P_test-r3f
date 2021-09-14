@@ -1036,6 +1036,22 @@ const RectAreaLightGUI = (props) => {
   );
 };
 
+const GuiWrapper = styled.div`
+  background-color: rgba(255, 255, 255, 0.5);
+  position: absolute;
+  top: 2.5vh;
+  right: 2.5vh;
+  width: 250px;
+  height: 95%;
+  border: 2px solid #555;
+  border-radius: 1rem;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  //border: 1px solid #000;
+`;
+
 export {
   PointLight,
   PointLightGUI,
@@ -1048,5 +1064,6 @@ export {
   DirectionalLight,
   DirectionalLightGUI,
   RectAreaLight,
-  RectAreaLightGUI
+  RectAreaLightGUI,
+  GuiWrapper
 };
