@@ -1,8 +1,13 @@
 import React, { useState, useRef, Suspense, useEffect } from "react";
 
-import * as THREE from 'three'
+import * as THREE from "three";
 import { Canvas } from "@react-three/fiber";
-import { useGLTF, OrbitControls, PerspectiveCamera,softShadows } from "@react-three/drei";
+import {
+  useGLTF,
+  OrbitControls,
+  PerspectiveCamera,
+  softShadows,
+} from "@react-three/drei";
 
 import styled from "styled-components";
 
@@ -26,11 +31,9 @@ import {
   DirectionalLightGUI,
   RectAreaLight,
   RectAreaLightGUI,
-  GuiWrapper
 } from "./Light.js";
 
-import PollyDogModel from "./devObject/PollyDog";
-import PonyCartoon from "./devObject/PonyCartoon";
+import * as work from "./devModel";
 
 const Wrapper = styled.div`
   position: relative;
@@ -42,10 +45,37 @@ const Wrapper = styled.div`
   //border:1px solid #000;
 `;
 
+const GuiWrapper = styled.div`
+  background-color: rgba(255, 255, 255, 0.5);
+  position: absolute;
+  border: 2px solid #555;
+  border-radius: 1rem;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  //border: 1px solid #000;
+`;
+
+const GuiCompBtn = styled.div`
+  border-bottom: 1px solid #000;
+  margin: 1rem;
+  display: flex;
+`;
+
+const GuiCheckBox = styled.div`
+  width: 1rem;
+  height: 1rem;
+  margin-right: 1rem;
+  margin-bottom: 0.2rem;
+  background-color: ${(props) => (props.visible ? "#555" : "#fff")};
+  border: 1px solid #555;
+`;
+
 const App = () => {
   const [up, setUp] = useState([0, 1, 0]);
 
-  const [isM, setIsM] = useState(false)
+  const [currentModel, setCurrentModel] = useState("Polly Dog");
 
   const [pointLight1, setPointLight1] = useState(pointLightJson.pointLight1);
   const [pointLight2, setPointLight2] = useState(pointLightJson.pointLight2);
@@ -53,31 +83,50 @@ const App = () => {
 
   const [spotLight1, setSpotLight1] = useState(spotLightJson.spotLight1);
 
-  const [ambientLight1, setAmbientLight1] = useState(ambientLightJson.ambientLight1);
+  const [ambientLight1, setAmbientLight1] = useState(
+    ambientLightJson.ambientLight1
+  );
 
-  const [hemisphereLight1, setHemisphereLight1] = useState(hemisphereLightJson.hemisphereLight1);
+  const [hemisphereLight1, setHemisphereLight1] = useState(
+    hemisphereLightJson.hemisphereLight1
+  );
 
-  const [directionalLight1, setDirectionalLight1] = useState(directionalLightJson.directionalLight1);
+  const [directionalLight1, setDirectionalLight1] = useState(
+    directionalLightJson.directionalLight1
+  );
 
-  const [rectAreaLight1, setRectAreaLight1] = useState(rectAreaLightJson.rectAreaLight1);
+  const [rectAreaLight1, setRectAreaLight1] = useState(
+    rectAreaLightJson.rectAreaLight1
+  );
 
   const canvasRef = useRef();
   const mainCameraRef = useRef();
   const axesHelperRef = useRef();
   const controlsRef = useRef();
 
+  const Model = Object.entries(work).filter(
+    (data) => !data[1].dev && data[1].name === currentModel
+  )[0][1].Component;
+
+  const modelsList = Object.entries(work)
+    .filter((data) => !data[1].dev)
+    .map((data) => data[1].name);
+
   useEffect(() => {
-    console.log('canvasRef:',canvasRef)
+    //console.log(Object.entries(work).filter(data=>!data[1].dev&&(data[1].name ===currentModel))[0][1].Component)
+    // console.log(Object.entries(work).filter(data=>!data[1].dev))
+    // console.log(Object.entries(work).filter(data=>!data[1].dev).map(data=>data[1].name))
+    // console.log('canvasRef:',canvasRef)
     // console.log(axesHelperRef)
     // console.log('mainCameraRef',':',mainCameraRef)
   }, []);
 
   return (
     <Wrapper>
-      <Canvas 
-        ref={canvasRef} 
+      <Canvas
+        ref={canvasRef}
         concurrent
-        colorManagement  
+        colorManagement
         shadows
         // gl={{ antialias: true }}
         //           onCreated={({ gl }) => {gl.toneMapping = THREE.NoToneMapping;
@@ -88,14 +137,11 @@ const App = () => {
         //                                   gl.toneMappingExposure = 1.5;
         //                                   // gl.shadowMap.enabled = true;
         //                                   // gl.shadowMap.type = THREE.PCFSoftShadowMap
-                                          
-        //           }}
       >
         <Suspense fallback={null}>
-          {isM ?
-          <PollyDogModel/>:
-          <PonyCartoon/>}
+          <Model />
         </Suspense>
+
         <axesHelper
           ref={axesHelperRef}
           scale={[1, 1, 1]}
@@ -135,11 +181,29 @@ const App = () => {
         <SpotLight spotLightConfig={spotLight1} />
         <AmbientLight ambientLightConfig={ambientLight1} />
         <HemisphereLight hemisphereLightConfig={hemisphereLight1} />
-        <DirectionalLight directionalLightConfig={directionalLight1}/>
-        <RectAreaLight rectAreaLightConfig={rectAreaLight1}/>
+        <DirectionalLight directionalLightConfig={directionalLight1} />
+        <RectAreaLight rectAreaLightConfig={rectAreaLight1} />
       </Canvas>
 
-      <GuiWrapper>
+      <GuiWrapper
+        style={{ top: "2.5vh", left: "2.5vh", width: "200px", height: "50%" }}
+      >
+        {modelsList.map((data) => (
+          <GuiCompBtn
+            key={data}
+          >
+            <GuiCheckBox
+              visible={data===currentModel}
+              onClick={()=>setCurrentModel(data)}
+            />
+            {data}
+          </GuiCompBtn>
+        ))}
+      </GuiWrapper>
+
+      <GuiWrapper
+        style={{ top: "2.5vh", right: "2.5vh", width: "250px", height: "95%" }}
+      >
         <PointLightGUI
           pointLightConfig={pointLight1}
           setPointLightConfig={setPointLight1}
@@ -166,7 +230,7 @@ const App = () => {
         />
         <DirectionalLightGUI
           directionalLightConfig={directionalLight1}
-          setDirectionalLightConfig={setDirectionalLight1}          
+          setDirectionalLightConfig={setDirectionalLight1}
         />
         <RectAreaLightGUI
           rectAreaLightConfig={rectAreaLight1}
@@ -178,5 +242,3 @@ const App = () => {
 };
 
 export default App;
-
-
