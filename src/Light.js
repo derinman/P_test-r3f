@@ -33,6 +33,11 @@ const LightLabel = styled.div`
   background-color: rgba(0, 0, 0, 0.3);
   padding: 0.2rem;
   border-radius: 0.3rem;
+  font-size:1.5rem;
+  &:hover{
+    font-size:7rem;
+    border-radius: 1.5rem;
+  }
 `;
 
 const HTML_TEXT_FACTOR = 3;
