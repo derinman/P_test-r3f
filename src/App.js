@@ -6,6 +6,7 @@ import {
   useGLTF,
   OrbitControls,
   PerspectiveCamera,
+  PointerLockControls,
   softShadows,
 } from "@react-three/drei";
 
@@ -75,7 +76,7 @@ const GuiCheckBox = styled.div`
 const App = () => {
   const [up, setUp] = useState([0, 1, 0]);
 
-  const [currentModel, setCurrentModel] = useState("Polly Dog");
+  const [currentModel, setCurrentModel] = useState("NO 001");
 
   const [pointLight1, setPointLight1] = useState(pointLightJson.pointLight1);
   const [pointLight2, setPointLight2] = useState(pointLightJson.pointLight2);
@@ -119,15 +120,17 @@ const App = () => {
     // console.log('canvasRef:',canvasRef)
     // console.log(axesHelperRef)
     // console.log('mainCameraRef',':',mainCameraRef)
+    console.log()
   }, []);
+
 
   return (
     <Wrapper>
       <Canvas
         ref={canvasRef}
-        concurrent
-        colorManagement
-        shadows
+        concurrent={true}
+        colorManagement={true}
+        shadows={true}
         // gl={{ antialias: true }}
         //           onCreated={({ gl }) => {gl.toneMapping = THREE.NoToneMapping;
         //                                   //gl.toneMapping = THREE.LinearToneMapping;
@@ -137,6 +140,7 @@ const App = () => {
         //                                   gl.toneMappingExposure = 1.5;
         //                                   // gl.shadowMap.enabled = true;
         //                                   // gl.shadowMap.type = THREE.PCFSoftShadowMap
+        //                                 }}
       >
         <Suspense fallback={null}>
           <Model />
@@ -152,10 +156,10 @@ const App = () => {
           ref={mainCameraRef}
           controls={controlsRef.current}
           position-x={0}
-          position-y={-0}
-          position-z={25}
+          position-y={2}
+          position-z={0}
           up={up} //世界座標的向量
-          fov={30}
+          fov={70}
           //aspect={ width / height }
           near={1}
           far={10000}
@@ -189,12 +193,10 @@ const App = () => {
         style={{ top: "2.5vh", left: "2.5vh", width: "200px", height: "50%" }}
       >
         {modelsList.map((data) => (
-          <GuiCompBtn
-            key={data}
-          >
+          <GuiCompBtn key={data}>
             <GuiCheckBox
-              visible={data===currentModel}
-              onClick={()=>setCurrentModel(data)}
+              visible={data === currentModel}
+              onClick={() => setCurrentModel(data)}
             />
             {data}
           </GuiCompBtn>

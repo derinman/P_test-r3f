@@ -3,6 +3,6 @@
         "color": "#FFFFFF",
         "intensity": 1,
         "name": "ambientLight1",
-        "visible": true
+        "visible": false
     }
 }

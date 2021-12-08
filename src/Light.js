@@ -40,6 +40,10 @@ const LightLabel = styled.div`
   }
 `;
 
+// Three.js what causes shadow acne(ripple) and how to fix it?
+// https://stackoverflow.com/questions/56034734/three-js-what-causes-shadow-acne-and-how-to-fix-it
+// ans: directionalLight.shadow.bias = - 0.01;
+
 const HTML_TEXT_FACTOR = 3;
 const Light_SPHERE_ARGS = [0.05, 16, 16];
 
@@ -48,7 +52,7 @@ const PointLight = (props) => {
   const targetRef = useRef();
   const tmp = useRef();
 
-  // useEffect(() => console.log(name, ":", tmp.current),[]);
+  useEffect(() => console.log(name, ":", tmp.current),[]);
   // useEffect(() => console.log(name, ":", tmp.current));
 
   return (
@@ -63,6 +67,7 @@ const PointLight = (props) => {
         name={pointLightConfig.name}
         position={[pointLightConfig.x, pointLightConfig.y, pointLightConfig.z]}
         visible={pointLightConfig.visible}
+        shadow-bias={-0.01}
       />
       <mesh
         position={[pointLightConfig.x, pointLightConfig.y, pointLightConfig.z]}
@@ -630,6 +635,7 @@ const DirectionalLight = (props) => {
         ]}
         target={targetRef.current}
         visible={directionalLightConfig.visible}
+        shadow-bias={-0.01}
       />
       <mesh
         position={[
