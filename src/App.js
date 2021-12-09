@@ -5,13 +5,6 @@ import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
 
 import styled from "styled-components";
 
-// import pointLightJson from "./config/pointLight.json";
-// import spotLightJson from "./config/spotLight.json";
-// import ambientLightJson from "./config/ambientLight.json";
-// import hemisphereLightJson from "./config/hemisphereLight.json";
-// import directionalLightJson from "./config/directionalLight.json";
-// import rectAreaLightJson from "./config/rectAreaLight.json";
-
 import {
   PointLight,
   PointLightGUI,
@@ -69,29 +62,7 @@ const GuiCheckBox = styled.div`
 const App = () => {
   const [up, setUp] = useState([0, 1, 0]);
 
-  const [currentModel, setCurrentModel] = useState("NO 001");
-
-  // const [pointLight1, setPointLight1] = useState(pointLightJson.pointLight1);
-  // const [pointLight2, setPointLight2] = useState(pointLightJson.pointLight2);
-  // const [pointLight3, setPointLight3] = useState(pointLightJson.pointLight3);
-
-  // const [spotLight1, setSpotLight1] = useState(spotLightJson.spotLight1);
-
-  // const [ambientLight1, setAmbientLight1] = useState(
-  //   ambientLightJson.ambientLight1
-  // );
-
-  // const [hemisphereLight1, setHemisphereLight1] = useState(
-  //   hemisphereLightJson.hemisphereLight1
-  // );
-
-  // const [directionalLight1, setDirectionalLight1] = useState(
-  //   directionalLightJson.directionalLight1
-  // );
-
-  // const [rectAreaLight1, setRectAreaLight1] = useState(
-  //   rectAreaLightJson.rectAreaLight1
-  // );
+  const [currentModel, setCurrentModel] = useState("Polly Dog");
 
   const [pointLight1, setPointLight1] = useState({});
   const [pointLight2, setPointLight2] = useState({});
@@ -130,16 +101,28 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    async function loadData() {
-      const [pointLightJson,spotLightJson] = await Promise.all([
+    async function loadLight() {
+      const [pointLightJson,spotLightJson, ambientLightJson, 
+        hemisphereLightJson, directionalLightJson,rectAreaLightJson] = await Promise.all([
         import(`./config/pointLight.json`),
-        import(`./config/spotLight.json`)
+        import(`./config/spotLight.json`),
+        import(`./config/ambientLight.json`),
+        import(`./config/hemisphereLight.json`),
+        import(`./config/directionalLight.json`),
+        import(`./config/rectAreaLight.json`),
       ]);
       setPointLight1(pointLightJson.pointLight1)
+      setPointLight2(pointLightJson.pointLight2)
+      setPointLight3(pointLightJson.pointLight3)
       setSpotLight1(spotLightJson.spotLight1)
+      setAmbientLight1(ambientLightJson.ambientLight1)
+      setHemisphereLight1(hemisphereLightJson.hemisphereLight1)
+      setDirectionalLight1(directionalLightJson.directionalLight1)
+      setRectAreaLight1(rectAreaLightJson.rectAreaLight1)
     }
-    loadData()
+    loadLight()
   }, [currentModel]);
+
   return (
     <Wrapper>
       <Canvas
