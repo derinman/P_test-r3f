@@ -1,23 +1,16 @@
 import React, { useState, useRef, Suspense, useEffect } from "react";
 
-import * as THREE from "three";
 import { Canvas } from "@react-three/fiber";
-import {
-  useGLTF,
-  OrbitControls,
-  PerspectiveCamera,
-  PointerLockControls,
-  softShadows,
-} from "@react-three/drei";
+import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
 
 import styled from "styled-components";
 
-import pointLightJson from "./config/pointLight.json";
-import spotLightJson from "./config/spotLight.json";
-import ambientLightJson from "./config/ambientLight.json";
-import hemisphereLightJson from "./config/hemisphereLight.json";
-import directionalLightJson from "./config/directionalLight.json";
-import rectAreaLightJson from "./config/rectAreaLight.json";
+// import pointLightJson from "./config/pointLight.json";
+// import spotLightJson from "./config/spotLight.json";
+// import ambientLightJson from "./config/ambientLight.json";
+// import hemisphereLightJson from "./config/hemisphereLight.json";
+// import directionalLightJson from "./config/directionalLight.json";
+// import rectAreaLightJson from "./config/rectAreaLight.json";
 
 import {
   PointLight,
@@ -78,27 +71,41 @@ const App = () => {
 
   const [currentModel, setCurrentModel] = useState("NO 001");
 
-  const [pointLight1, setPointLight1] = useState(pointLightJson.pointLight1);
-  const [pointLight2, setPointLight2] = useState(pointLightJson.pointLight2);
-  const [pointLight3, setPointLight3] = useState(pointLightJson.pointLight3);
+  // const [pointLight1, setPointLight1] = useState(pointLightJson.pointLight1);
+  // const [pointLight2, setPointLight2] = useState(pointLightJson.pointLight2);
+  // const [pointLight3, setPointLight3] = useState(pointLightJson.pointLight3);
 
-  const [spotLight1, setSpotLight1] = useState(spotLightJson.spotLight1);
+  // const [spotLight1, setSpotLight1] = useState(spotLightJson.spotLight1);
 
-  const [ambientLight1, setAmbientLight1] = useState(
-    ambientLightJson.ambientLight1
-  );
+  // const [ambientLight1, setAmbientLight1] = useState(
+  //   ambientLightJson.ambientLight1
+  // );
 
-  const [hemisphereLight1, setHemisphereLight1] = useState(
-    hemisphereLightJson.hemisphereLight1
-  );
+  // const [hemisphereLight1, setHemisphereLight1] = useState(
+  //   hemisphereLightJson.hemisphereLight1
+  // );
 
-  const [directionalLight1, setDirectionalLight1] = useState(
-    directionalLightJson.directionalLight1
-  );
+  // const [directionalLight1, setDirectionalLight1] = useState(
+  //   directionalLightJson.directionalLight1
+  // );
 
-  const [rectAreaLight1, setRectAreaLight1] = useState(
-    rectAreaLightJson.rectAreaLight1
-  );
+  // const [rectAreaLight1, setRectAreaLight1] = useState(
+  //   rectAreaLightJson.rectAreaLight1
+  // );
+
+  const [pointLight1, setPointLight1] = useState({});
+  const [pointLight2, setPointLight2] = useState({});
+  const [pointLight3, setPointLight3] = useState({});
+
+  const [spotLight1, setSpotLight1] = useState({});
+
+  const [ambientLight1, setAmbientLight1] = useState({});
+
+  const [hemisphereLight1, setHemisphereLight1] = useState({});
+
+  const [directionalLight1, setDirectionalLight1] = useState({});
+
+  const [rectAreaLight1, setRectAreaLight1] = useState({});
 
   const canvasRef = useRef();
   const mainCameraRef = useRef();
@@ -120,10 +127,19 @@ const App = () => {
     // console.log('canvasRef:',canvasRef)
     // console.log(axesHelperRef)
     // console.log('mainCameraRef',':',mainCameraRef)
-    console.log()
   }, []);
 
-
+  useEffect(() => {
+    async function loadData() {
+      const [pointLightJson,spotLightJson] = await Promise.all([
+        import(`./config/pointLight.json`),
+        import(`./config/spotLight.json`)
+      ]);
+      setPointLight1(pointLightJson.pointLight1)
+      setSpotLight1(spotLightJson.spotLight1)
+    }
+    loadData()
+  }, [currentModel]);
   return (
     <Wrapper>
       <Canvas

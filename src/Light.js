@@ -52,7 +52,7 @@ const PointLight = (props) => {
   const targetRef = useRef();
   const tmp = useRef();
 
-  useEffect(() => console.log(name, ":", tmp.current),[]);
+  // useEffect(() => console.log(name, ":", tmp.current),[]);
   // useEffect(() => console.log(name, ":", tmp.current));
 
   return (
