@@ -102,8 +102,14 @@ const App = () => {
 
   useEffect(() => {
     async function loadLight() {
-      const [pointLightJson,spotLightJson, ambientLightJson, 
-        hemisphereLightJson, directionalLightJson,rectAreaLightJson] = await Promise.all([
+      const [
+        pointLightJson,
+        spotLightJson,
+        ambientLightJson,
+        hemisphereLightJson,
+        directionalLightJson,
+        rectAreaLightJson,
+      ] = await Promise.all([
         import(`./config/pointLight.json`),
         import(`./config/spotLight.json`),
         import(`./config/ambientLight.json`),
@@ -111,16 +117,16 @@ const App = () => {
         import(`./config/directionalLight.json`),
         import(`./config/rectAreaLight.json`),
       ]);
-      setPointLight1(pointLightJson.pointLight1)
-      setPointLight2(pointLightJson.pointLight2)
-      setPointLight3(pointLightJson.pointLight3)
-      setSpotLight1(spotLightJson.spotLight1)
-      setAmbientLight1(ambientLightJson.ambientLight1)
-      setHemisphereLight1(hemisphereLightJson.hemisphereLight1)
-      setDirectionalLight1(directionalLightJson.directionalLight1)
-      setRectAreaLight1(rectAreaLightJson.rectAreaLight1)
+      setPointLight1(pointLightJson.pointLight1);
+      setPointLight2(pointLightJson.pointLight2);
+      setPointLight3(pointLightJson.pointLight3);
+      setSpotLight1(spotLightJson.spotLight1);
+      setAmbientLight1(ambientLightJson.ambientLight1);
+      setHemisphereLight1(hemisphereLightJson.hemisphereLight1);
+      setDirectionalLight1(directionalLightJson.directionalLight1);
+      setRectAreaLight1(rectAreaLightJson.rectAreaLight1);
     }
-    loadLight()
+    loadLight();
   }, [currentModel]);
 
   return (
