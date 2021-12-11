@@ -40,9 +40,13 @@ const LightLabel = styled.div`
   }
 `;
 
+//1
 // Three.js what causes shadow acne(ripple) and how to fix it?
 // https://stackoverflow.com/questions/56034734/three-js-what-causes-shadow-acne-and-how-to-fix-it
 // ans: directionalLight.shadow.bias = - 0.01;
+
+//2
+// pointLight有設distance才有陰影
 
 const HTML_TEXT_FACTOR = 3;
 const Light_SPHERE_ARGS = [0.05, 16, 16];
@@ -134,7 +138,7 @@ const PointLightGUI = (props) => {
           />
           decay
           <Slider
-            tooltip={false}
+            tooltip={true}
             value={pointLightConfig.decay}
             step={0.25}
             max={5}
@@ -146,10 +150,10 @@ const PointLightGUI = (props) => {
           />
           Distance
           <Slider
-            tooltip={false}
+            tooltip={true}
             value={pointLightConfig.distance}
             step={0.25}
-            max={5}
+            max={20}
             min={0}
             orientation="horizontal"
             onChange={(e) =>
@@ -158,10 +162,10 @@ const PointLightGUI = (props) => {
           />
           intensity
           <Slider
-            tooltip={false}
+            tooltip={true}
             value={pointLightConfig.intensity}
             step={0.25}
-            max={10}
+            max={50}
             min={0}
             orientation="horizontal"
             onChange={(e) =>
@@ -170,31 +174,31 @@ const PointLightGUI = (props) => {
           />
           X
           <Slider
-            tooltip={false}
+            tooltip={true}
             value={pointLightConfig.x}
             step={0.25}
             max={20}
-            min={-10}
+            min={-20}
             orientation="horizontal"
             onChange={(e) => setPointLightConfig({ ...pointLightConfig, x: e })}
           />
           Y
           <Slider
-            tooltip={false}
+            tooltip={true}
             value={pointLightConfig.y}
             step={0.25}
             max={20}
-            min={-10}
+            min={-20}
             orientation="horizontal"
             onChange={(e) => setPointLightConfig({ ...pointLightConfig, y: e })}
           />
           Z
           <Slider
-            tooltip={false}
+            tooltip={true}
             value={pointLightConfig.z}
             step={0.25}
             max={20}
-            min={-10}
+            min={-20}
             orientation="horizontal"
             onChange={(e) => setPointLightConfig({ ...pointLightConfig, z: e })}
           />
@@ -1046,8 +1050,6 @@ const RectAreaLightGUI = (props) => {
     </>
   );
 };
-
-
 
 export {
   PointLight,

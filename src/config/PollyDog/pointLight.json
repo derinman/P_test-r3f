@@ -6,9 +6,9 @@
     "distance": 0,
     "intensity": 2,
     "name": "pointLight1",
-    "x": -0.75,
-    "y": 1.25,
-    "z": -0.25,
+    "x": 0,
+    "y": 0,
+    "z": 0,
     "visible": true
   },
   "pointLight2": {
@@ -21,7 +21,7 @@
     "x": 2,
     "y": 1,
     "z": 0,
-    "visible": false
+    "visible": true
   },
   "pointLight3": {
     "castShadow": true,
@@ -33,6 +33,6 @@
     "x": 2,
     "y": 1,
     "z": 1,
-    "visible": false
+    "visible": true
   }
 }

@@ -158,11 +158,11 @@ const App = () => {
           up={up} //世界座標的向量
         />
         <PerspectiveCamera
-          makeDefault
           ref={mainCameraRef}
           controls={controlsRef.current}
+          makeDefault={true}
           position-x={0}
-          position-y={2}
+          position-y={1.5}
           position-z={0}
           up={up} //世界座標的向量
           fov={70}
@@ -245,6 +245,7 @@ const App = () => {
           setRectAreaLightConfig={setRectAreaLight1}
         />
       </GuiWrapper>
+    
     </Wrapper>
   );
 };
