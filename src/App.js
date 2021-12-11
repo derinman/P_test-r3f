@@ -62,7 +62,7 @@ const GuiCheckBox = styled.div`
 const App = () => {
   const [up, setUp] = useState([0, 1, 0]);
 
-  const [currentModel, setCurrentModel] = useState("Polly Dog");
+  const [currentModel, setCurrentModel] = useState("PollyDog");
 
   const [pointLight1, setPointLight1] = useState({});
   const [pointLight2, setPointLight2] = useState({});
@@ -92,7 +92,8 @@ const App = () => {
     .map((data) => data[1].name);
 
   useEffect(() => {
-    //console.log(Object.entries(work).filter(data=>!data[1].dev&&(data[1].name ===currentModel))[0][1].Component)
+    // console.log(work)
+    //console.log(Object.entries(work).filter(data=>!data[1].dev&&(data[1].name ===currentModel))[0][1])
     // console.log(Object.entries(work).filter(data=>!data[1].dev))
     // console.log(Object.entries(work).filter(data=>!data[1].dev).map(data=>data[1].name))
     // console.log('canvasRef:',canvasRef)
@@ -110,12 +111,12 @@ const App = () => {
         directionalLightJson,
         rectAreaLightJson,
       ] = await Promise.all([
-        import(`./config/pointLight.json`),
-        import(`./config/spotLight.json`),
-        import(`./config/ambientLight.json`),
-        import(`./config/hemisphereLight.json`),
-        import(`./config/directionalLight.json`),
-        import(`./config/rectAreaLight.json`),
+        import(`./config/${currentModel}/pointLight.json`),
+        import(`./config/${currentModel}/spotLight.json`),
+        import(`./config/${currentModel}/ambientLight.json`),
+        import(`./config/${currentModel}/hemisphereLight.json`),
+        import(`./config/${currentModel}/directionalLight.json`),
+        import(`./config/${currentModel}/rectAreaLight.json`),
       ]);
       setPointLight1(pointLightJson.pointLight1);
       setPointLight2(pointLightJson.pointLight2);
@@ -166,7 +167,7 @@ const App = () => {
           up={up} //世界座標的向量
           fov={70}
           //aspect={ width / height }
-          near={1}
+          near={0.01}
           far={10000}
           visible={false}
         />
