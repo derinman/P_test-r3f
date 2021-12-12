@@ -46,18 +46,27 @@ const LightLabel = styled.div`
 // ans: directionalLight.shadow.bias = - 0.01;
 
 //2
-// pointLight有設distance才有陰影
+// 很多光種有設distance才有陰影
+
 
 const HTML_TEXT_FACTOR = 3;
 const Light_SPHERE_ARGS = [0.05, 16, 16];
 
+const SLIDER_STEP = 0.25;
+const SLIDER_INTENSITY_MAX = 50;
+const SLIDER_INTENSITY_MIN = 0; 
+const SLIDER_DECAY_MAX = 2;
+const SLIDER_DECAY_MIN = 0;
+const SLIDER_DIST_MAX = 50;
+const SLIDER_DIST_MIN = 0;
+const SLIDER_POS_MAX = 25;
+const SLIDER_POS_MIN = -25;
+
 const PointLight = (props) => {
-  const { name, pointLightConfig } = props;
-  const targetRef = useRef();
+  const { pointLightConfig } = props;
   const tmp = useRef();
 
   // useEffect(() => console.log(name, ":", tmp.current),[]);
-  // useEffect(() => console.log(name, ":", tmp.current));
 
   return (
     <>
@@ -71,7 +80,6 @@ const PointLight = (props) => {
         name={pointLightConfig.name}
         position={[pointLightConfig.x, pointLightConfig.y, pointLightConfig.z]}
         visible={pointLightConfig.visible}
-        shadow-bias={-0.01}
       />
       <mesh
         position={[pointLightConfig.x, pointLightConfig.y, pointLightConfig.z]}
@@ -140,9 +148,9 @@ const PointLightGUI = (props) => {
           <Slider
             tooltip={true}
             value={pointLightConfig.decay}
-            step={0.25}
-            max={5}
-            min={0}
+            step={SLIDER_STEP}
+            max={SLIDER_DECAY_MAX}
+            min={SLIDER_DECAY_MIN}
             orientation="horizontal"
             onChange={(e) =>
               setPointLightConfig({ ...pointLightConfig, decay: e })
@@ -152,9 +160,9 @@ const PointLightGUI = (props) => {
           <Slider
             tooltip={true}
             value={pointLightConfig.distance}
-            step={0.25}
-            max={20}
-            min={0}
+            step={SLIDER_STEP}
+            max={SLIDER_DIST_MAX}
+            min={SLIDER_DIST_MIN}
             orientation="horizontal"
             onChange={(e) =>
               setPointLightConfig({ ...pointLightConfig, distance: e })
@@ -164,9 +172,9 @@ const PointLightGUI = (props) => {
           <Slider
             tooltip={true}
             value={pointLightConfig.intensity}
-            step={0.25}
-            max={50}
-            min={0}
+            step={SLIDER_STEP}
+            max={SLIDER_INTENSITY_MAX}
+            min={SLIDER_INTENSITY_MIN}
             orientation="horizontal"
             onChange={(e) =>
               setPointLightConfig({ ...pointLightConfig, intensity: e })
@@ -176,9 +184,9 @@ const PointLightGUI = (props) => {
           <Slider
             tooltip={true}
             value={pointLightConfig.x}
-            step={0.25}
-            max={20}
-            min={-20}
+            step={SLIDER_STEP}
+            max={SLIDER_POS_MAX}
+            min={SLIDER_POS_MIN}
             orientation="horizontal"
             onChange={(e) => setPointLightConfig({ ...pointLightConfig, x: e })}
           />
@@ -186,9 +194,9 @@ const PointLightGUI = (props) => {
           <Slider
             tooltip={true}
             value={pointLightConfig.y}
-            step={0.25}
-            max={20}
-            min={-20}
+            step={SLIDER_STEP}
+            max={SLIDER_POS_MAX}
+            min={SLIDER_POS_MIN}
             orientation="horizontal"
             onChange={(e) => setPointLightConfig({ ...pointLightConfig, y: e })}
           />
@@ -196,9 +204,9 @@ const PointLightGUI = (props) => {
           <Slider
             tooltip={true}
             value={pointLightConfig.z}
-            step={0.25}
-            max={20}
-            min={-20}
+            step={SLIDER_STEP}
+            max={SLIDER_POS_MAX}
+            min={SLIDER_POS_MIN}
             orientation="horizontal"
             onChange={(e) => setPointLightConfig({ ...pointLightConfig, z: e })}
           />
@@ -300,7 +308,7 @@ const SpotLightGUI = (props) => {
           </div>
           Angle
           <Slider
-            tooltip={false}
+            tooltip={true}
             value={spotLightConfig.angle}
             step={0.1}
             max={Math.PI / 2}
@@ -329,11 +337,11 @@ const SpotLightGUI = (props) => {
           />
           decay
           <Slider
-            tooltip={false}
+            tooltip={true}
             value={spotLightConfig.decay}
-            step={0.25}
-            max={5}
-            min={0}
+            step={SLIDER_STEP}
+            max={SLIDER_DECAY_MAX}
+            min={SLIDER_DECAY_MIN}
             orientation="horizontal"
             onChange={(e) =>
               setSpotLightConfig({ ...spotLightConfig, decay: e })
@@ -341,11 +349,11 @@ const SpotLightGUI = (props) => {
           />
           Distance
           <Slider
-            tooltip={false}
+            tooltip={true}
             value={spotLightConfig.distance}
-            step={0.25}
-            max={5}
-            min={0}
+            step={SLIDER_STEP}
+            max={SLIDER_DIST_MAX}
+            min={SLIDER_DIST_MIN}
             orientation="horizontal"
             onChange={(e) =>
               setSpotLightConfig({ ...spotLightConfig, distance: e })
@@ -353,11 +361,11 @@ const SpotLightGUI = (props) => {
           />
           intensity
           <Slider
-            tooltip={false}
+            tooltip={true}
             value={spotLightConfig.intensity}
-            step={0.25}
-            max={10}
-            min={0}
+            step={SLIDER_STEP}
+            max={SLIDER_INTENSITY_MAX}
+            min={SLIDER_INTENSITY_MIN}
             orientation="horizontal"
             onChange={(e) =>
               setSpotLightConfig({ ...spotLightConfig, intensity: e })
@@ -365,7 +373,7 @@ const SpotLightGUI = (props) => {
           />
           Penumbra
           <Slider
-            tooltip={false}
+            tooltip={true}
             value={spotLightConfig.penumbra}
             step={0.1}
             max={1}
@@ -377,41 +385,41 @@ const SpotLightGUI = (props) => {
           />
           X
           <Slider
-            tooltip={false}
+            tooltip={true}
             value={spotLightConfig.x}
-            step={0.25}
-            max={20}
-            min={-10}
+            step={SLIDER_STEP}
+            max={SLIDER_POS_MAX}
+            min={SLIDER_POS_MIN}
             orientation="horizontal"
             onChange={(e) => setSpotLightConfig({ ...spotLightConfig, x: e })}
           />
           Y
           <Slider
-            tooltip={false}
+            tooltip={true}
             value={spotLightConfig.y}
-            step={0.25}
-            max={20}
-            min={-10}
+            step={SLIDER_STEP}
+            max={SLIDER_POS_MAX}
+            min={SLIDER_POS_MIN}
             orientation="horizontal"
             onChange={(e) => setSpotLightConfig({ ...spotLightConfig, y: e })}
           />
           Z
           <Slider
-            tooltip={false}
+            tooltip={true}
             value={spotLightConfig.z}
-            step={0.25}
-            max={20}
-            min={-10}
+            step={SLIDER_STEP}
+            max={SLIDER_POS_MAX}
+            min={SLIDER_POS_MIN}
             orientation="horizontal"
             onChange={(e) => setSpotLightConfig({ ...spotLightConfig, z: e })}
           />
           TargetX
           <Slider
-            tooltip={false}
+            tooltip={true}
             value={spotLightConfig.targetX}
-            step={0.25}
-            max={10}
-            min={-10}
+            step={SLIDER_STEP}
+            max={SLIDER_POS_MAX}
+            min={SLIDER_POS_MIN}
             orientation="horizontal"
             onChange={(e) =>
               setSpotLightConfig({ ...spotLightConfig, targetX: e })
@@ -419,11 +427,11 @@ const SpotLightGUI = (props) => {
           />
           TargetY
           <Slider
-            tooltip={false}
+            tooltip={true}
             value={spotLightConfig.targetY}
-            step={0.25}
-            max={10}
-            min={-10}
+            step={SLIDER_STEP}
+            max={SLIDER_POS_MAX}
+            min={SLIDER_POS_MIN}
             orientation="horizontal"
             onChange={(e) =>
               setSpotLightConfig({ ...spotLightConfig, targetY: e })
@@ -431,11 +439,11 @@ const SpotLightGUI = (props) => {
           />
           TargetZ
           <Slider
-            tooltip={false}
+            tooltip={true}
             value={spotLightConfig.targetZ}
-            step={0.25}
-            max={10}
-            min={-10}
+            step={SLIDER_STEP}
+            max={SLIDER_POS_MAX}
+            min={SLIDER_POS_MIN}
             orientation="horizontal"
             onChange={(e) =>
               setSpotLightConfig({ ...spotLightConfig, targetZ: e })
@@ -500,11 +508,11 @@ const AmbientLightGUI = (props) => {
           />
           Intensity
           <Slider
-            tooltip={false}
+            tooltip={true}
             value={ambientLightConfig.intensity}
-            step={0.25}
-            max={10}
-            min={0}
+            step={SLIDER_STEP}
+            max={SLIDER_INTENSITY_MAX}
+            min={SLIDER_INTENSITY_MIN}
             orientation="horizontal"
             onChange={(e) =>
               setAmbientLightConfig({ ...ambientLightConfig, intensity: e })
@@ -598,11 +606,11 @@ const HemisphereLightGUI = (props) => {
           />
           Intensity
           <Slider
-            tooltip={false}
+            tooltip={true}
             value={hemisphereLightConfig.intensity}
-            step={0.25}
-            max={10}
-            min={0}
+            step={SLIDER_STEP}
+            max={SLIDER_INTENSITY_MAX}
+            min={SLIDER_INTENSITY_MIN}
             orientation="horizontal"
             onChange={(e) =>
               setHemisphereLightConfig({
@@ -639,7 +647,6 @@ const DirectionalLight = (props) => {
         ]}
         target={targetRef.current}
         visible={directionalLightConfig.visible}
-        shadow-bias={-0.01}
       />
       <mesh
         position={[
@@ -739,11 +746,11 @@ const DirectionalLightGUI = (props) => {
           />
           intensity
           <Slider
-            tooltip={false}
+            tooltip={true}
             value={directionalLightConfig.intensity}
-            step={0.25}
-            max={10}
-            min={0}
+            step={SLIDER_STEP}
+            max={SLIDER_INTENSITY_MAX}
+            min={SLIDER_INTENSITY_MIN}
             orientation="horizontal"
             onChange={(e) =>
               setDirectionalLightConfig({
@@ -754,11 +761,11 @@ const DirectionalLightGUI = (props) => {
           />
           X
           <Slider
-            tooltip={false}
+            tooltip={true}
             value={directionalLightConfig.x}
-            step={0.25}
-            max={20}
-            min={-10}
+            step={SLIDER_STEP}
+            max={SLIDER_POS_MAX}
+            min={SLIDER_POS_MIN}
             orientation="horizontal"
             onChange={(e) =>
               setDirectionalLightConfig({ ...directionalLightConfig, x: e })
@@ -766,11 +773,11 @@ const DirectionalLightGUI = (props) => {
           />
           Y
           <Slider
-            tooltip={false}
+            tooltip={true}
             value={directionalLightConfig.y}
-            step={0.25}
-            max={20}
-            min={-10}
+            step={SLIDER_STEP}
+            max={SLIDER_POS_MAX}
+            min={SLIDER_POS_MIN}
             orientation="horizontal"
             onChange={(e) =>
               setDirectionalLightConfig({ ...directionalLightConfig, y: e })
@@ -778,11 +785,11 @@ const DirectionalLightGUI = (props) => {
           />
           Z
           <Slider
-            tooltip={false}
+            tooltip={true}
             value={directionalLightConfig.z}
-            step={0.25}
-            max={20}
-            min={-10}
+            step={SLIDER_STEP}
+            max={SLIDER_POS_MAX}
+            min={SLIDER_POS_MIN}
             orientation="horizontal"
             onChange={(e) =>
               setDirectionalLightConfig({ ...directionalLightConfig, z: e })
@@ -790,11 +797,11 @@ const DirectionalLightGUI = (props) => {
           />
           TargetX
           <Slider
-            tooltip={false}
+            tooltip={true}
             value={directionalLightConfig.targetX}
-            step={0.25}
-            max={10}
-            min={-10}
+            step={SLIDER_STEP}
+            max={SLIDER_POS_MAX}
+            min={SLIDER_POS_MIN}
             orientation="horizontal"
             onChange={(e) =>
               setDirectionalLightConfig({
@@ -805,11 +812,11 @@ const DirectionalLightGUI = (props) => {
           />
           TargetY
           <Slider
-            tooltip={false}
+            tooltip={true}
             value={directionalLightConfig.targetY}
-            step={0.25}
-            max={10}
-            min={-10}
+            step={SLIDER_STEP}
+            max={SLIDER_POS_MAX}
+            min={SLIDER_POS_MIN}
             orientation="horizontal"
             onChange={(e) =>
               setDirectionalLightConfig({
@@ -820,11 +827,11 @@ const DirectionalLightGUI = (props) => {
           />
           TargetZ
           <Slider
-            tooltip={false}
+            tooltip={true}
             value={directionalLightConfig.targetZ}
-            step={0.25}
-            max={10}
-            min={-10}
+            step={SLIDER_STEP}
+            max={SLIDER_POS_MAX}
+            min={SLIDER_POS_MIN}
             orientation="horizontal"
             onChange={(e) =>
               setDirectionalLightConfig({
@@ -936,11 +943,11 @@ const RectAreaLightGUI = (props) => {
           />
           intensity
           <Slider
-            tooltip={false}
+            tooltip={true}
             value={rectAreaLightConfig.intensity}
-            step={0.25}
-            max={10}
-            min={0}
+            step={SLIDER_STEP}
+            max={SLIDER_INTENSITY_MAX}
+            min={SLIDER_INTENSITY_MIN}
             orientation="horizontal"
             onChange={(e) =>
               setRectAreaLightConfig({
@@ -951,9 +958,9 @@ const RectAreaLightGUI = (props) => {
           />
           height
           <Slider
-            tooltip={false}
+            tooltip={true}
             value={rectAreaLightConfig.height}
-            step={0.25}
+            step={SLIDER_STEP}
             max={20}
             min={0}
             orientation="horizontal"
@@ -966,9 +973,9 @@ const RectAreaLightGUI = (props) => {
           />
           width
           <Slider
-            tooltip={false}
+            tooltip={true}
             value={rectAreaLightConfig.width}
-            step={0.25}
+            step={SLIDER_STEP}
             max={20}
             min={0}
             orientation="horizontal"
@@ -981,11 +988,11 @@ const RectAreaLightGUI = (props) => {
           />
           X
           <Slider
-            tooltip={false}
+            tooltip={true}
             value={rectAreaLightConfig.x}
-            step={0.25}
-            max={20}
-            min={-10}
+            step={SLIDER_STEP}
+            max={SLIDER_POS_MAX}
+            min={SLIDER_POS_MIN}
             orientation="horizontal"
             onChange={(e) =>
               setRectAreaLightConfig({ ...rectAreaLightConfig, x: e })
@@ -993,11 +1000,11 @@ const RectAreaLightGUI = (props) => {
           />
           Y
           <Slider
-            tooltip={false}
+            tooltip={true}
             value={rectAreaLightConfig.y}
-            step={0.25}
-            max={20}
-            min={-10}
+            step={SLIDER_STEP}
+            max={SLIDER_POS_MAX}
+            min={SLIDER_POS_MIN}
             orientation="horizontal"
             onChange={(e) =>
               setRectAreaLightConfig({ ...rectAreaLightConfig, y: e })
@@ -1005,11 +1012,11 @@ const RectAreaLightGUI = (props) => {
           />
           Z
           <Slider
-            tooltip={false}
+            tooltip={true}
             value={rectAreaLightConfig.z}
-            step={0.25}
-            max={20}
-            min={-10}
+            step={SLIDER_STEP}
+            max={SLIDER_POS_MAX}
+            min={SLIDER_POS_MIN}
             orientation="horizontal"
             onChange={(e) =>
               setRectAreaLightConfig({ ...rectAreaLightConfig, z: e })
@@ -1017,9 +1024,9 @@ const RectAreaLightGUI = (props) => {
           />
           RotationX
           <Slider
-            tooltip={false}
+            tooltip={true}
             value={rectAreaLightConfig.rotationX}
-            step={0.25}
+            step={0.1}
             max={Math.PI*2}
             min={0}
             orientation="horizontal"
@@ -1032,9 +1039,9 @@ const RectAreaLightGUI = (props) => {
           />
           RotationY
           <Slider
-            tooltip={false}
+            tooltip={true}
             value={rectAreaLightConfig.rotationY}
-            step={0.25}
+            step={0.1}
             max={Math.PI*2}
             min={0}
             orientation="horizontal"
