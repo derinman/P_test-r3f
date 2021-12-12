@@ -62,7 +62,6 @@ const GuiCheckBox = styled.div`
 const App = () => {
     
   const [up, setUp] = useState([0, 1, 0]);
-  const [camPos, setCamPos] = useState([0,1,0])
 
   const [currentModel, setCurrentModel] = useState("PollyDog");
 
@@ -100,7 +99,8 @@ const App = () => {
     // console.log(Object.entries(work).filter(data=>!data[1].dev).map(data=>data[1].name))
     // console.log('canvasRef:',canvasRef)
     // console.log(axesHelperRef)
-    console.log('mainCameraRef',':',mainCameraRef)
+    console.log('mainCameraRef:',mainCameraRef)
+    console.log('controlsRef:',controlsRef)
   }, []);
 
   useEffect(() => {
@@ -131,8 +131,6 @@ const App = () => {
     }
     loadLight();
   }, [currentModel]);
-
-  useEffect(()=>setCamPos([0,1,0]),[])
 
   return (
     <Wrapper>
@@ -166,26 +164,24 @@ const App = () => {
           controls={controlsRef.current}
           makeDefault={true}
           visible={false}
-          position={camPos}
+          position={[1,1,0]}
           up={up} //世界座標的向量
           fov={70}
           //aspect={ width / height }
           near={0.01}
           far={10000}
         />
-        {/* <OrbitControls
+        <OrbitControls
           ref={controlsRef}
           camera={mainCameraRef.current}
           enabled={true}
-          enablePan={true}
-          enableZoom={true}
+          enablePan={false}
+          enableZoom={false}
           enableRotate={true}
-          minPolarAngle={Math.PI / 2}
-          maxPolarAngle={Math.PI / 2}
-          target-x={0}
-          target-y={0}
-          target-z={0}
-        /> */}
+          //minPolarAngle={Math.PI / 2}
+          //maxPolarAngle={Math.PI / 2}
+          target={[0,0,0]}
+        />
 
         <PointLight pointLightConfig={pointLight1} />
         <PointLight pointLightConfig={pointLight2} />
