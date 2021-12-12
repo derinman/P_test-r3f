@@ -52,6 +52,8 @@ const LightLabel = styled.div`
 const HTML_TEXT_FACTOR = 3;
 const Light_SPHERE_ARGS = [0.05, 16, 16];
 
+const SHADOW_BIAS = -0.0001
+
 const SLIDER_STEP = 0.25;
 const SLIDER_INTENSITY_MAX = 50;
 const SLIDER_INTENSITY_MIN = 0; 
@@ -80,6 +82,7 @@ const PointLight = (props) => {
         name={pointLightConfig.name}
         position={[pointLightConfig.x, pointLightConfig.y, pointLightConfig.z]}
         visible={pointLightConfig.visible}
+        shadow-bias={SHADOW_BIAS}
       />
       <mesh
         position={[pointLightConfig.x, pointLightConfig.y, pointLightConfig.z]}
@@ -237,6 +240,7 @@ const SpotLight = (props) => {
         position={[spotLightConfig.x, spotLightConfig.y, spotLightConfig.z]}
         target={targetRef.current}
         visible={spotLightConfig.visible}
+        shadow-bias={SHADOW_BIAS}
       />
       <mesh
         position={[spotLightConfig.x, spotLightConfig.y, spotLightConfig.z]}
@@ -647,6 +651,8 @@ const DirectionalLight = (props) => {
         ]}
         target={targetRef.current}
         visible={directionalLightConfig.visible}
+        shadow-bias={-0.0001}
+        shadow-bias={SHADOW_BIAS}
       />
       <mesh
         position={[
