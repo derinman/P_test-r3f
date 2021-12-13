@@ -65,6 +65,8 @@ const App = () => {
 
   const [currentModel, setCurrentModel] = useState("PollyDog");
 
+  const [camera, setCamera]=useState({});
+
   const [pointLight1, setPointLight1] = useState({});
   const [pointLight2, setPointLight2] = useState({});
   const [pointLight3, setPointLight3] = useState({});
@@ -101,11 +103,13 @@ const App = () => {
     // console.log(axesHelperRef)
     console.log('mainCameraRef:',mainCameraRef)
     console.log('controlsRef:',controlsRef)
+    console.log('camera:',camera)
   }, []);
 
   useEffect(() => {
     async function loadLight() {
       const [
+        cameraJson,
         pointLightJson,
         spotLightJson,
         ambientLightJson,
@@ -113,6 +117,7 @@ const App = () => {
         directionalLightJson,
         rectAreaLightJson,
       ] = await Promise.all([
+        import(`./config/${currentModel}/camera.json`),
         import(`./config/${currentModel}/pointLight.json`),
         import(`./config/${currentModel}/spotLight.json`),
         import(`./config/${currentModel}/ambientLight.json`),
@@ -120,6 +125,7 @@ const App = () => {
         import(`./config/${currentModel}/directionalLight.json`),
         import(`./config/${currentModel}/rectAreaLight.json`),
       ]);
+      setCamera(cameraJson)
       setPointLight1(pointLightJson.pointLight1);
       setPointLight2(pointLightJson.pointLight2);
       setPointLight3(pointLightJson.pointLight3);
@@ -164,12 +170,11 @@ const App = () => {
           controls={controlsRef.current}
           makeDefault={true}
           visible={false}
-          position={[1,1,0]}
           up={up} //世界座標的向量
-          fov={70}
-          //aspect={ width / height }
-          near={0.01}
-          far={10000}
+          position={camera.position}
+          fov={camera.fov}
+          near={camera.near}
+          far={camera.far}
         />
         <OrbitControls
           ref={controlsRef}
