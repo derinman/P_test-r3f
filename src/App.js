@@ -181,7 +181,7 @@ const App = () => {
           camera={mainCameraRef.current}
           enabled={true}
           enablePan={false}
-          enableZoom={false}
+          enableZoom={true}
           enableRotate={true}
           //minPolarAngle={Math.PI / 2}
           //maxPolarAngle={Math.PI / 2}
