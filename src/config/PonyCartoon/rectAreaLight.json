@@ -1,15 +1,3 @@
 {
-  "rectAreaLight1": {
-    "color": "#FFFFFF",
-    "intensity": 1,
-    "height":0.5,
-    "width":0.5,
-    "name": "rectAreaLight1",
-    "x": 0,
-    "y": 1.5,
-    "z": 0,
-    "rotationX": 4.71238,
-    "rotationY": 0,
-    "visible": false
-  }
+  "rectAreaLight1": {"color":"#dcb985","intensity":43.25,"height":1.5,"width":7.5,"name":"rectAreaLight1","x":0,"y":-0.5,"z":0,"rotationX":1.6,"rotationY":0,"visible":true}
 }

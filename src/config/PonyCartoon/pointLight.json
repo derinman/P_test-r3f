@@ -1,28 +1,6 @@
 {
-  "pointLight1": {
-    "castShadow": true,
-    "color": "#585967",
-    "decay": 2.25,
-    "distance": 0,
-    "intensity": 2,
-    "name": "pointLight1",
-    "x": -0.75,
-    "y": 1.25,
-    "z": -0.25,
-    "visible": true
-  },
-  "pointLight2": {
-    "castShadow": true,
-    "color": "#FFFFFF",
-    "decay": 2,
-    "distance": 0,
-    "intensity": 2,
-    "name": "pointLight2",
-    "x": 2,
-    "y": 1,
-    "z": 0,
-    "visible": true
-  },
+  "pointLight1": {"castShadow":true,"color":"#f18c7b","decay":2.25,"distance":50,"intensity":4,"name":"pointLight1","x":0,"y":1,"z":0.75,"visible":true},
+  "pointLight2": {"castShadow":true,"color":"#f18c7b","decay":2.25,"distance":50,"intensity":4,"name":"pointLight2","x":0,"y":1,"z":-0.75,"visible":true},
   "pointLight3": {
     "castShadow": true,
     "color": "#FFFF3F",
@@ -33,6 +11,6 @@
     "x": 2,
     "y": 1,
     "z": 1,
-    "visible": true
+    "visible": false
   }
 }

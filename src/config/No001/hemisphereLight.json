@@ -5,6 +5,6 @@
     "intensity": 1,
     "name": "hemisphereLight1",
     "skyColor": "#FFFFFF",
-    "visible": true
+    "visible": false
   }
 }

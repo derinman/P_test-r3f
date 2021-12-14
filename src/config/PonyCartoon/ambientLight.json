@@ -1,8 +1,3 @@
 {
-    "ambientLight1":{
-        "color": "#FFFFFF",
-        "intensity": 1,
-        "name": "ambientLight1",
-        "visible": false
-    }
+    "ambientLight1":{"color":"#ffffff","intensity":2.75,"name":"ambientLight1","visible":true}
 }
