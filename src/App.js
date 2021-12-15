@@ -1,7 +1,7 @@
 import React, { useState, useRef, Suspense, useEffect } from "react";
 
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
+import { OrbitControls, PerspectiveCamera ,Sky} from "@react-three/drei";
 
 import styled from "styled-components";
 
@@ -60,12 +60,11 @@ const GuiCheckBox = styled.div`
 `;
 
 const App = () => {
-    
   const [up, setUp] = useState([0, 1, 0]);
 
   const [currentModel, setCurrentModel] = useState("PollyDog");
 
-  const [camera, setCamera]=useState({});
+  const [camera, setCamera] = useState({});
 
   const [pointLight1, setPointLight1] = useState({});
   const [pointLight2, setPointLight2] = useState({});
@@ -101,9 +100,9 @@ const App = () => {
     // console.log(Object.entries(work).filter(data=>!data[1].dev).map(data=>data[1].name))
     // console.log('canvasRef:',canvasRef)
     // console.log(axesHelperRef)
-    console.log('mainCameraRef:',mainCameraRef)
-    console.log('controlsRef:',controlsRef)
-    console.log('camera:',camera)
+    console.log("mainCameraRef:", mainCameraRef);
+    console.log("controlsRef:", controlsRef);
+    console.log("camera:", camera);
   }, []);
 
   useEffect(() => {
@@ -125,7 +124,7 @@ const App = () => {
         import(`./config/${currentModel}/directionalLight.json`),
         import(`./config/${currentModel}/rectAreaLight.json`),
       ]);
-      setCamera(cameraJson)
+      setCamera(cameraJson);
       setPointLight1(pointLightJson.pointLight1);
       setPointLight2(pointLightJson.pointLight2);
       setPointLight3(pointLightJson.pointLight3);
@@ -185,8 +184,10 @@ const App = () => {
           enableRotate={true}
           //minPolarAngle={Math.PI / 2}
           //maxPolarAngle={Math.PI / 2}
-          target={[0,0,0]}
+          target={[0, 0, 0]}
         />
+
+        <Sky distance={450000} sunPosition={[0, 1, 0]} inclination={0} azimuth={0.25} />
 
         <PointLight pointLightConfig={pointLight1} />
         <PointLight pointLightConfig={pointLight2} />
@@ -248,7 +249,6 @@ const App = () => {
           setRectAreaLightConfig={setRectAreaLight1}
         />
       </GuiWrapper>
-    
     </Wrapper>
   );
 };
