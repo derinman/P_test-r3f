@@ -52,7 +52,7 @@ const LightLabel = styled.div`
 const HTML_TEXT_FACTOR = 3;
 const Light_SPHERE_ARGS = [0.05, 16, 16];
 
-const SHADOW_BIAS = -0.0001
+const SHADOW_BIAS = -0.01
 
 const SLIDER_STEP = 0.25;
 const SLIDER_INTENSITY_MAX = 50;
