@@ -14,7 +14,7 @@ const No001 = () => {
   const nodes = glb.nodes;
 
   // console.log(dumpObject(glb.scene).join('\n'))
-  console.log(glb.scene)
+  console.log(nodes)
 
   return <group>{gltfNodeToMesh(nodes)}</group>;
 };

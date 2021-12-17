@@ -1,5 +1,16 @@
 {
-  "pointLight1": {"castShadow":true,"color":"#585967","decay":2.25,"distance":23.25,"intensity":18.25,"name":"pointLight1","x":0.2529301643371582,"y":0,"z":-0.8036384582519531,"visible":true},
+  "pointLight1": {
+    "castShadow": true,
+    "color": "#f1e6c0",
+    "decay": 2.25,
+    "distance": 12.25,
+    "intensity": 3.5,
+    "name": "pointLight1",
+    "x": 0.2529301643371582,
+    "y": 32,
+    "z": -0.8036384582519531,
+    "visible": true
+  },
   "pointLight2": {
     "castShadow": true,
     "color": "#FFFFFF",

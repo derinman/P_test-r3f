@@ -100,9 +100,9 @@ const App = () => {
     // console.log(Object.entries(work).filter(data=>!data[1].dev).map(data=>data[1].name))
     // console.log('canvasRef:',canvasRef)
     // console.log(axesHelperRef)
-    console.log("mainCameraRef:", mainCameraRef);
-    console.log("controlsRef:", controlsRef);
-    console.log("camera:", camera);
+    // console.log("mainCameraRef:", mainCameraRef);
+    // console.log("controlsRef:", controlsRef);
+    // console.log("camera:", camera);
   }, []);
 
   useEffect(() => {

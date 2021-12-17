@@ -55,14 +55,14 @@ const Light_SPHERE_ARGS = [0.05, 16, 16];
 const SHADOW_BIAS = -0.01
 
 const SLIDER_STEP = 0.25;
-const SLIDER_INTENSITY_MAX = 50;
+const SLIDER_INTENSITY_MAX = 100;
 const SLIDER_INTENSITY_MIN = 0; 
 const SLIDER_DECAY_MAX = 2;
 const SLIDER_DECAY_MIN = 0;
-const SLIDER_DIST_MAX = 50;
+const SLIDER_DIST_MAX = 100;
 const SLIDER_DIST_MIN = 0;
-const SLIDER_POS_MAX = 25;
-const SLIDER_POS_MIN = -25;
+const SLIDER_POS_MAX = 50;
+const SLIDER_POS_MIN = -50;
 
 const PointLight = (props) => {
   const { pointLightConfig } = props;

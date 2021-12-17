@@ -12,6 +12,7 @@ const PonyCartoon = () => {
   const nodes = glb.nodes;
 
   // console.log(dumpObject(glb.scene).join('\n'))
+  // console.log(glb.scene)
 
   return <group>{gltfNodeToMesh(nodes)}</group>;
 };
