@@ -1,7 +1,9 @@
 import React, { useState, useRef, Suspense, useEffect } from "react";
 
+import * as THREE from "three";
+
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, PerspectiveCamera ,Sky} from "@react-three/drei";
+import { OrbitControls, PerspectiveCamera, Sky } from "@react-three/drei";
 
 import styled from "styled-components";
 
@@ -144,16 +146,17 @@ const App = () => {
         concurrent={true}
         colorManagement={true}
         shadows={true}
-        // gl={{ antialias: true }}
-        //           onCreated={({ gl }) => {gl.toneMapping = THREE.NoToneMapping;
-        //                                   //gl.toneMapping = THREE.LinearToneMapping;
-        //                                   //gl.toneMapping = THREE.ReinhardToneMapping;
-        //                                   //gl.toneMapping = THREE.CineonToneMapping;
-        //                                   //gl.toneMapping = THREE.ACESFilmicToneMapping;
-        //                                   gl.toneMappingExposure = 1.5;
-        //                                   // gl.shadowMap.enabled = true;
-        //                                   // gl.shadowMap.type = THREE.PCFSoftShadowMap
-        //                                 }}
+        gl={{ antialias: true }}
+        onCreated={({ gl }) => {
+          //gl.toneMapping = THREE.NoToneMapping;
+          //gl.toneMapping = THREE.LinearToneMapping;
+          //gl.toneMapping = THREE.ReinhardToneMapping;
+          //gl.toneMapping = THREE.CineonToneMapping;
+          //gl.toneMapping = THREE.ACESFilmicToneMapping;
+          //gl.toneMappingExposure = 1.5;
+          //gl.shadowMap.enabled = true;
+          //gl.shadowMap.type = THREE.PCFSoftShadowMap
+        }}
       >
         <Suspense fallback={null}>
           <Model />
@@ -188,7 +191,12 @@ const App = () => {
           target={camera.orbitTarget}
         />
 
-        <Sky distance={450000} sunPosition={[0, 1, 0]} inclination={0} azimuth={0.25} />
+        <Sky
+          distance={450000}
+          sunPosition={[0, 1, 0]}
+          inclination={0}
+          azimuth={0.25}
+        />
 
         <PointLight pointLightConfig={pointLight1} />
         <PointLight pointLightConfig={pointLight2} />
