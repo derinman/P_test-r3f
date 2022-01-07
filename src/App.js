@@ -3,7 +3,12 @@ import React, { useState, useRef, Suspense, useEffect } from "react";
 import * as THREE from "three";
 
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, PerspectiveCamera, Sky, Stars } from '@react-three/drei'
+import {
+  OrbitControls,
+  PerspectiveCamera,
+  Sky,
+  Stars,
+} from "@react-three/drei";
 
 import styled from "styled-components";
 
@@ -62,6 +67,9 @@ const GuiCheckBox = styled.div`
 `;
 
 const App = () => {
+  const [modelGuiWidth, setModelGuiWidth] = useState("200");
+  const [lightGuiWidth, setLightGuiWidth] = useState("250");
+
   const [up, setUp] = useState([0, 1, 0]);
 
   const [currentModel, setCurrentModel] = useState("PollyDog");
@@ -191,7 +199,7 @@ const App = () => {
           target={camera.orbitTarget}
         />
 
-        <Sky
+        {/* <Sky
           distance={450000}
           sunPosition={[1, 1, 0]}
           inclination={0}
@@ -199,7 +207,7 @@ const App = () => {
           rayleigh={0}
         />
 
-      <Stars radius={100} depth={50} count={50000} factor={4} saturation={0} fade />
+      <Stars radius={100} depth={50} count={50000} factor={4} saturation={0} fade /> */}
 
         <PointLight pointLightConfig={pointLight1} />
         <PointLight pointLightConfig={pointLight2} />
@@ -212,8 +220,26 @@ const App = () => {
       </Canvas>
 
       <GuiWrapper
-        style={{ top: "2.5vh", left: "2.5vh", width: "200px", height: "50%" }}
+        style={{
+          top: "2.5vh",
+          left: "2.5vh",
+          width: `${modelGuiWidth}px`,
+          height: "50%",
+        }}
       >
+        <div style={{ margin: "1rem" }}>
+          Gui Width
+          <input
+            style={{
+              width: "75px",
+              borderRadius: "10px",
+              marginLeft: "0.5rem",
+            }}
+            value={modelGuiWidth}
+            onChange={(e) => setModelGuiWidth(e.target.value)}
+          />
+        </div>
+
         {modelsList.map((data) => (
           <GuiCompBtn key={data}>
             <GuiCheckBox
@@ -226,8 +252,25 @@ const App = () => {
       </GuiWrapper>
 
       <GuiWrapper
-        style={{ top: "2.5vh", right: "2.5vh", width: "250px", height: "95%" }}
+        style={{
+          top: "2.5vh",
+          right: "2.5vh",
+          width: `${lightGuiWidth}px`,
+          height: "95%",
+        }}
       >
+        <div style={{ margin: "1rem" }}>
+          Gui Width
+          <input
+            style={{
+              width: "75px",
+              borderRadius: "10px",
+              marginLeft: "0.5rem",
+            }}
+            value={lightGuiWidth}
+            onChange={(e) => setLightGuiWidth(e.target.value)}
+          />
+        </div>
         <PointLightGUI
           pointLightConfig={pointLight1}
           setPointLightConfig={setPointLight1}

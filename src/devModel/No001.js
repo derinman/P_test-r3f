@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useGLTF } from "@react-three/drei";
+import { useGLTF, Sky, Stars } from "@react-three/drei";
 
 import gltfNodeToMesh from "../helper/gltfNodeToMesh.js";
 import dumpObject from "../helper/dump.js";
@@ -14,9 +14,28 @@ const No001 = () => {
   const nodes = glb.nodes;
 
   // console.log(dumpObject(glb.scene).join('\n'))
-  console.log(nodes)
+  //console.log(nodes)
 
-  return <group>{gltfNodeToMesh(nodes)}</group>;
+  return (
+    <group>
+      {gltfNodeToMesh(nodes)}
+      <Sky
+        distance={450000}
+        sunPosition={[1, 1, 0]}
+        inclination={0}
+        azimuth={0.25}
+        rayleigh={0}
+      />
+      <Stars
+        radius={100}
+        depth={50}
+        count={50000}
+        factor={4}
+        saturation={0}
+        fade
+      />
+    </group>
+  );
 };
 
 useGLTF.preload(glbUrl);
