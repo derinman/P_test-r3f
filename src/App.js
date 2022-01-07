@@ -3,7 +3,7 @@ import React, { useState, useRef, Suspense, useEffect } from "react";
 import * as THREE from "three";
 
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, PerspectiveCamera, Sky } from "@react-three/drei";
+import { OrbitControls, PerspectiveCamera, Sky, Stars } from '@react-three/drei'
 
 import styled from "styled-components";
 
@@ -193,10 +193,13 @@ const App = () => {
 
         <Sky
           distance={450000}
-          sunPosition={[0, 1, 0]}
+          sunPosition={[1, 1, 0]}
           inclination={0}
           azimuth={0.25}
+          rayleigh={0}
         />
+
+      <Stars radius={100} depth={50} count={50000} factor={4} saturation={0} fade />
 
         <PointLight pointLightConfig={pointLight1} />
         <PointLight pointLightConfig={pointLight2} />
