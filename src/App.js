@@ -105,13 +105,13 @@ const App = () => {
 
   useEffect(() => {
     // console.log(work)
-    //console.log(Object.entries(work).filter(data=>!data[1].dev&&(data[1].name ===currentModel))[0][1])
+    // console.log(Object.entries(work).filter(data=>!data[1].dev&&(data[1].name ===currentModel))[0][1])
     // console.log(Object.entries(work).filter(data=>!data[1].dev))
     // console.log(Object.entries(work).filter(data=>!data[1].dev).map(data=>data[1].name))
     // console.log('canvasRef:',canvasRef)
     // console.log(axesHelperRef)
     // console.log("mainCameraRef:", mainCameraRef);
-    // console.log("controlsRef:", controlsRef);
+    console.log("controlsRef:", controlsRef);
     // console.log("camera:", camera);
   }, []);
 
@@ -194,21 +194,13 @@ const App = () => {
           enableZoom={true}
           enableRotate={true}
           //minPolarAngle={Math.PI / 2}
-          //maxPolarAngle={Math.PI / 2}
-          // target={[0, 0, 0]}
+          maxPolarAngle={Math.PI / 2}
+          maxAzimuthAngle={0}
+          minAzimuthAngle={-Math.PI}
+          minDistance={15}
+          maxDistance={40}
           target={camera.orbitTarget}
         />
-
-        {/* <Sky
-          distance={450000}
-          sunPosition={[1, 1, 0]}
-          inclination={0}
-          azimuth={0.25}
-          rayleigh={0}
-        />
-
-      <Stars radius={100} depth={50} count={50000} factor={4} saturation={0} fade /> */}
-
         <PointLight pointLightConfig={pointLight1} />
         <PointLight pointLightConfig={pointLight2} />
         <PointLight pointLightConfig={pointLight3} />
@@ -219,6 +211,7 @@ const App = () => {
         <RectAreaLight rectAreaLightConfig={rectAreaLight1} />
       </Canvas>
 
+      {/* model GUI */}
       <GuiWrapper
         style={{
           top: "2.5vh",
@@ -251,6 +244,7 @@ const App = () => {
         ))}
       </GuiWrapper>
 
+      {/* light GUI */}
       <GuiWrapper
         style={{
           top: "2.5vh",

@@ -48,9 +48,10 @@ const LightLabel = styled.div`
 //2
 // 很多光種有設distance才有陰影
 
+const LightFactor = 20
 
-const HTML_TEXT_FACTOR = 3;
-const Light_SPHERE_ARGS = [0.05, 16, 16];
+const HTML_TEXT_FACTOR = 2*LightFactor;
+const Light_SPHERE_ARGS = [0.05*LightFactor, 16, 16];
 
 const SHADOW_BIAS = -0.001
 
@@ -634,7 +635,7 @@ const DirectionalLight = (props) => {
   const tmp = useRef();
   const targetRef = useRef();
 
-  // useEffect(() => console.log(directionalLightConfig.name, ":", tmp.current),[]);
+  useEffect(() => console.log(directionalLightConfig.name, ":", tmp.current),[]);
   // useEffect(() => console.log(directionalLightConfig.name, ":", tmp.current));
 
   return (
@@ -651,8 +652,10 @@ const DirectionalLight = (props) => {
         ]}
         target={targetRef.current}
         visible={directionalLightConfig.visible}
-        //shadow-bias={SHADOW_BIAS}
-        shadow-bias={-0.00001}
+        shadow-bias={SHADOW_BIAS}
+        // shadow-mapWidth={1024*10}
+        // shadow-mapHeight={1024*10}
+        // shadow-mapSize={[1024*10,1024*10]}
       />
       <mesh
         position={[
