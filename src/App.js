@@ -111,7 +111,7 @@ const App = () => {
     // console.log('canvasRef:',canvasRef)
     // console.log(axesHelperRef)
     // console.log("mainCameraRef:", mainCameraRef);
-    // console.log("controlsRef:", controlsRef);
+    console.log("controlsRef:", controlsRef);
     // console.log("camera:", camera);
   }, []);
 
@@ -194,16 +194,16 @@ const App = () => {
         <OrbitControls
           ref={controlsRef}
           camera={mainCameraRef.current}
-          enabled={true}
-          enablePan={false}
-          enableZoom={true}
-          enableRotate={true}
-          //minPolarAngle={Math.PI / 2}
-          maxPolarAngle={Math.PI / 2}
-          maxAzimuthAngle={0}
-          minAzimuthAngle={-Math.PI}
-          minDistance={15}
-          maxDistance={40}
+          enabled={camera.enabled}
+          enablePan={camera.enablePan}
+          enableZoom={camera.enableZoom}
+          enableRotate={camera.enableRotate}
+          maxPolarAngle={camera.maxPolarAngle}
+          minPolarAngle={camera.minPolarAngle}
+          maxAzimuthAngle={camera.maxAzimuthAngle}
+          minAzimuthAngle={camera.minAzimuthAngle}
+          maxDistance={camera.maxDistance}
+          minDistance={camera.minDistance}
           target={camera.orbitTarget}
         />
         <PointLight pointLightConfig={pointLight1} />

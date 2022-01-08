@@ -33,9 +33,9 @@ const LightLabel = styled.div`
   background-color: rgba(0, 0, 0, 0.3);
   padding: 0.2rem;
   border-radius: 0.3rem;
-  font-size:1.5rem;
-  &:hover{
-    font-size:7rem;
+  font-size: 1.5rem;
+  &:hover {
+    font-size: 7rem;
     border-radius: 1.5rem;
   }
 `;
@@ -48,16 +48,16 @@ const LightLabel = styled.div`
 //2
 // 很多光種有設distance才有陰影
 
-const LightFactor = 20
+const LightFactor = 20;
 
-const HTML_TEXT_FACTOR = 2*LightFactor;
-const Light_SPHERE_ARGS = [0.05*LightFactor, 16, 16];
+const HTML_TEXT_FACTOR = 2 * LightFactor;
+const Light_SPHERE_ARGS = [0.05 * LightFactor, 16, 16];
 
-const SHADOW_BIAS = -0.001
+const SHADOW_BIAS = -0.001;
 
 const SLIDER_STEP = 0.25;
 const SLIDER_INTENSITY_MAX = 100;
-const SLIDER_INTENSITY_MIN = 0; 
+const SLIDER_INTENSITY_MIN = 0;
 const SLIDER_DECAY_MAX = 2;
 const SLIDER_DECAY_MIN = 0;
 const SLIDER_DIST_MAX = 100;
@@ -635,7 +635,7 @@ const DirectionalLight = (props) => {
   const tmp = useRef();
   const targetRef = useRef();
 
-  useEffect(() => console.log(directionalLightConfig.name, ":", tmp.current),[]);
+  // useEffect(() => console.log(directionalLightConfig.name, ":", tmp.current),[]);
   // useEffect(() => console.log(directionalLightConfig.name, ":", tmp.current));
 
   return (
@@ -878,7 +878,7 @@ const RectAreaLight = (props) => {
         rotation={[
           rectAreaLightConfig.rotationX,
           rectAreaLightConfig.rotationY,
-          0
+          0,
         ]}
         visible={rectAreaLightConfig.visible}
       />
@@ -886,18 +886,19 @@ const RectAreaLight = (props) => {
         position={[
           rectAreaLightConfig.x,
           rectAreaLightConfig.y,
-          rectAreaLightConfig.z
+          rectAreaLightConfig.z,
         ]}
         rotation={[
           rectAreaLightConfig.rotationX,
           rectAreaLightConfig.rotationY,
-          0
+          0,
         ]}
         visible={rectAreaLightConfig.visible}
       >
-        <planeGeometry 
-          attach="geometry" 
-          args={[rectAreaLightConfig.width, rectAreaLightConfig.height]} />
+        <planeGeometry
+          attach="geometry"
+          args={[rectAreaLightConfig.width, rectAreaLightConfig.height]}
+        />
         <meshStandardMaterial
           attach="material"
           color={rectAreaLightConfig.color}
@@ -935,9 +936,7 @@ const RectAreaLightGUI = (props) => {
       </GuiCompBtn>
       {!isClose && (
         <GuiCompWrapper>
-          <div
-            onClick={() => console.log(JSON.stringify(rectAreaLightConfig))}
-          >
+          <div onClick={() => console.log(JSON.stringify(rectAreaLightConfig))}>
             snapshot
           </div>
           <SketchPicker
@@ -1036,7 +1035,7 @@ const RectAreaLightGUI = (props) => {
             tooltip={true}
             value={rectAreaLightConfig.rotationX}
             step={0.1}
-            max={Math.PI*2}
+            max={Math.PI * 2}
             min={0}
             orientation="horizontal"
             onChange={(e) =>
@@ -1051,7 +1050,7 @@ const RectAreaLightGUI = (props) => {
             tooltip={true}
             value={rectAreaLightConfig.rotationY}
             step={0.1}
-            max={Math.PI*2}
+            max={Math.PI * 2}
             min={0}
             orientation="horizontal"
             onChange={(e) =>
