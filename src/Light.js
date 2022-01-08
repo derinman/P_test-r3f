@@ -48,7 +48,7 @@ const LightLabel = styled.div`
 //2
 // 很多光種有設distance才有陰影
 
-const LightFactor = 20;
+const LightFactor = 3;
 
 const HTML_TEXT_FACTOR = 2 * LightFactor;
 const Light_SPHERE_ARGS = [0.05 * LightFactor, 16, 16];
@@ -56,14 +56,14 @@ const Light_SPHERE_ARGS = [0.05 * LightFactor, 16, 16];
 const SHADOW_BIAS = -0.001;
 
 const SLIDER_STEP = 0.25;
-const SLIDER_INTENSITY_MAX = 100;
+const SLIDER_INTENSITY_MAX = 200;
 const SLIDER_INTENSITY_MIN = 0;
 const SLIDER_DECAY_MAX = 2;
 const SLIDER_DECAY_MIN = 0;
-const SLIDER_DIST_MAX = 100;
+const SLIDER_DIST_MAX = 200;
 const SLIDER_DIST_MIN = 0;
-const SLIDER_POS_MAX = 50;
-const SLIDER_POS_MIN = -50;
+const SLIDER_POS_MAX = 100;
+const SLIDER_POS_MIN = -100;
 
 const PointLight = (props) => {
   const { pointLightConfig } = props;
