@@ -3,12 +3,7 @@ import React, { useState, useRef, Suspense, useEffect } from "react";
 import * as THREE from "three";
 
 import { Canvas } from "@react-three/fiber";
-import {
-  OrbitControls,
-  PerspectiveCamera,
-  Sky,
-  Stars,
-} from "@react-three/drei";
+import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
 
 import styled from "styled-components";
 
@@ -72,15 +67,20 @@ const App = () => {
 
   const [up, setUp] = useState([0, 1, 0]);
 
-  const [currentModel, setCurrentModel] = useState("PollyDog");
+  const [currentModel, setCurrentModel] = useState("No001");
 
   const [camera, setCamera] = useState({});
 
   const [pointLight1, setPointLight1] = useState({});
   const [pointLight2, setPointLight2] = useState({});
   const [pointLight3, setPointLight3] = useState({});
+  const [pointLight4, setPointLight4] = useState({});
+  const [pointLight5, setPointLight5] = useState({});
+  const [pointLight6, setPointLight6] = useState({});
 
   const [spotLight1, setSpotLight1] = useState({});
+  const [spotLight2, setSpotLight2] = useState({});
+  const [spotLight3, setSpotLight3] = useState({});
 
   const [ambientLight1, setAmbientLight1] = useState({});
 
@@ -111,7 +111,7 @@ const App = () => {
     // console.log('canvasRef:',canvasRef)
     // console.log(axesHelperRef)
     // console.log("mainCameraRef:", mainCameraRef);
-    console.log("controlsRef:", controlsRef);
+    // console.log("controlsRef:", controlsRef);
     // console.log("camera:", camera);
   }, []);
 
@@ -138,7 +138,12 @@ const App = () => {
       setPointLight1(pointLightJson.pointLight1);
       setPointLight2(pointLightJson.pointLight2);
       setPointLight3(pointLightJson.pointLight3);
+      setPointLight4(pointLightJson.pointLight4);
+      setPointLight5(pointLightJson.pointLight5);
+      setPointLight6(pointLightJson.pointLight6);
       setSpotLight1(spotLightJson.spotLight1);
+      setSpotLight2(spotLightJson.spotLight2);
+      setSpotLight3(spotLightJson.spotLight3);
       setAmbientLight1(ambientLightJson.ambientLight1);
       setHemisphereLight1(hemisphereLightJson.hemisphereLight1);
       setDirectionalLight1(directionalLightJson.directionalLight1);
@@ -204,7 +209,12 @@ const App = () => {
         <PointLight pointLightConfig={pointLight1} />
         <PointLight pointLightConfig={pointLight2} />
         <PointLight pointLightConfig={pointLight3} />
+        <PointLight pointLightConfig={pointLight4} />
+        <PointLight pointLightConfig={pointLight5} />
+        <PointLight pointLightConfig={pointLight6} />
         <SpotLight spotLightConfig={spotLight1} />
+        <SpotLight spotLightConfig={spotLight2} />
+        <SpotLight spotLightConfig={spotLight3} />
         <AmbientLight ambientLightConfig={ambientLight1} />
         <HemisphereLight hemisphereLightConfig={hemisphereLight1} />
         <DirectionalLight directionalLightConfig={directionalLight1} />
@@ -277,9 +287,29 @@ const App = () => {
           pointLightConfig={pointLight3}
           setPointLightConfig={setPointLight3}
         />
+        <PointLightGUI
+          pointLightConfig={pointLight4}
+          setPointLightConfig={setPointLight4}
+        />
+        <PointLightGUI
+          pointLightConfig={pointLight5}
+          setPointLightConfig={setPointLight5}
+        />
+        <PointLightGUI
+          pointLightConfig={pointLight6}
+          setPointLightConfig={setPointLight6}
+        />
         <SpotLightGUI
           spotLightConfig={spotLight1}
           setSpotLightConfig={setSpotLight1}
+        />
+        <SpotLightGUI
+          spotLightConfig={spotLight2}
+          setSpotLightConfig={setSpotLight2}
+        />
+        <SpotLightGUI
+          spotLightConfig={spotLight3}
+          setSpotLightConfig={setSpotLight3}
         />
         <AmbientLightGUI
           ambientLightConfig={ambientLight1}

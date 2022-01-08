@@ -1,5 +1,74 @@
 {
-  "pointLight1": {"castShadow":true,"color":"#ffffff","decay":1.75,"distance":100,"intensity":2.5,"name":"pointLight1","x":-19.5,"y":50,"z":14.75,"visible":true},
-  "pointLight2": {"castShadow":true,"color":"#ffffff","decay":0.75,"distance":28.25,"intensity":2,"name":"pointLight2","x":-29.25,"y":38.5,"z":-1.5,"visible":true},
-  "pointLight3": {"castShadow":false,"color":"#7ae9e3","decay":2,"distance":27.75,"intensity":8.25,"name":"pointLight3","x":-6,"y":21.25,"z":3,"visible":true}
+  "pointLight1": {
+    "castShadow": true,
+    "color": "#ffffff",
+    "decay": 1.75,
+    "distance": 100,
+    "intensity": 2.5,
+    "name": "pointLight1",
+    "x": -19.5,
+    "y": 50,
+    "z": 14.75,
+    "visible": true
+  },
+  "pointLight2": {
+    "castShadow": true,
+    "color": "#ffffff",
+    "decay": 0.75,
+    "distance": 28.25,
+    "intensity": 2,
+    "name": "pointLight2",
+    "x": -29.25,
+    "y": 38.5,
+    "z": -1.5,
+    "visible": true
+  },
+  "pointLight3": {
+    "castShadow": true,
+    "color": "#7ae9e3",
+    "decay": 2,
+    "distance": 27.75,
+    "intensity": 8.25,
+    "name": "pointLight3",
+    "x": -6,
+    "y": 21.25,
+    "z": 3,
+    "visible": true
+  },
+  "pointLight4": {
+    "castShadow": false,
+    "color": "#7ae9e3",
+    "decay": 2,
+    "distance": 27.75,
+    "intensity": 1.25,
+    "name": "pointLight4",
+    "x": -6,
+    "y": 21.25,
+    "z": 4,
+    "visible": true
+  },
+  "pointLight5": {
+    "castShadow": false,
+    "color": "#7ae9e3",
+    "decay": 2,
+    "distance": 27.75,
+    "intensity": 1.25,
+    "name": "pointLight5",
+    "x": -6,
+    "y": 21.25,
+    "z": 5,
+    "visible": true
+  },
+  "pointLight6": {
+    "castShadow": false,
+    "color": "#7ae9e3",
+    "decay": 2,
+    "distance": 27.75,
+    "intensity": 1.25,
+    "name": "pointLight6",
+    "x": -6,
+    "y": 21.25,
+    "z": 6,
+    "visible": true
+  }
 }
