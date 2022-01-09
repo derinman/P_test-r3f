@@ -24,11 +24,11 @@
     "visible": false
   },
   "pointLight3": {
-    "castShadow": false,
+    "castShadow": true,
     "color": "#b9f6f6",
     "decay": 2,
-    "distance": 28.5,
-    "intensity": 5.25,
+    "distance": 39.5,
+    "intensity": 17.25,
     "name": "pointLight3",
     "x": -6.25,
     "y": 25,

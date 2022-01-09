@@ -17,21 +17,21 @@
     "visible": true
   },
   "spotLight2": {
-    "angle": 0.4488,
+    "angle": 0.7000000000000001,
     "castShadow": true,
-    "color": "#c6dd64",
+    "color": "#f6eec8",
     "decay": 2,
     "distance": 0,
-    "intensity": 10,
+    "intensity": 3.5,
     "name": "spotLight2",
-    "penumbra": 0.5,
-    "x": 1,
-    "y": 2,
-    "z": 0,
+    "penumbra": 1,
+    "x": -3.45148,
+    "y": 33.75,
+    "z": -0.675024,
     "targetX": 0,
-    "targetY": 0.5,
-    "targetZ": 0,
-    "visible": false
+    "targetY": 29,
+    "targetZ": -1.25,
+    "visible": true
   },
   "spotLight3": {
     "angle": 0.4488,

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useGLTF, Sky, Stars } from "@react-three/drei";
+import { useGLTF, Sky, Stars, Environment } from "@react-three/drei";
 
 import gltfNodeToMesh from "../helper/gltfNodeToMesh.js";
 import dumpObject from "../helper/dump.js";
@@ -34,6 +34,7 @@ const No001 = () => {
         saturation={0}
         fade
       />
+      <Environment preset="night" />
     </group>
   );
 };
