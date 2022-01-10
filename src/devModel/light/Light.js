@@ -75,7 +75,7 @@ const PointLight = (props) => {
   return (
     <>
       <pointLight
-        ref={tmp}
+        ref={lightRef}
         castShadow={pointLightConfig.castShadow}
         color={pointLightConfig.color}
         decay={pointLightConfig.decay}
@@ -237,7 +237,7 @@ const SpotLight = (props) => {
   return (
     <>
       <spotLight
-        ref={tmp}
+        ref={lightRef}
         angle={spotLightConfig.angle} //upper bound is Math.PI/2
         castShadow={spotLightConfig.castShadow}
         color={spotLightConfig.color}
@@ -480,7 +480,7 @@ const AmbientLight = (props) => {
 
   return (
     <ambientLight
-      ref={tmp}
+      ref={lightRef}
       color={ambientLightConfig.color}
       intensity={ambientLightConfig.intensity}
       visible={ambientLightConfig.visible}
@@ -549,7 +549,7 @@ const HemisphereLight = (props) => {
 
   return (
     <hemisphereLight
-      ref={tmp}
+      ref={lightRef}
       color={hemisphereLightConfig.color}
       groundColor={hemisphereLightConfig.groundColor}
       intensity={hemisphereLightConfig.intensity}
@@ -652,7 +652,7 @@ const DirectionalLight = (props) => {
   return (
     <>
       <directionalLight
-        ref={tmp}
+        ref={lightRef}
         castShadow={directionalLightConfig.castShadow}
         color={directionalLightConfig.color}
         intensity={directionalLightConfig.intensity}
@@ -880,7 +880,7 @@ const RectAreaLight = (props) => {
   return (
     <>
       <rectAreaLight
-        ref={tmp}
+        ref={lightRef}
         color={rectAreaLightConfig.color}
         intensity={rectAreaLightConfig.intensity}
         height={rectAreaLightConfig.height}

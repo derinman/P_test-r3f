@@ -35,23 +35,23 @@ const No001 = () => {
   
   const mainCameraRef = useRef();
   const controlsRef = useRef();
-  const pointLight1Ref = useRef();
-
-  useEffect(()=>{console.log(pointLight1Ref)},[])
+  const pointLight4Ref = useRef();
+  const pointLight3Ref = useRef();
 
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
-    //pointLight1Ref.current.intensity = pointLight1Ref.current.intensity + Math.sin(t / 3)/5 ;
+    pointLight3Ref.current.intensity = pointLightJson.pointLight3.intensity+Math.cos(t*2)*6
+    pointLight4Ref.current.position.y = pointLightJson.pointLight4.y+Math.sin(t/2)*3;
   });
 
   return (
     <group>
       {gltfNodeToMesh(nodes)}
 
-      <PointLight pointLightConfig={pointLightJson.pointLight1} lightRef={pointLight1Ref}/>
+      <PointLight pointLightConfig={pointLightJson.pointLight1} />
       <PointLight pointLightConfig={pointLightJson.pointLight2} />
-      <PointLight pointLightConfig={pointLightJson.pointLight3} />
-      <PointLight pointLightConfig={pointLightJson.pointLight4} />
+      <PointLight pointLightConfig={pointLightJson.pointLight3} lightRef={pointLight3Ref}/>
+      <PointLight pointLightConfig={pointLightJson.pointLight4}  lightRef={pointLight4Ref}/>
       <PointLight pointLightConfig={pointLightJson.pointLight5} />
       <PointLight pointLightConfig={pointLightJson.pointLight6} />
       <SpotLight spotLightConfig={spotLightJson.spotLight1} />
