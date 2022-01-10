@@ -62,6 +62,7 @@ const GuiCheckBox = styled.div`
 `;
 
 const App = () => {
+  const [isLightTest, setIsLightTest] = useState(true);
   const [modelGuiWidth, setModelGuiWidth] = useState("200");
   const [lightGuiWidth, setLightGuiWidth] = useState("250");
 
@@ -96,12 +97,19 @@ const App = () => {
   const controlsRef = useRef();
 
   const Model = Object.entries(work).filter(
-    (data) => !data[1].dev && data[1].name === currentModel
+    (data) => data[1].name === currentModel
   )[0][1].Component;
 
   const modelsList = Object.entries(work)
     .filter((data) => !data[1].dev)
     .map((data) => data[1].name);
+
+  useEffect(() => {
+    setIsLightTest(
+      Object.entries(work).filter((data) => data[1].name === currentModel)[0][1]
+        .lightTest
+    );
+  }, [currentModel]);
 
   useEffect(() => {
     // console.log(work)
@@ -115,42 +123,44 @@ const App = () => {
     // console.log("camera:", camera);
   }, []);
 
-  // useEffect(() => {
-  //   async function loadLight() {
-  //     const [
-  //       cameraJson,
-  //       pointLightJson,
-  //       spotLightJson,
-  //       ambientLightJson,
-  //       hemisphereLightJson,
-  //       directionalLightJson,
-  //       rectAreaLightJson,
-  //     ] = await Promise.all([
-  //       import(`./devModel/lightConfig/${currentModel}/camera.json`),
-  //       import(`./devModel/lightConfig/${currentModel}/pointLight.json`),
-  //       import(`./devModel/lightConfig/${currentModel}/spotLight.json`),
-  //       import(`./devModel/lightConfig/${currentModel}/ambientLight.json`),
-  //       import(`./devModel/lightConfig/${currentModel}/hemisphereLight.json`),
-  //       import(`./devModel/lightConfig/${currentModel}/directionalLight.json`),
-  //       import(`./devModel/lightConfig/${currentModel}/rectAreaLight.json`),
-  //     ]);
-  //     setCamera(cameraJson);
-  //     setPointLight1(pointLightJson.pointLight1);
-  //     setPointLight2(pointLightJson.pointLight2);
-  //     setPointLight3(pointLightJson.pointLight3);
-  //     setPointLight4(pointLightJson.pointLight4);
-  //     setPointLight5(pointLightJson.pointLight5);
-  //     setPointLight6(pointLightJson.pointLight6);
-  //     setSpotLight1(spotLightJson.spotLight1);
-  //     setSpotLight2(spotLightJson.spotLight2);
-  //     setSpotLight3(spotLightJson.spotLight3);
-  //     setAmbientLight1(ambientLightJson.ambientLight1);
-  //     setHemisphereLight1(hemisphereLightJson.hemisphereLight1);
-  //     setDirectionalLight1(directionalLightJson.directionalLight1);
-  //     setRectAreaLight1(rectAreaLightJson.rectAreaLight1);
-  //   }
-  //   loadLight();
-  // }, [currentModel]);
+  useEffect(() => {
+    async function loadLight() {
+      const [
+        cameraJson,
+        pointLightJson,
+        spotLightJson,
+        ambientLightJson,
+        hemisphereLightJson,
+        directionalLightJson,
+        rectAreaLightJson,
+      ] = await Promise.all([
+        import(`./devModel/lightConfig/${currentModel}/camera.json`),
+        import(`./devModel/lightConfig/${currentModel}/pointLight.json`),
+        import(`./devModel/lightConfig/${currentModel}/spotLight.json`),
+        import(`./devModel/lightConfig/${currentModel}/ambientLight.json`),
+        import(`./devModel/lightConfig/${currentModel}/hemisphereLight.json`),
+        import(`./devModel/lightConfig/${currentModel}/directionalLight.json`),
+        import(`./devModel/lightConfig/${currentModel}/rectAreaLight.json`),
+      ]);
+      setCamera(cameraJson);
+      setPointLight1(pointLightJson.pointLight1);
+      setPointLight2(pointLightJson.pointLight2);
+      setPointLight3(pointLightJson.pointLight3);
+      setPointLight4(pointLightJson.pointLight4);
+      setPointLight5(pointLightJson.pointLight5);
+      setPointLight6(pointLightJson.pointLight6);
+      setSpotLight1(spotLightJson.spotLight1);
+      setSpotLight2(spotLightJson.spotLight2);
+      setSpotLight3(spotLightJson.spotLight3);
+      setAmbientLight1(ambientLightJson.ambientLight1);
+      setHemisphereLight1(hemisphereLightJson.hemisphereLight1);
+      setDirectionalLight1(directionalLightJson.directionalLight1);
+      setRectAreaLight1(rectAreaLightJson.rectAreaLight1);
+    }
+    if (isLightTest) {
+      loadLight();
+    }
+  }, [currentModel]);
 
   return (
     <Wrapper>
@@ -170,154 +180,166 @@ const App = () => {
           scale={[1, 1, 1]}
           up={up} //世界座標的向量
         />
-        {/* <PerspectiveCamera
-          ref={mainCameraRef}
-          controls={controlsRef.current}
-          makeDefault={true}
-          visible={false}
-          up={up} //世界座標的向量
-          position={camera.position}
-          fov={camera.fov}
-          near={camera.near}
-          far={camera.far}
-        />
-        <OrbitControls
-          ref={controlsRef}
-          camera={mainCameraRef.current}
-          enabled={camera.enabled}
-          enablePan={camera.enablePan}
-          enableZoom={camera.enableZoom}
-          enableRotate={camera.enableRotate}
-          maxPolarAngle={camera.maxPolarAngle}
-          minPolarAngle={camera.minPolarAngle}
-          maxAzimuthAngle={camera.maxAzimuthAngle}
-          minAzimuthAngle={camera.minAzimuthAngle}
-          maxDistance={camera.maxDistance}
-          minDistance={camera.minDistance}
-          target={camera.orbitTarget}
-        /> */}
-        {/* <PointLight pointLightConfig={pointLight1} />
-        <PointLight pointLightConfig={pointLight2} />
-        <PointLight pointLightConfig={pointLight3} />
-        <PointLight pointLightConfig={pointLight4} />
-        <PointLight pointLightConfig={pointLight5} />
-        <PointLight pointLightConfig={pointLight6} />
-        <SpotLight spotLightConfig={spotLight1} />
-        <SpotLight spotLightConfig={spotLight2} />
-        <SpotLight spotLightConfig={spotLight3} />
-        <AmbientLight ambientLightConfig={ambientLight1} />
-        <HemisphereLight hemisphereLightConfig={hemisphereLight1} />
-        <DirectionalLight directionalLightConfig={directionalLight1} />
-        <RectAreaLight rectAreaLightConfig={rectAreaLight1} /> */}
+        {isLightTest && (
+          <PerspectiveCamera
+            ref={mainCameraRef}
+            controls={controlsRef.current}
+            makeDefault={true}
+            visible={false}
+            up={up} //世界座標的向量
+            position={camera.position}
+            fov={camera.fov}
+            near={camera.near}
+            far={camera.far}
+          />
+        )}
+        {isLightTest && (
+          <OrbitControls
+            ref={controlsRef}
+            camera={mainCameraRef.current}
+            enabled={camera.enabled}
+            enablePan={camera.enablePan}
+            enableZoom={camera.enableZoom}
+            enableRotate={camera.enableRotate}
+            maxPolarAngle={camera.maxPolarAngle}
+            minPolarAngle={camera.minPolarAngle}
+            maxAzimuthAngle={camera.maxAzimuthAngle}
+            minAzimuthAngle={camera.minAzimuthAngle}
+            maxDistance={camera.maxDistance}
+            minDistance={camera.minDistance}
+            target={camera.orbitTarget}
+          />
+        )}
+        {isLightTest && (
+          <group>
+            <PointLight pointLightConfig={pointLight1} />
+            <PointLight pointLightConfig={pointLight2} />
+            <PointLight pointLightConfig={pointLight3} />
+            <PointLight pointLightConfig={pointLight4} />
+            <PointLight pointLightConfig={pointLight5} />
+            <PointLight pointLightConfig={pointLight6} />
+            <SpotLight spotLightConfig={spotLight1} />
+            <SpotLight spotLightConfig={spotLight2} />
+            <SpotLight spotLightConfig={spotLight3} />
+            <AmbientLight ambientLightConfig={ambientLight1} />
+            <HemisphereLight hemisphereLightConfig={hemisphereLight1} />
+            <DirectionalLight directionalLightConfig={directionalLight1} />
+            <RectAreaLight rectAreaLightConfig={rectAreaLight1} />
+          </group>
+        )}
       </Canvas>
 
       {/* model GUI */}
-      {/* <GuiWrapper
-        style={{
-          top: "2.5vh",
-          left: "2.5vh",
-          width: `${modelGuiWidth}px`,
-          height: "50%",
-        }}
-      >
-        <div style={{ margin: "1rem" }}>
-          Gui Width
-          <input
-            style={{
-              width: "75px",
-              borderRadius: "10px",
-              marginLeft: "0.5rem",
-            }}
-            value={modelGuiWidth}
-            onChange={(e) => setModelGuiWidth(e.target.value)}
-          />
-        </div>
-
-        {modelsList.map((data) => (
-          <GuiCompBtn key={data}>
-            <GuiCheckBox
-              visible={data === currentModel}
-              onClick={() => setCurrentModel(data)}
+      {isLightTest && (
+        <GuiWrapper
+          style={{
+            top: "2.5vh",
+            left: "2.5vh",
+            width: `${modelGuiWidth}px`,
+            height: "50%",
+          }}
+        >
+          <div style={{ margin: "1rem" }}>
+            Gui Width
+            <input
+              style={{
+                width: "75px",
+                borderRadius: "10px",
+                marginLeft: "0.5rem",
+              }}
+              value={modelGuiWidth}
+              onChange={(e) => setModelGuiWidth(e.target.value)}
             />
-            {data}
-          </GuiCompBtn>
-        ))}
-      </GuiWrapper> */}
+          </div>
+
+          {modelsList.map((data) => (
+            <GuiCompBtn key={data}>
+              <GuiCheckBox
+                visible={data === currentModel}
+                onClick={() => setCurrentModel(data)}
+              />
+              {data}
+            </GuiCompBtn>
+          ))}
+        </GuiWrapper>
+      )}
 
       {/* light GUI */}
-      {/* <GuiWrapper
-        style={{
-          top: "2.5vh",
-          right: "2.5vh",
-          width: `${lightGuiWidth}px`,
-          height: "95%",
-        }}
-      >
-        <div style={{ margin: "1rem" }}>
-          Gui Width
-          <input
-            style={{
-              width: "75px",
-              borderRadius: "10px",
-              marginLeft: "0.5rem",
-            }}
-            value={lightGuiWidth}
-            onChange={(e) => setLightGuiWidth(e.target.value)}
+      {isLightTest && (
+        <GuiWrapper
+          style={{
+            top: "2.5vh",
+            right: "2.5vh",
+            width: `${lightGuiWidth}px`,
+            height: "95%",
+          }}
+        >
+          <div style={{ margin: "1rem" }}>
+            Gui Width
+            <input
+              style={{
+                width: "75px",
+                borderRadius: "10px",
+                marginLeft: "0.5rem",
+              }}
+              value={lightGuiWidth}
+              onChange={(e) => setLightGuiWidth(e.target.value)}
+            />
+          </div>
+          <PointLightGUI
+            pointLightConfig={pointLight1}
+            setPointLightConfig={setPointLight1}
           />
-        </div>
-        <PointLightGUI
-          pointLightConfig={pointLight1}
-          setPointLightConfig={setPointLight1}
-        />
-        <PointLightGUI
-          pointLightConfig={pointLight2}
-          setPointLightConfig={setPointLight2}
-        />
-        <PointLightGUI
-          pointLightConfig={pointLight3}
-          setPointLightConfig={setPointLight3}
-        />
-        <PointLightGUI
-          pointLightConfig={pointLight4}
-          setPointLightConfig={setPointLight4}
-        />
-        <PointLightGUI
-          pointLightConfig={pointLight5}
-          setPointLightConfig={setPointLight5}
-        />
-        <PointLightGUI
-          pointLightConfig={pointLight6}
-          setPointLightConfig={setPointLight6}
-        />
-        <SpotLightGUI
-          spotLightConfig={spotLight1}
-          setSpotLightConfig={setSpotLight1}
-        />
-        <SpotLightGUI
-          spotLightConfig={spotLight2}
-          setSpotLightConfig={setSpotLight2}
-        />
-        <SpotLightGUI
-          spotLightConfig={spotLight3}
-          setSpotLightConfig={setSpotLight3}
-        />
-        <AmbientLightGUI
-          ambientLightConfig={ambientLight1}
-          setAmbientLightConfig={setAmbientLight1}
-        />
-        <HemisphereLightGUI
-          hemisphereLightConfig={hemisphereLight1}
-          setHemisphereLightConfig={setHemisphereLight1}
-        />
-        <DirectionalLightGUI
-          directionalLightConfig={directionalLight1}
-          setDirectionalLightConfig={setDirectionalLight1}
-        />
-        <RectAreaLightGUI
-          rectAreaLightConfig={rectAreaLight1}
-          setRectAreaLightConfig={setRectAreaLight1}
-        />
-      </GuiWrapper> */}
+          <PointLightGUI
+            pointLightConfig={pointLight2}
+            setPointLightConfig={setPointLight2}
+          />
+          <PointLightGUI
+            pointLightConfig={pointLight3}
+            setPointLightConfig={setPointLight3}
+          />
+          <PointLightGUI
+            pointLightConfig={pointLight4}
+            setPointLightConfig={setPointLight4}
+          />
+          <PointLightGUI
+            pointLightConfig={pointLight5}
+            setPointLightConfig={setPointLight5}
+          />
+          <PointLightGUI
+            pointLightConfig={pointLight6}
+            setPointLightConfig={setPointLight6}
+          />
+          <SpotLightGUI
+            spotLightConfig={spotLight1}
+            setSpotLightConfig={setSpotLight1}
+          />
+          <SpotLightGUI
+            spotLightConfig={spotLight2}
+            setSpotLightConfig={setSpotLight2}
+          />
+          <SpotLightGUI
+            spotLightConfig={spotLight3}
+            setSpotLightConfig={setSpotLight3}
+          />
+          <AmbientLightGUI
+            ambientLightConfig={ambientLight1}
+            setAmbientLightConfig={setAmbientLight1}
+          />
+          <HemisphereLightGUI
+            hemisphereLightConfig={hemisphereLight1}
+            setHemisphereLightConfig={setHemisphereLight1}
+          />
+          <DirectionalLightGUI
+            directionalLightConfig={directionalLight1}
+            setDirectionalLightConfig={setDirectionalLight1}
+          />
+          <RectAreaLightGUI
+            rectAreaLightConfig={rectAreaLight1}
+            setRectAreaLightConfig={setRectAreaLight1}
+          />
+        </GuiWrapper>
+      )}
     </Wrapper>
   );
 };
