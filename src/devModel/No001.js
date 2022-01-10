@@ -9,7 +9,7 @@ import {
   HemisphereLight,
   DirectionalLight,
   RectAreaLight,
-} from "../Light.js";
+} from "./light/Light.js";
 
 import gltfNodeToMesh from "./helper/gltfNodeToMesh.js";
 import dumpObject from "./helper/dump.js";

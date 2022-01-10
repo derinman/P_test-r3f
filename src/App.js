@@ -18,7 +18,7 @@ import {
   DirectionalLightGUI,
   RectAreaLight,
   RectAreaLightGUI,
-} from "./Light.js";
+} from "./devModel/light/Light.js";
 
 import * as work from "./devModel";
 
