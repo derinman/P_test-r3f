@@ -67,7 +67,7 @@ const SLIDER_POS_MAX = 100;
 const SLIDER_POS_MIN = -100;
 
 const PointLight = (props) => {
-  const { pointLightConfig } = props;
+  const { pointLightConfig, lightRef } = props;
   const tmp = useRef();
 
   // useEffect(() => console.log(name, ":", tmp.current),[]);
@@ -228,7 +228,7 @@ const PointLightGUI = (props) => {
 };
 
 const SpotLight = (props) => {
-  const { spotLightConfig } = props;
+  const { spotLightConfig, lightRef } = props;
 
   const tmp = useRef();
   const targetRef = useRef();
@@ -472,7 +472,7 @@ const SpotLightGUI = (props) => {
 };
 
 const AmbientLight = (props) => {
-  const { ambientLightConfig } = props;
+  const { ambientLightConfig, lightRef } = props;
   const tmp = useRef();
 
   // useEffect(() => console.log(ambientLightConfig.name, ":", tmp.current), []);
@@ -541,7 +541,7 @@ const AmbientLightGUI = (props) => {
 };
 
 const HemisphereLight = (props) => {
-  const { hemisphereLightConfig } = props;
+  const { hemisphereLightConfig, lightRef } = props;
   const tmp = useRef();
 
   // useEffect(() => console.log(hemisphereLightConfig.name, ":", tmp.current), []);
@@ -642,7 +642,7 @@ const HemisphereLightGUI = (props) => {
 };
 
 const DirectionalLight = (props) => {
-  const { directionalLightConfig } = props;
+  const { directionalLightConfig, lightRef } = props;
   const tmp = useRef();
   const targetRef = useRef();
 
@@ -871,7 +871,7 @@ const DirectionalLightGUI = (props) => {
 };
 
 const RectAreaLight = (props) => {
-  const { rectAreaLightConfig } = props;
+  const { rectAreaLightConfig, lightRef } = props;
   const tmp = useRef();
 
   // useEffect(() => console.log(directionalLightConfig.name, ":", tmp.current),[]);

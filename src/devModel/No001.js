@@ -1,4 +1,6 @@
-import React, { useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
+
+import { useFrame } from "@react-three/fiber";
 
 import { useGLTF, Sky, Stars, Environment, OrbitControls, PerspectiveCamera } from "@react-three/drei";
 
@@ -33,12 +35,20 @@ const No001 = () => {
   
   const mainCameraRef = useRef();
   const controlsRef = useRef();
+  const pointLight1Ref = useRef();
+
+  useEffect(()=>{console.log(pointLight1Ref)},[])
+
+  useFrame((state) => {
+    const t = state.clock.getElapsedTime();
+    //pointLight1Ref.current.intensity = pointLight1Ref.current.intensity + Math.sin(t / 3)/5 ;
+  });
 
   return (
     <group>
       {gltfNodeToMesh(nodes)}
 
-      <PointLight pointLightConfig={pointLightJson.pointLight1} />
+      <PointLight pointLightConfig={pointLightJson.pointLight1} lightRef={pointLight1Ref}/>
       <PointLight pointLightConfig={pointLightJson.pointLight2} />
       <PointLight pointLightConfig={pointLightJson.pointLight3} />
       <PointLight pointLightConfig={pointLightJson.pointLight4} />
