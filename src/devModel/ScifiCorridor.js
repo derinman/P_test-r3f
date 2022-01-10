@@ -2,10 +2,10 @@ import React from "react";
 
 import { useGLTF } from "@react-three/drei";
 
-import gltfNodeToMesh from "../helper/gltfNodeToMesh.js";
-import dumpObject from "../helper/dump.js";
+import gltfNodeToMesh from "./helper/gltfNodeToMesh.js";
+import dumpObject from "./helper/dump.js";
 
-import glbUrl from "../glb/scifiCorridor.glb";
+import glbUrl from "./glb/scifiCorridor.glb";
 
 const ScifiCorridor = () => {
   const glb = useGLTF(glbUrl);

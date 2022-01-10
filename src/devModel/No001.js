@@ -11,18 +11,18 @@ import {
   RectAreaLight,
 } from "../Light.js";
 
-import gltfNodeToMesh from "../helper/gltfNodeToMesh.js";
-import dumpObject from "../helper/dump.js";
+import gltfNodeToMesh from "./helper/gltfNodeToMesh.js";
+import dumpObject from "./helper/dump.js";
 
-import glbUrl from "../glb/no001.glb";
+import glbUrl from "./glb/no001.glb";
 
-import cameraJson from "./lightConfig/No001/camera.json";
-import pointLightJson from "./lightConfig/No001/pointLight.json";
-import spotLightJson from "./lightConfig/No001/spotLight.json";
-import ambientLightJson from "./lightConfig/No001/ambientLight.json";
-import hemisphereLightJson from "./lightConfig/No001/hemisphereLight.json";
-import directionalLightJson from "./lightConfig/No001/directionalLight.json";
-import rectAreaLightJson from "./lightConfig/No001/rectAreaLight.json";
+import cameraJson from "./camLightConfig/No001/camera.json";
+import pointLightJson from "./camLightConfig/No001/pointLight.json";
+import spotLightJson from "./camLightConfig/No001/spotLight.json";
+import ambientLightJson from "./camLightConfig/No001/ambientLight.json";
+import hemisphereLightJson from "./camLightConfig/No001/hemisphereLight.json";
+import directionalLightJson from "./camLightConfig/No001/directionalLight.json";
+import rectAreaLightJson from "./camLightConfig/No001/rectAreaLight.json";
 
 const No001 = () => {
   const glb = useGLTF(glbUrl);

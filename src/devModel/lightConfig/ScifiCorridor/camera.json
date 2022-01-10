@@ -1,7 +1,0 @@
-{
-    "position":[0,0,0.1],
-    "orbitTarget":[0,0,0],
-    "fov":70,
-    "near":0.01,
-    "far:":100
-}

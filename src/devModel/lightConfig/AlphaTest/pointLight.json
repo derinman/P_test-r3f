@@ -1,5 +1,0 @@
-{
-  "pointLight1": {"castShadow":true,"color":"#FFFFFF","decay":2.25,"distance":10,"intensity":50,"name":"pointLight1","x":0,"y":0.7,"z":-1,"visible":false},
-  "pointLight2": {"castShadow":true,"color":"#f58686","decay":2.25,"distance":10,"intensity":39.5,"name":"pointLight2","x":0,"y":0.7,"z":0,"visible":false},
-  "pointLight3": {"castShadow":true,"color":"#FFFFFF","decay":2.25,"distance":50,"intensity":35,"name":"pointLight3","x":0,"y":0.7,"z":1,"visible":false}
-}

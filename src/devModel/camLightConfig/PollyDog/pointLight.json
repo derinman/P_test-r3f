@@ -34,5 +34,40 @@
     "y": 1,
     "z": 1,
     "visible": false
+  },
+  "pointLight4": {
+    "castShadow": true,
+    "color": "#FFFF3F",
+    "decay": 2,
+    "distance": 0,
+    "intensity": 2,
+    "name": "pointLight4",
+    "x": 2,
+    "y": 1,
+    "z": 1,
+    "visible": false
+  },  "pointLight5": {
+    "castShadow": true,
+    "color": "#FFFF3F",
+    "decay": 2,
+    "distance": 0,
+    "intensity": 2,
+    "name": "pointLight5",
+    "x": 2,
+    "y": 1,
+    "z": 1,
+    "visible": false
+  },
+  "pointLight6": {
+    "castShadow": true,
+    "color": "#FFFF3F",
+    "decay": 2,
+    "distance": 0,
+    "intensity": 2,
+    "name": "pointLight6",
+    "x": 2,
+    "y": 1,
+    "z": 1,
+    "visible": false
   }
 }

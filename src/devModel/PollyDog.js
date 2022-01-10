@@ -2,10 +2,10 @@ import React from "react";
 
 import { useGLTF } from "@react-three/drei";
 
-import gltfNodeToMesh from "../helper/gltfNodeToMesh.js";
-import dumpObject from "../helper/dump.js";
+import gltfNodeToMesh from "./helper/gltfNodeToMesh.js";
+import dumpObject from "./helper/dump.js";
 
-import glbUrl from "../glb/polly.glb";
+import glbUrl from "./glb/polly.glb";
 
 const PollyDogModel = () => {
   const glb = useGLTF(glbUrl);

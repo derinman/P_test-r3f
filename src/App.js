@@ -1,7 +1,5 @@
 import React, { useState, useRef, Suspense, useEffect } from "react";
 
-import * as THREE from "three";
-
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
 
@@ -66,8 +64,6 @@ const App = () => {
   const [modelGuiWidth, setModelGuiWidth] = useState("200");
   const [lightGuiWidth, setLightGuiWidth] = useState("250");
 
-  const [up, setUp] = useState([0, 1, 0]);
-
   const [currentModel, setCurrentModel] = useState("No001");
 
   const [camera, setCamera] = useState({});
@@ -105,13 +101,6 @@ const App = () => {
     .map((data) => data[1].name);
 
   useEffect(() => {
-    setIsLightTest(
-      Object.entries(work).filter((data) => data[1].name === currentModel)[0][1]
-        .lightTest
-    );
-  }, [currentModel]);
-
-  useEffect(() => {
     // console.log(work)
     // console.log(Object.entries(work).filter(data=>!data[1].dev&&(data[1].name ===currentModel))[0][1])
     // console.log(Object.entries(work).filter(data=>!data[1].dev))
@@ -124,6 +113,13 @@ const App = () => {
   }, []);
 
   useEffect(() => {
+    setIsLightTest(
+      Object.entries(work).filter((data) => data[1].name === currentModel)[0][1]
+        .camLightTest
+    );
+  }, [currentModel]);
+
+  useEffect(() => {
     async function loadLight() {
       const [
         cameraJson,
@@ -134,13 +130,17 @@ const App = () => {
         directionalLightJson,
         rectAreaLightJson,
       ] = await Promise.all([
-        import(`./devModel/lightConfig/${currentModel}/camera.json`),
-        import(`./devModel/lightConfig/${currentModel}/pointLight.json`),
-        import(`./devModel/lightConfig/${currentModel}/spotLight.json`),
-        import(`./devModel/lightConfig/${currentModel}/ambientLight.json`),
-        import(`./devModel/lightConfig/${currentModel}/hemisphereLight.json`),
-        import(`./devModel/lightConfig/${currentModel}/directionalLight.json`),
-        import(`./devModel/lightConfig/${currentModel}/rectAreaLight.json`),
+        import(`./devModel/camLightConfig/${currentModel}/camera.json`),
+        import(`./devModel/camLightConfig/${currentModel}/pointLight.json`),
+        import(`./devModel/camLightConfig/${currentModel}/spotLight.json`),
+        import(`./devModel/camLightConfig/${currentModel}/ambientLight.json`),
+        import(
+          `./devModel/camLightConfig/${currentModel}/hemisphereLight.json`
+        ),
+        import(
+          `./devModel/camLightConfig/${currentModel}/directionalLight.json`
+        ),
+        import(`./devModel/camLightConfig/${currentModel}/rectAreaLight.json`),
       ]);
       setCamera(cameraJson);
       setPointLight1(pointLightJson.pointLight1);
@@ -157,9 +157,7 @@ const App = () => {
       setDirectionalLight1(directionalLightJson.directionalLight1);
       setRectAreaLight1(rectAreaLightJson.rectAreaLight1);
     }
-    if (isLightTest) {
-      loadLight();
-    }
+    loadLight();
   }, [currentModel]);
 
   return (
@@ -178,7 +176,7 @@ const App = () => {
         <axesHelper
           ref={axesHelperRef}
           scale={[1, 1, 1]}
-          up={up} //世界座標的向量
+          up={[0, 1, 0]} //世界座標的向量
         />
         {isLightTest && (
           <PerspectiveCamera
@@ -186,7 +184,7 @@ const App = () => {
             controls={controlsRef.current}
             makeDefault={true}
             visible={false}
-            up={up} //世界座標的向量
+            up={[0, 1, 0]} //世界座標的向量
             position={camera.position}
             fov={camera.fov}
             near={camera.near}
@@ -230,39 +228,38 @@ const App = () => {
       </Canvas>
 
       {/* model GUI */}
-      {isLightTest && (
-        <GuiWrapper
-          style={{
-            top: "2.5vh",
-            left: "2.5vh",
-            width: `${modelGuiWidth}px`,
-            height: "50%",
-          }}
-        >
-          <div style={{ margin: "1rem" }}>
-            Gui Width
-            <input
-              style={{
-                width: "75px",
-                borderRadius: "10px",
-                marginLeft: "0.5rem",
-              }}
-              value={modelGuiWidth}
-              onChange={(e) => setModelGuiWidth(e.target.value)}
-            />
-          </div>
 
-          {modelsList.map((data) => (
-            <GuiCompBtn key={data}>
-              <GuiCheckBox
-                visible={data === currentModel}
-                onClick={() => setCurrentModel(data)}
-              />
-              {data}
-            </GuiCompBtn>
-          ))}
-        </GuiWrapper>
-      )}
+      <GuiWrapper
+        style={{
+          top: "2.5vh",
+          left: "2.5vh",
+          width: `${modelGuiWidth}px`,
+          height: "50%",
+        }}
+      >
+        <div style={{ margin: "1rem" }}>
+          Gui Width
+          <input
+            style={{
+              width: "75px",
+              borderRadius: "10px",
+              marginLeft: "0.5rem",
+            }}
+            value={modelGuiWidth}
+            onChange={(e) => setModelGuiWidth(e.target.value)}
+          />
+        </div>
+
+        {modelsList.map((data) => (
+          <GuiCompBtn key={data}>
+            <GuiCheckBox
+              visible={data === currentModel}
+              onClick={() => setCurrentModel(data)}
+            />
+            {data}
+          </GuiCompBtn>
+        ))}
+      </GuiWrapper>
 
       {/* light GUI */}
       {isLightTest && (
