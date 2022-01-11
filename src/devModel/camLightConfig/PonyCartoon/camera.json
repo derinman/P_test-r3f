@@ -1,5 +1,5 @@
 {
-    "position":[1.2,0.3,1.2],
+    "position":[1.2,0.3,1.6],
     "orbitTarget":[0,0,0],
     "fov":70,
     "near":0.01,
@@ -12,6 +12,6 @@
     "minPolarAngle":"-Infinity",
     "maxAzimuthAngle":"Infinity",
     "minAzimuthAngle":"-Infinity",
-    "maxDistance":50,
-    "minDistance":0
+    "maxDistance":20,
+    "minDistance":1.5
 }
