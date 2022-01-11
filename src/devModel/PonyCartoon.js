@@ -20,7 +20,7 @@ import {
 } from "./light/Light.js";
 
 import gltfNodeToMesh from "./helper/gltfNodeToMesh.js";
-import dumpObject from "./helper/dump.js";
+// import dumpObject from "./helper/dump.js";
 
 import glbUrl from "./glb/ponycartoon.glb";
 
@@ -38,22 +38,32 @@ const PonyCartoon = () => {
 
   // console.log(dumpObject(glb.scene).join('\n'))
   // console.log(glb.scene)
+  // console.log(nodes.Object_6);
 
   const glbRef = useRef();
+  const glb_Object_6_Ref = useRef();
   const mainCameraRef = useRef();
   const controlsRef = useRef();
 
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
-    glbRef.current.rotation.z = Math.sin(t / 1.5) / 20;
-    glbRef.current.rotation.x = Math.cos(t / 4) / 20;
-    glbRef.current.rotation.y = Math.sin(t / 4) / 8;
-    glbRef.current.position.y = Math.sin(t / 1.5) / 10;
+    // glbRef.current.rotation.z = Math.sin(t / 1.5) / 20;
+    // glbRef.current.rotation.x = Math.cos(t / 4) / 20;
+    // glbRef.current.rotation.y = Math.sin(t / 4) / 8;
+    // glbRef.current.position.y = Math.sin(t / 1.5) / 10;
+
+    //glb_Object_6_Ref.current.rotation.z = Math.sin(t / 1.5) / 20;
+    //glb_Object_6_Ref.current.rotation.x = Math.cos(t / 4) / 20;
+    //glb_Object_6_Ref.current.rotation.y = Math.sin(t / 4) / 8;
+    glb_Object_6_Ref.current.position.y = Math.sin(t / 1.5) / 4;
   });
 
   return (
     <group>
-      <group ref={glbRef}>{gltfNodeToMesh(nodes)}</group>
+      <group ref={glbRef}>{gltfNodeToMesh(nodes, ["Object_6"])}</group>
+
+      <mesh ref={glb_Object_6_Ref} {...nodes.Object_6} />
+
       <PointLight pointLightConfig={pointLightJson.pointLight1} />
       <PointLight pointLightConfig={pointLightJson.pointLight2} />
       <PointLight pointLightConfig={pointLightJson.pointLight3} />
