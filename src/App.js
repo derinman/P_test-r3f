@@ -64,7 +64,7 @@ const App = () => {
   const [modelGuiWidth, setModelGuiWidth] = useState("200");
   const [lightGuiWidth, setLightGuiWidth] = useState("250");
 
-  const [currentModel, setCurrentModel] = useState("PonyCartoon");
+  const [currentModel, setCurrentModel] = useState("No001");
 
   const [camera, setCamera] = useState({});
 

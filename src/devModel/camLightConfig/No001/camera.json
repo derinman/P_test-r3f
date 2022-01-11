@@ -12,6 +12,6 @@
     "minPolarAngle":"-Infinity",
     "maxAzimuthAngle":0,
     "minAzimuthAngle":-3,
-    "maxDistance":50,
+    "maxDistance":80,
     "minDistance":15
 }
