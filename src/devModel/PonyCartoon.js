@@ -36,7 +36,7 @@ const PonyCartoon = () => {
   const glb = useGLTF(glbUrl);
   const nodes = glb.nodes;
 
-  //console.log(dumpObject(glb.scene).join('\n'))
+  // console.log(dumpObject(glb.scene).join('\n'))
   // console.log(glb.scene)
 
   const glbRef = useRef();
