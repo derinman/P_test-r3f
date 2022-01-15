@@ -37,15 +37,23 @@ const No002 = () => {
   const glb = useGLTF(glbUrl);
   const nodes = glb.nodes;
 
-  // console.log(dumpObject(glb.scene).join('\n'))
-  //console.log(nodes)
+  //console.log(dumpObject(glb.scene).join("\n"));
+  console.log(nodes)
 
   const mainCameraRef = useRef();
   const controlsRef = useRef();
+  const meshBenchRef = useRef();
 
   return (
     <group>
-      {gltfNodeToMesh(nodes)}
+      {gltfNodeToMesh(nodes, ["bench"])}
+
+      <mesh
+        ref={meshBenchRef}
+        {...nodes.bench}
+        castShadow={true}
+        receiveShadow={true}
+      />
 
       <PointLight pointLightConfig={pointLightJson.pointLight1} />
       <PointLight pointLightConfig={pointLightJson.pointLight2} />
