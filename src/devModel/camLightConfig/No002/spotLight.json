@@ -5,7 +5,7 @@
     "color": "#f6f4f4",
     "decay": 2,
     "distance": 14.25,
-    "intensity": 8.25,
+    "intensity": 2,
     "name": "spotLight1",
     "penumbra": 1,
     "x": -3.45148,

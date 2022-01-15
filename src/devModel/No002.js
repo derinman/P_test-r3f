@@ -38,19 +38,28 @@ const No002 = () => {
   const nodes = glb.nodes;
 
   //console.log(dumpObject(glb.scene).join("\n"));
-  console.log(nodes)
+  //console.log(nodes);
 
   const mainCameraRef = useRef();
   const controlsRef = useRef();
+  const spotLight1Ref = useRef();
   const meshBenchRef = useRef();
 
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
+    spotLight1Ref.current.intensity =
+      spotLightJson.spotLight1.intensity - Math.abs(Math.cos(t * 1) * 2);
+
+    spotLight1Ref.current.color.r = Math.floor(Math.abs(Math.cos(t * 2)) * 255);
+    spotLight1Ref.current.color.g = Math.floor(Math.abs(Math.sin(t * 4)) * 255);
+    spotLight1Ref.current.color.b = Math.floor(Math.abs(Math.cos(t * 1)) * 255);
+
     meshBenchRef.current.rotation.y = Math.sin(t / 4) / 30;
     meshBenchRef.current.position.y = Math.abs(Math.sin(t / 0.25) / 10);
-
   });
 
+  console.log(Math.floor(Math.random() * 255));
+  console.log(spotLight1Ref.current.color);
   return (
     <group>
       {gltfNodeToMesh(nodes, ["bench"])}
@@ -68,7 +77,10 @@ const No002 = () => {
       <PointLight pointLightConfig={pointLightJson.pointLight4} />
       <PointLight pointLightConfig={pointLightJson.pointLight5} />
       <PointLight pointLightConfig={pointLightJson.pointLight6} />
-      <SpotLight spotLightConfig={spotLightJson.spotLight1} />
+      <SpotLight
+        spotLightConfig={spotLightJson.spotLight1}
+        lightRef={spotLight1Ref}
+      />
       <SpotLight spotLightConfig={spotLightJson.spotLight2} />
       <SpotLight spotLightConfig={spotLightJson.spotLight3} />
       <AmbientLight ambientLightConfig={ambientLightJson.ambientLight1} />
