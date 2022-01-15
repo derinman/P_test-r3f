@@ -58,8 +58,6 @@ const No002 = () => {
     meshBenchRef.current.position.y = Math.abs(Math.sin(t / 0.25) / 10);
   });
 
-  console.log(Math.floor(Math.random() * 255));
-  console.log(spotLight1Ref.current.color);
   return (
     <group>
       {gltfNodeToMesh(nodes, ["bench"])}
