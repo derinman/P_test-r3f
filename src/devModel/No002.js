@@ -44,6 +44,13 @@ const No002 = () => {
   const controlsRef = useRef();
   const meshBenchRef = useRef();
 
+  useFrame((state) => {
+    const t = state.clock.getElapsedTime();
+    meshBenchRef.current.rotation.y = Math.sin(t / 4) / 30;
+    meshBenchRef.current.position.y = Math.abs(Math.sin(t / 0.25) / 10);
+
+  });
+
   return (
     <group>
       {gltfNodeToMesh(nodes, ["bench"])}
