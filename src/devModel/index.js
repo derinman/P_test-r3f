@@ -19,7 +19,7 @@ export const no001 = {
 export const no002 = {
   name: "No002",
   Component: lazy(() => import("./No002.js")),
-  camLightTest: true,
+  camLightTest: false,
 };
 export const alphaTest = {
   name: "AlphaTest",
