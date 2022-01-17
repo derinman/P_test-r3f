@@ -86,28 +86,23 @@ const PointLight = (props) => {
         visible={pointLightConfig.visible}
         shadow-bias={SHADOW_BIAS}
       />
-      {IS_SHOW_LIGHT_HELPER && (
-        <mesh
-          position={[
-            pointLightConfig.x,
-            pointLightConfig.y,
-            pointLightConfig.z,
-          ]}
-          visible={pointLightConfig.visible}
-        >
-          <sphereGeometry attach="geometry" args={Light_SPHERE_ARGS} />
-          <meshStandardMaterial
-            attach="material"
-            color={pointLightConfig.color}
-            wireframe={true}
-          />
-          {pointLightConfig.visible && (
-            <Html distanceFactor={HTML_TEXT_FACTOR}>
-              <LightLabel>{pointLightConfig.name}</LightLabel>
-            </Html>
-          )}
-        </mesh>
-      )}
+
+      <mesh
+        position={[pointLightConfig.x, pointLightConfig.y, pointLightConfig.z]}
+        visible={IS_SHOW_LIGHT_HELPER && pointLightConfig.visible}
+      >
+        <sphereGeometry attach="geometry" args={Light_SPHERE_ARGS} />
+        <meshStandardMaterial
+          attach="material"
+          color={pointLightConfig.color}
+          wireframe={true}
+        />
+        {IS_SHOW_LIGHT_HELPER && pointLightConfig.visible && (
+          <Html distanceFactor={HTML_TEXT_FACTOR}>
+            <LightLabel>{pointLightConfig.name}</LightLabel>
+          </Html>
+        )}
+      </mesh>
     </>
   );
 };
@@ -250,51 +245,47 @@ const SpotLight = (props) => {
         visible={spotLightConfig.visible}
         shadow-bias={SHADOW_BIAS}
       />
-      {IS_SHOW_LIGHT_HELPER && (
-        <mesh
-          position={[spotLightConfig.x, spotLightConfig.y, spotLightConfig.z]}
-          visible={spotLightConfig.visible}
-        >
-          <sphereGeometry attach="geometry" args={Light_SPHERE_ARGS} />
-          <meshStandardMaterial
-            attach="material"
-            color={spotLightConfig.color}
-            wireframe={true}
-          />
-          {spotLightConfig.visible && (
-            <Html distanceFactor={HTML_TEXT_FACTOR}>
-              <LightLabel>{spotLightConfig.name}</LightLabel>
-            </Html>
-          )}
-        </mesh>
-      )}
-      {IS_SHOW_LIGHT_HELPER && (
-        <mesh
-          ref={targetRef}
-          position={[
-            spotLightConfig.targetX,
-            spotLightConfig.targetY,
-            spotLightConfig.targetZ,
-          ]}
-          visible={spotLightConfig.visible}
-        >
-          <sphereGeometry attach="geometry" args={Light_SPHERE_ARGS} />
-          <meshStandardMaterial
-            attach="material"
-            color={spotLightConfig.color}
-            wireframe={true}
-          />
-          {spotLightConfig.visible && (
-            <Html distanceFactor={HTML_TEXT_FACTOR}>
-              <LightLabel>
-                {spotLightConfig.name}
-                <br />
-                target
-              </LightLabel>
-            </Html>
-          )}
-        </mesh>
-      )}
+      <mesh
+        position={[spotLightConfig.x, spotLightConfig.y, spotLightConfig.z]}
+        visible={IS_SHOW_LIGHT_HELPER && spotLightConfig.visible}
+      >
+        <sphereGeometry attach="geometry" args={Light_SPHERE_ARGS} />
+        <meshStandardMaterial
+          attach="material"
+          color={spotLightConfig.color}
+          wireframe={true}
+        />
+        {IS_SHOW_LIGHT_HELPER && spotLightConfig.visible && (
+          <Html distanceFactor={HTML_TEXT_FACTOR}>
+            <LightLabel>{spotLightConfig.name}</LightLabel>
+          </Html>
+        )}
+      </mesh>
+      <mesh
+        ref={targetRef}
+        position={[
+          spotLightConfig.targetX,
+          spotLightConfig.targetY,
+          spotLightConfig.targetZ,
+        ]}
+        visible={IS_SHOW_LIGHT_HELPER && spotLightConfig.visible}
+      >
+        <sphereGeometry attach="geometry" args={Light_SPHERE_ARGS} />
+        <meshStandardMaterial
+          attach="material"
+          color={spotLightConfig.color}
+          wireframe={true}
+        />
+        {IS_SHOW_LIGHT_HELPER && spotLightConfig.visible && (
+          <Html distanceFactor={HTML_TEXT_FACTOR}>
+            <LightLabel>
+              {spotLightConfig.name}
+              <br />
+              target
+            </LightLabel>
+          </Html>
+        )}
+      </mesh>
     </>
   );
 };
@@ -668,55 +659,51 @@ const DirectionalLight = (props) => {
         // shadow-mapHeight={1024*10}
         // shadow-mapSize={[1024*10,1024*10]}
       />
-      {IS_SHOW_LIGHT_HELPER && (
-        <mesh
-          position={[
-            directionalLightConfig.x,
-            directionalLightConfig.y,
-            directionalLightConfig.z,
-          ]}
-          visible={directionalLightConfig.visible}
-        >
-          <sphereGeometry attach="geometry" args={Light_SPHERE_ARGS} />
-          <meshStandardMaterial
-            attach="material"
-            color={directionalLightConfig.color}
-            wireframe={true}
-          />
-          {directionalLightConfig.visible && (
-            <Html distanceFactor={HTML_TEXT_FACTOR}>
-              <LightLabel>{directionalLightConfig.name}</LightLabel>
-            </Html>
-          )}
-        </mesh>
-      )}
-      {IS_SHOW_LIGHT_HELPER && (
-        <mesh
-          ref={targetRef}
-          position={[
-            directionalLightConfig.targetX,
-            directionalLightConfig.targetY,
-            directionalLightConfig.targetZ,
-          ]}
-          visible={directionalLightConfig.visible}
-        >
-          <sphereGeometry attach="geometry" args={Light_SPHERE_ARGS} />
-          <meshStandardMaterial
-            attach="material"
-            color={directionalLightConfig.color}
-            wireframe={true}
-          />
-          {directionalLightConfig.visible && (
-            <Html distanceFactor={HTML_TEXT_FACTOR}>
-              <LightLabel>
-                {directionalLightConfig.name}
-                <br />
-                target
-              </LightLabel>
-            </Html>
-          )}
-        </mesh>
-      )}
+      <mesh
+        position={[
+          directionalLightConfig.x,
+          directionalLightConfig.y,
+          directionalLightConfig.z,
+        ]}
+        visible={IS_SHOW_LIGHT_HELPER && directionalLightConfig.visible}
+      >
+        <sphereGeometry attach="geometry" args={Light_SPHERE_ARGS} />
+        <meshStandardMaterial
+          attach="material"
+          color={directionalLightConfig.color}
+          wireframe={true}
+        />
+        {IS_SHOW_LIGHT_HELPER && directionalLightConfig.visible && (
+          <Html distanceFactor={HTML_TEXT_FACTOR}>
+            <LightLabel>{directionalLightConfig.name}</LightLabel>
+          </Html>
+        )}
+      </mesh>
+      <mesh
+        ref={targetRef}
+        position={[
+          directionalLightConfig.targetX,
+          directionalLightConfig.targetY,
+          directionalLightConfig.targetZ,
+        ]}
+        visible={IS_SHOW_LIGHT_HELPER && directionalLightConfig.visible}
+      >
+        <sphereGeometry attach="geometry" args={Light_SPHERE_ARGS} />
+        <meshStandardMaterial
+          attach="material"
+          color={directionalLightConfig.color}
+          wireframe={true}
+        />
+        {IS_SHOW_LIGHT_HELPER && directionalLightConfig.visible && (
+          <Html distanceFactor={HTML_TEXT_FACTOR}>
+            <LightLabel>
+              {directionalLightConfig.name}
+              <br />
+              target
+            </LightLabel>
+          </Html>
+        )}
+      </mesh>
     </>
   );
 };
@@ -897,36 +884,34 @@ const RectAreaLight = (props) => {
         ]}
         visible={rectAreaLightConfig.visible}
       />
-      {IS_SHOW_LIGHT_HELPER && (
-        <mesh
-          position={[
-            rectAreaLightConfig.x,
-            rectAreaLightConfig.y,
-            rectAreaLightConfig.z,
-          ]}
-          rotation={[
-            rectAreaLightConfig.rotationX,
-            rectAreaLightConfig.rotationY,
-            0,
-          ]}
-          visible={rectAreaLightConfig.visible}
-        >
-          <planeGeometry
-            attach="geometry"
-            args={[rectAreaLightConfig.width, rectAreaLightConfig.height]}
-          />
-          <meshStandardMaterial
-            attach="material"
-            color={rectAreaLightConfig.color}
-            wireframe={true}
-          />
-          {rectAreaLightConfig.visible && (
-            <Html distanceFactor={HTML_TEXT_FACTOR}>
-              <LightLabel>{rectAreaLightConfig.name}</LightLabel>
-            </Html>
-          )}
-        </mesh>
-      )}
+      <mesh
+        position={[
+          rectAreaLightConfig.x,
+          rectAreaLightConfig.y,
+          rectAreaLightConfig.z,
+        ]}
+        rotation={[
+          rectAreaLightConfig.rotationX,
+          rectAreaLightConfig.rotationY,
+          0,
+        ]}
+        visible={IS_SHOW_LIGHT_HELPER && rectAreaLightConfig.visible}
+      >
+        <planeGeometry
+          attach="geometry"
+          args={[rectAreaLightConfig.width, rectAreaLightConfig.height]}
+        />
+        <meshStandardMaterial
+          attach="material"
+          color={rectAreaLightConfig.color}
+          wireframe={true}
+        />
+        {IS_SHOW_LIGHT_HELPER && rectAreaLightConfig.visible && (
+          <Html distanceFactor={HTML_TEXT_FACTOR}>
+            <LightLabel>{rectAreaLightConfig.name}</LightLabel>
+          </Html>
+        )}
+      </mesh>
     </>
   );
 };
