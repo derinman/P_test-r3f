@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import { useFrame } from "@react-three/fiber";
 
@@ -37,6 +37,8 @@ const No002 = () => {
   const glb = useGLTF(glbUrl);
   const nodes = glb.nodes;
 
+  const [spotLight1Config, setSpotLight1Config] = useState({});
+  const [spotLight2Config, setSpotLight2Config] = useState({});
   //console.log(dumpObject(glb.scene).join("\n"));
   //console.log(nodes);
 
@@ -48,15 +50,17 @@ const No002 = () => {
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
     spotLight1Ref.current.intensity =
-      spotLightJson.spotLight1.intensity - Math.abs(Math.cos(t * 1) * 2);
+      spotLightJson.spotLight1.intensity - Math.abs(Math.cos(t * 0.5) * 30);
 
-    spotLight1Ref.current.color.r = Math.floor(Math.abs(Math.cos(t * 2)) * 255);
-    spotLight1Ref.current.color.g = Math.floor(Math.abs(Math.sin(t * 4)) * 255);
-    spotLight1Ref.current.color.b = Math.floor(Math.abs(Math.cos(t * 1)) * 255);
 
     meshBenchRef.current.rotation.y = Math.sin(t / 4) / 30;
     meshBenchRef.current.position.y = Math.abs(Math.sin(t / 0.25) / 10);
   });
+
+  useEffect(() => {
+    setSpotLight1Config(spotLightJson.spotLight1)
+    setSpotLight2Config(spotLightJson.spotLight2)
+  }, []);
 
   return (
     <group>
@@ -69,26 +73,17 @@ const No002 = () => {
         receiveShadow={true}
       />
 
-      <PointLight pointLightConfig={pointLightJson.pointLight1} />
       <PointLight pointLightConfig={pointLightJson.pointLight2} />
       <PointLight pointLightConfig={pointLightJson.pointLight3} />
-      <PointLight pointLightConfig={pointLightJson.pointLight4} />
-      <PointLight pointLightConfig={pointLightJson.pointLight5} />
-      <PointLight pointLightConfig={pointLightJson.pointLight6} />
       <SpotLight
-        spotLightConfig={spotLightJson.spotLight1}
+        spotLightConfig={spotLight1Config}
         lightRef={spotLight1Ref}
       />
-      <SpotLight spotLightConfig={spotLightJson.spotLight2} />
-      <SpotLight spotLightConfig={spotLightJson.spotLight3} />
+      <SpotLight spotLightConfig={spotLight2Config} />
       <AmbientLight ambientLightConfig={ambientLightJson.ambientLight1} />
       <HemisphereLight
         hemisphereLightConfig={hemisphereLightJson.hemisphereLight1}
       />
-      <DirectionalLight
-        directionalLightConfig={directionalLightJson.directionalLight1}
-      />
-      <RectAreaLight rectAreaLightConfig={rectAreaLightJson.rectAreaLight1} />
 
       <Sky
         distance={450000}

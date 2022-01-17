@@ -15,13 +15,13 @@
     "castShadow": false,
     "color": "#ffffff",
     "decay": 2,
-    "distance": 200,
-    "intensity": 0.5,
+    "distance": 10,
+    "intensity": 1,
     "name": "pointLight2",
-    "x": 0.02063,
-    "y": 30,
+    "x": -3.45148,
+    "y": 37,
     "z": -0.675024,
-    "visible": false
+    "visible": true
   },
   "pointLight3": {
     "castShadow": true,
