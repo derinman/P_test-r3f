@@ -27,14 +27,14 @@ export const no004 = {
   Component: lazy(() => import("./No004.js")),
   camLightTest: true,
 };
+export const no005= {
+  name: "No005",
+  Component: lazy(() => import("./No005.js")),
+  camLightTest: true,
+};
 export const pollyDog = {
   name: "PollyDog",
   Component: lazy(() => import("./PollyDog.js")),
-  camLightTest: true,
-};
-export const alphaTest = {
-  name: "AlphaTest",
-  Component: lazy(() => import("./AlphaTest.js")),
   camLightTest: true,
 };
 export const transmissionTest = {

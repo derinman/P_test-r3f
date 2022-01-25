@@ -1,6 +1,6 @@
 {
-    "position":[6.83073,-6,0.81110],
-    "orbitTarget":[6.83073,-6,0.81112],
+    "position":[-31.4061,0.378584,20.0772],
+    "orbitTarget":[3.68074,0.378584,0.000075],
     "fov":70,
     "near":0.01,
     "far:":100,
@@ -12,6 +12,6 @@
     "minPolarAngle":"-Infinity",
     "maxAzimuthAngle":"Infinity",
     "minAzimuthAngle":"-Infinity",
-    "maxDistance":8.1,
-    "minDistance":0
+    "maxDistance":80,
+    "minDistance":0.1
 }

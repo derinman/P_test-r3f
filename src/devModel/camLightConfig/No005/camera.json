@@ -1,0 +1,17 @@
+{
+    "position":[29.429,-5.49739,0.000075],
+    "orbitTarget":[-14.9797,-5.49739,0.000075],
+    "fov":70,
+    "near":0.01,
+    "far:":100,
+    "enabled":true,
+    "enablePan":false,
+    "enableZoom":true,
+    "enableRotate":false,
+    "maxPolarAngle":"Infinity",
+    "minPolarAngle":"-Infinity",
+    "maxAzimuthAngle":1.5708,
+    "minAzimuthAngle":1.5708,
+    "maxDistance":45,
+    "minDistance":0.1
+}
