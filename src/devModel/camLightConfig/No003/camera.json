@@ -1,6 +1,6 @@
 {
-    "position":[-31.4061,0.378584,20.0772],
-    "orbitTarget":[3.68074,0.378584,0.000075],
+    "position":[-44.1332,7,21.9848],
+    "orbitTarget":[3.68074,7,0.000075],
     "fov":70,
     "near":0.01,
     "far:":100,
@@ -8,10 +8,10 @@
     "enablePan":false,
     "enableZoom":true,
     "enableRotate":true,
-    "maxPolarAngle":"Infinity",
+    "maxPolarAngle":1.5708,
     "minPolarAngle":"-Infinity",
-    "maxAzimuthAngle":"Infinity",
-    "minAzimuthAngle":"-Infinity",
-    "maxDistance":80,
-    "minDistance":0.1
+    "maxAzimuthAngle":1,
+    "minAzimuthAngle":-3.5,
+    "maxDistance":60,
+    "minDistance":0.01
 }

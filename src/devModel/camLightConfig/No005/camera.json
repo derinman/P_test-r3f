@@ -10,8 +10,8 @@
     "enableRotate":false,
     "maxPolarAngle":"Infinity",
     "minPolarAngle":"-Infinity",
-    "maxAzimuthAngle":1.5708,
-    "minAzimuthAngle":1.5708,
-    "maxDistance":45,
+    "maxAzimuthAngle":"Infinity",
+    "minAzimuthAngle":"-Infinity",
+    "maxDistance":45.3,
     "minDistance":0.1
 }
