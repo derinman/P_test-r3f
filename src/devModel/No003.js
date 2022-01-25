@@ -20,7 +20,7 @@ const No003 = () => {
   const glb = useGLTF(glbUrl);
   const nodes = glb.nodes;
   //console.log(dumpObject(glb.scene).join("\n"));
-
+  console.log(nodes)
   const mainCameraRef = useRef();
   const controlsRef = useRef();
 
