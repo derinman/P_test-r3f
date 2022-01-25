@@ -22,6 +22,11 @@ export const no003 = {
   Component: lazy(() => import("./No003.js")),
   camLightTest: true,
 };
+export const no004 = {
+  name: "No004",
+  Component: lazy(() => import("./No004.js")),
+  camLightTest: true,
+};
 export const pollyDog = {
   name: "PollyDog",
   Component: lazy(() => import("./PollyDog.js")),

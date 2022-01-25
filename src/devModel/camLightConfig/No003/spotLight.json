@@ -14,7 +14,7 @@
     "targetX": -7,
     "targetY": 29.5,
     "targetZ": 3,
-    "visible": true
+    "visible": false
   },
   "spotLight2": {
     "angle": 0.7000000000000001,
@@ -31,7 +31,7 @@
     "targetX": 0,
     "targetY": 29,
     "targetZ": -1.25,
-    "visible": true
+    "visible": false
   },
   "spotLight3": {
     "angle": 0.4488,

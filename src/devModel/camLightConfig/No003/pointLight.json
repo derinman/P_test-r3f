@@ -21,7 +21,7 @@
     "x": -3.45148,
     "y": 37,
     "z": -0.675024,
-    "visible": true
+    "visible": false
   },
   "pointLight3": {
     "castShadow": true,
@@ -33,7 +33,7 @@
     "x": -6.25,
     "y": 25,
     "z": 3,
-    "visible": true
+    "visible": false
   },
   "pointLight4": {
     "castShadow": false,

@@ -1,0 +1,74 @@
+{
+  "pointLight1": {
+    "castShadow": true,
+    "color": "#ffffff",
+    "decay": 2,
+    "distance": 105,
+    "intensity": 4,
+    "name": "pointLight1",
+    "x": -25.25,
+    "y": 53.5,
+    "z": 11,
+    "visible": false
+  },
+  "pointLight2": {
+    "castShadow": false,
+    "color": "#ffffff",
+    "decay": 2,
+    "distance": 10,
+    "intensity": 1,
+    "name": "pointLight2",
+    "x": -3.45148,
+    "y": 37,
+    "z": -0.675024,
+    "visible": false
+  },
+  "pointLight3": {
+    "castShadow": true,
+    "color": "#b9f6f6",
+    "decay": 2,
+    "distance": 39.5,
+    "intensity": 17.25,
+    "name": "pointLight3",
+    "x": -6.25,
+    "y": 25,
+    "z": 3,
+    "visible": false
+  },
+  "pointLight4": {
+    "castShadow": false,
+    "color": "#7ae9e3",
+    "decay": 2,
+    "distance": 22.5,
+    "intensity": 0.5,
+    "name": "pointLight4",
+    "x": -3.45148,
+    "y": 39.25,
+    "z": -0.675024,
+    "visible": false
+  },
+  "pointLight5": {
+    "castShadow": true,
+    "color": "#ffffff",
+    "decay": 2,
+    "distance": 14.5,
+    "intensity": 0.75,
+    "name": "pointLight5",
+    "x": -3.45148,
+    "y": 33.75,
+    "z": -0.675024,
+    "visible": false
+  },
+  "pointLight6": {
+    "castShadow": false,
+    "color": "#7ae9e3",
+    "decay": 2,
+    "distance": 27.75,
+    "intensity": 1.25,
+    "name": "pointLight6",
+    "x": -6,
+    "y": 21.25,
+    "z": 6,
+    "visible": false
+  }
+}
