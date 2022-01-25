@@ -1,7 +1,6 @@
 import React, { useState, useRef, Suspense, useEffect } from "react";
 
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
 
 import styled from "styled-components";
 
@@ -66,8 +65,6 @@ const App = () => {
 
   const [currentModel, setCurrentModel] = useState("No003");
 
-  const [camera, setCamera] = useState({});
-
   const [pointLight1, setPointLight1] = useState({});
   const [pointLight2, setPointLight2] = useState({});
   const [pointLight3, setPointLight3] = useState({});
@@ -88,9 +85,7 @@ const App = () => {
   const [rectAreaLight1, setRectAreaLight1] = useState({});
 
   const canvasRef = useRef();
-  const mainCameraRef = useRef();
   const axesHelperRef = useRef();
-  const controlsRef = useRef();
 
   const Model = Object.entries(work).filter(
     (data) => data[1].name === currentModel
@@ -107,9 +102,6 @@ const App = () => {
     // console.log(Object.entries(work).filter(data=>!data[1].dev).map(data=>data[1].name))
     // console.log('canvasRef:',canvasRef)
     // console.log(axesHelperRef)
-    // console.log("mainCameraRef:", mainCameraRef);
-    // console.log("controlsRef:", controlsRef);
-    // console.log("camera:", camera);
   }, []);
 
   useEffect(() => {
@@ -122,7 +114,6 @@ const App = () => {
   useEffect(() => {
     async function loadLight() {
       const [
-        cameraJson,
         pointLightJson,
         spotLightJson,
         ambientLightJson,
@@ -130,7 +121,6 @@ const App = () => {
         directionalLightJson,
         rectAreaLightJson,
       ] = await Promise.all([
-        import(`./devModel/camLightConfig/${currentModel}/camera.json`),
         import(`./devModel/camLightConfig/${currentModel}/pointLight.json`),
         import(`./devModel/camLightConfig/${currentModel}/spotLight.json`),
         import(`./devModel/camLightConfig/${currentModel}/ambientLight.json`),
@@ -142,7 +132,6 @@ const App = () => {
         ),
         import(`./devModel/camLightConfig/${currentModel}/rectAreaLight.json`),
       ]);
-      setCamera(cameraJson);
       setPointLight1(pointLightJson.pointLight1);
       setPointLight2(pointLightJson.pointLight2);
       setPointLight3(pointLightJson.pointLight3);
@@ -178,36 +167,6 @@ const App = () => {
           scale={[1, 1, 1]}
           up={[0, 1, 0]} //世界座標的向量
         />
-        {isLightTest && (
-          <PerspectiveCamera
-            ref={mainCameraRef}
-            controls={controlsRef.current}
-            makeDefault={true}
-            visible={false}
-            up={[0, 1, 0]} //世界座標的向量
-            position={camera.position}
-            fov={camera.fov}
-            near={camera.near}
-            far={camera.far}
-          />
-        )}
-        {isLightTest && (
-          <OrbitControls
-            ref={controlsRef}
-            camera={mainCameraRef.current}
-            enabled={camera.enabled}
-            enablePan={camera.enablePan}
-            enableZoom={camera.enableZoom}
-            enableRotate={camera.enableRotate}
-            maxPolarAngle={camera.maxPolarAngle}
-            minPolarAngle={camera.minPolarAngle}
-            maxAzimuthAngle={camera.maxAzimuthAngle}
-            minAzimuthAngle={camera.minAzimuthAngle}
-            maxDistance={camera.maxDistance}
-            minDistance={camera.minDistance}
-            target={camera.orbitTarget}
-          />
-        )}
         {isLightTest && (
           <group>
             <PointLight pointLightConfig={pointLight1} />
