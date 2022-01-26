@@ -55,20 +55,11 @@ const No004 = () => {
       />
       <Sky
         distance={450000}
-        sunPosition={[1, 1, 0]}
-        inclination={0}
-        azimuth={0.25}
-        rayleigh={0}
+        sunPosition={[-1, 0, 0]}
+        rayleigh={0.1}
+        turbidity={0.3}
       />
-      <Stars
-        radius={100}
-        depth={50}
-        count={30000}
-        factor={4}
-        saturation={0}
-        fade
-      />
-      <Environment preset="city" />
+      <Environment preset="warehouse" />
     </group>
   );
 };
