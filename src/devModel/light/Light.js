@@ -49,7 +49,7 @@ const LightLabel = styled.div`
 // 很多光種有設distance才有陰影
 
 const IS_SHOW_LIGHT_HELPER = true;
-const LightFactor = 2;
+const LightFactor = 10;
 
 const HTML_TEXT_FACTOR = 2 * LightFactor;
 const Light_SPHERE_ARGS = [0.05 * LightFactor, 16, 16];

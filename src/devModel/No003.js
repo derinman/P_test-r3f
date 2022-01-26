@@ -9,24 +9,36 @@ import {
   Environment,
 } from "@react-three/drei";
 
+import { PointLight, HemisphereLight } from "./light/Light.js";
+
+import cameraJson from "./camLightConfig/No003/camera.json";
+import pointLightJson from "./camLightConfig/No003/pointLight.json";
+import hemisphereLightJson from "./camLightConfig/No003/hemisphereLight.json";
+
 import gltfNodeToMesh from "./helper/gltfNodeToMesh.js";
 // import dumpObject from "./helper/dump.js";
 
 import glbUrl from "./glb/no003.glb";
 
-import cameraJson from "./camLightConfig/No003/camera.json";
-
 const No003 = () => {
   const glb = useGLTF(glbUrl);
   const nodes = glb.nodes;
   //console.log(dumpObject(glb.scene).join("\n"));
-  console.log(nodes)
+  // console.log(nodes)
   const mainCameraRef = useRef();
   const controlsRef = useRef();
 
   return (
     <group>
       {gltfNodeToMesh(nodes)}
+      <PointLight pointLightConfig={pointLightJson.pointLight1} />
+      <PointLight pointLightConfig={pointLightJson.pointLight2} />
+      <PointLight pointLightConfig={pointLightJson.pointLight3} />
+      <PointLight pointLightConfig={pointLightJson.pointLight4} />
+      <PointLight pointLightConfig={pointLightJson.pointLight5} />
+      <HemisphereLight
+        hemisphereLightConfig={hemisphereLightJson.hemisphereLight1}
+      />
       <PerspectiveCamera
         ref={mainCameraRef}
         controls={controlsRef.current}
@@ -67,12 +79,3 @@ const No003 = () => {
 useGLTF.preload(glbUrl);
 
 export default No003;
-
-// distance?: number;
-// sunPosition?: ReactThreeFiber.Vector3;
-// inclination?: number;
-// azimuth?: number;
-// mieCoefficient?: number;
-// mieDirectionalG?: number;
-// rayleigh?: number;
-// turbidity?: number;
