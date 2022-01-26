@@ -7,7 +7,7 @@
     "intensity": 1.5,
     "name": "pointLight1",
     "x": -18,
-    "y": 0,
+    "y": -2,
     "z": 7.75,
     "visible": true
   },

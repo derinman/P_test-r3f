@@ -33,8 +33,9 @@ const No004 = () => {
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
     pointLight1Ref.current.position.y =
-      pointLightJson.pointLight1.y + Math.cos(t * 0.5) * 8;
+      pointLightJson.pointLight1.y + Math.cos(t * 0.5) * 6;
   });
+
 
   return (
     <group>
