@@ -60,6 +60,7 @@ const GuiCheckBox = styled.div`
 
 const App = () => {
   const [isLightTest, setIsLightTest] = useState(true);
+  const [isGUIClose, setIsGUIClose] = useState(false);
   const [modelGuiWidth, setModelGuiWidth] = useState("200");
   const [lightGuiWidth, setLightGuiWidth] = useState("250");
 
@@ -187,7 +188,21 @@ const App = () => {
       </Canvas>
 
       {/* model GUI */}
+      <div
+        style={{
+          position: "absolute",
+          width: "1rem",
+          height: "1rem",
+          top: 0,
+          left: "2.5vh",
+          border: "1px solid #000",
+          borderRadius:'0.5rem',
+          background: "red",
+        }}
+        onClick={()=>{setIsGUIClose(!isGUIClose)}}
+      />
 
+      { !isGUIClose &&  
       <GuiWrapper
         style={{
           top: "2.5vh",
@@ -219,9 +234,10 @@ const App = () => {
           </GuiCompBtn>
         ))}
       </GuiWrapper>
+      }
 
       {/* light GUI */}
-      {isLightTest && (
+      {(isLightTest && !isGUIClose)&& (
         <GuiWrapper
           style={{
             top: "2.5vh",
