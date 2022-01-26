@@ -1,3 +1,10 @@
 {
-  "hemisphereLight1": {"color":"#ffffff","groundColor":"#743400","intensity":0.25,"name":"hemisphereLight1","skyColor":"#ffffff","visible":false}
+  "hemisphereLight1": {
+    "color": "#000000",
+    "groundColor": "#e9bf69",
+    "intensity": 1,
+    "name": "hemisphereLight1",
+    "skyColor": "#000000",
+    "visible": true
+  }
 }

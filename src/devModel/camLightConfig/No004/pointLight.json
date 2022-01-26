@@ -1,39 +1,39 @@
 {
   "pointLight1": {
     "castShadow": true,
-    "color": "#ffffff",
+    "color": "#fef3dd",
     "decay": 2,
-    "distance": 105,
-    "intensity": 4,
+    "distance": 200,
+    "intensity": 1.5,
     "name": "pointLight1",
-    "x": -25.25,
-    "y": 53.5,
-    "z": 11,
-    "visible": false
+    "x": -18,
+    "y": 0,
+    "z": 7.75,
+    "visible": true
   },
   "pointLight2": {
     "castShadow": false,
-    "color": "#ffffff",
+    "color": "#c3e6e6",
     "decay": 2,
-    "distance": 10,
-    "intensity": 1,
+    "distance": 19.75,
+    "intensity": 0.5,
     "name": "pointLight2",
-    "x": -3.45148,
-    "y": 37,
-    "z": -0.675024,
-    "visible": false
+    "x": -14.5,
+    "y": -17.25,
+    "z": 0,
+    "visible": true
   },
   "pointLight3": {
-    "castShadow": true,
-    "color": "#b9f6f6",
+    "castShadow": false,
+    "color": "#c3e6e6",
     "decay": 2,
-    "distance": 39.5,
-    "intensity": 17.25,
+    "distance": 19.75,
+    "intensity": 0.5,
     "name": "pointLight3",
-    "x": -6.25,
-    "y": 25,
-    "z": 3,
-    "visible": false
+    "x": -8.75,
+    "y": -16.25,
+    "z": 0,
+    "visible": true
   },
   "pointLight4": {
     "castShadow": false,

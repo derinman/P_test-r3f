@@ -1,20 +1,25 @@
 import React, { useRef } from "react";
 
+import { useFrame } from "@react-three/fiber";
+
 import {
   useGLTF,
   OrbitControls,
   PerspectiveCamera,
   Sky,
-  Stars,
   Environment,
 } from "@react-three/drei";
+
+import { PointLight, HemisphereLight } from "./light/Light.js";
+
+import cameraJson from "./camLightConfig/No004/camera.json";
+import pointLightJson from "./camLightConfig/No004/pointLight.json";
+import hemisphereLightJson from "./camLightConfig/No004/hemisphereLight.json";
 
 import gltfNodeToMesh from "./helper/gltfNodeToMesh.js";
 // import dumpObject from "./helper/dump.js";
 
 import glbUrl from "./glb/no004.glb";
-
-import cameraJson from "./camLightConfig/No004/camera.json";
 
 const No004 = () => {
   const glb = useGLTF(glbUrl);
@@ -23,10 +28,26 @@ const No004 = () => {
 
   const mainCameraRef = useRef();
   const controlsRef = useRef();
+  const pointLight1Ref = useRef();
+
+  useFrame((state) => {
+    const t = state.clock.getElapsedTime();
+    pointLight1Ref.current.position.y =
+      pointLightJson.pointLight1.y + Math.cos(t * 0.5) * 8;
+  });
 
   return (
     <group>
       {gltfNodeToMesh(nodes)}
+      <PointLight
+        pointLightConfig={pointLightJson.pointLight1}
+        lightRef={pointLight1Ref}
+      />
+      <PointLight pointLightConfig={pointLightJson.pointLight2} />
+      <PointLight pointLightConfig={pointLightJson.pointLight3} />
+      <HemisphereLight
+        hemisphereLightConfig={hemisphereLightJson.hemisphereLight1}
+      />
       <PerspectiveCamera
         ref={mainCameraRef}
         controls={controlsRef.current}
