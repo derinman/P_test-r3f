@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 import { useFrame } from "@react-three/fiber";
 
@@ -29,17 +29,112 @@ const No004 = () => {
   const mainCameraRef = useRef();
   const controlsRef = useRef();
   const pointLight1Ref = useRef();
+  const screen_1Ref = useRef();
+  const screen_2Ref = useRef();
+  const screen_3Ref = useRef();
+  const screen_4Ref = useRef();
+  const screen_5Ref = useRef();
+  const screen_6Ref = useRef();
+  const screen_7Ref = useRef();
 
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
     pointLight1Ref.current.position.y =
       pointLightJson.pointLight1.y + Math.cos(t * 0.5) * 6;
+
+    screen_1Ref.current.position.y = -6.968888759613037 + Math.abs(Math.sin(t));
+    screen_1Ref.current.scale.y = Math.abs(Math.sin(t / 10)) * 7 + 1;
+    screen_1Ref.current.scale.z = Math.abs(Math.sin(t / 10)) * 7 + 1;
+
+    screen_2Ref.current.position.y = -6.968888759613037 + Math.abs(Math.sin(t));
+    screen_2Ref.current.scale.y = Math.abs(Math.sin(t / 10)) * 6 + 1;
+    screen_2Ref.current.scale.z = Math.abs(Math.sin(t / 10)) * 6 + 1;
+
+    screen_3Ref.current.position.y = -6.968888759613037 + Math.abs(Math.sin(t));
+    screen_3Ref.current.scale.y = Math.abs(Math.sin(t / 10)) * 5 + 1;
+    screen_3Ref.current.scale.z = Math.abs(Math.sin(t / 10)) * 5 + 1;
+
+    screen_4Ref.current.position.y = -6.968888759613037 + Math.abs(Math.sin(t));
+    screen_4Ref.current.scale.y = Math.abs(Math.sin(t / 10)) * 4 + 1;
+    screen_4Ref.current.scale.z = Math.abs(Math.sin(t / 10)) * 4 + 1;
+
+    screen_5Ref.current.position.y = -6.968888759613037 + Math.abs(Math.sin(t));
+    screen_5Ref.current.scale.y = Math.abs(Math.sin(t / 10)) * 3 + 1;
+    screen_5Ref.current.scale.z = Math.abs(Math.sin(t / 10)) * 3 + 1;
+
+    screen_6Ref.current.position.y = -6.968888759613037 + Math.abs(Math.sin(t));
+    screen_6Ref.current.scale.y = Math.abs(Math.sin(t / 10)) * 2 + 1;
+    screen_6Ref.current.scale.z = Math.abs(Math.sin(t / 10)) * 2 + 1;
+
+    screen_7Ref.current.position.y = -6.968888759613037 + Math.abs(Math.sin(t));
+    screen_7Ref.current.scale.y = Math.abs(Math.sin(t / 10)) * 1 + 1;
+    screen_7Ref.current.scale.z = Math.abs(Math.sin(t / 10)) * 1 + 1;
+
+    screen_1Ref.current.material.color.r = Math.abs(Math.sin(t));
+    screen_1Ref.current.material.color.g = Math.abs(Math.sin(t));
+    screen_1Ref.current.material.color.b = Math.abs(Math.sin(t));
   });
 
+  useEffect(() => {
+    screen_1Ref.current.material.wireframe = true;
+    screen_1Ref.current.material.wireframeLinecap = "square";
+
+    // console.log(screen_1Ref.current);
+  }, []);
 
   return (
     <group>
-      {gltfNodeToMesh(nodes)}
+      {gltfNodeToMesh(nodes, [
+        "screen_1",
+        "screen_2",
+        "screen_3",
+        "screen_4",
+        "screen_5",
+        "screen_6",
+        "screen_7",
+      ])}
+      <mesh
+        ref={screen_1Ref}
+        {...nodes.screen_1}
+        castShadow={true}
+        receiveShadow={true}
+      />
+      <mesh
+        ref={screen_2Ref}
+        {...nodes.screen_2}
+        castShadow={true}
+        receiveShadow={true}
+      />
+      <mesh
+        ref={screen_3Ref}
+        {...nodes.screen_3}
+        castShadow={true}
+        receiveShadow={true}
+      />
+      <mesh
+        ref={screen_4Ref}
+        {...nodes.screen_4}
+        castShadow={true}
+        receiveShadow={true}
+      />
+      <mesh
+        ref={screen_5Ref}
+        {...nodes.screen_5}
+        castShadow={true}
+        receiveShadow={true}
+      />
+      <mesh
+        ref={screen_6Ref}
+        {...nodes.screen_6}
+        castShadow={true}
+        receiveShadow={true}
+      />
+      <mesh
+        ref={screen_7Ref}
+        {...nodes.screen_7}
+        castShadow={true}
+        receiveShadow={true}
+      />
       <PointLight
         pointLightConfig={pointLightJson.pointLight1}
         lightRef={pointLight1Ref}
