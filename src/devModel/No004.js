@@ -41,6 +41,9 @@ const No004 = () => {
     const t = state.clock.getElapsedTime();
     let seed = Math.floor(Math.random() * 7) + 1;
 
+    pointLight1Ref.current.position.y =
+      pointLightJson.pointLight1.y + Math.cos(t * 0.5) * 6;
+
     screen_1Ref.current.position.y =
       -6.968888759613037 + Math.abs(Math.sin(t)) * 2.5;
     if (Math.random() > 0.9 && seed === 1) {
