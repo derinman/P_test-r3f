@@ -30,7 +30,7 @@ export const no004 = {
 export const no005= {
   name: "No005",
   Component: lazy(() => import("./No005.js")),
-  camLightTest: true,
+  camLightTest: false,
 };
 export const pollyDog = {
   name: "PollyDog",

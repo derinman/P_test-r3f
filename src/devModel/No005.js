@@ -10,12 +10,17 @@ import {
   Environment,
 } from "@react-three/drei";
 
+import { PointLight, HemisphereLight, AmbientLight } from "./light/Light.js";
+
 import gltfNodeToMesh from "./helper/gltfNodeToMesh.js";
 // import dumpObject from "./helper/dump.js";
 
 import glbUrl from "./glb/no005.glb";
 
 import cameraJson from "./camLightConfig/No005/camera.json";
+import pointLightJson from "./camLightConfig/No005/pointLight.json";
+import hemisphereLightJson from "./camLightConfig/No005/hemisphereLight.json";
+import ambientLightJson from "./camLightConfig/No005/ambientLight.json";
 
 const No005 = () => {
   const glb = useGLTF(glbUrl);
@@ -34,45 +39,77 @@ const No005 = () => {
 
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
+    let seed = Math.floor(Math.random() * 7) + 1;
 
-    screen_1Ref.current.position.y = -6.968888759613037 + Math.abs(Math.sin(t));
-    screen_1Ref.current.scale.y = Math.abs(Math.sin(t / 10)) * 7 + 1;
-    screen_1Ref.current.scale.z = Math.abs(Math.sin(t / 10)) * 7 + 1;
+    screen_1Ref.current.position.y =
+      -6.968888759613037 + Math.abs(Math.sin(t)) * 2.5;
+    if (Math.random() > 0.9 && seed === 1) {
+      screen_1Ref.current.scale.y = Math.abs(Math.sin(t / 10)) * 20 + 1;
+    } else {
+      screen_1Ref.current.scale.y = Math.abs(Math.sin(t / 10)) * 2 + 1;
+    }
+    screen_1Ref.current.scale.z = Math.abs(Math.sin(t / 20)) * 2 + 1;
 
-    screen_2Ref.current.position.y = -6.968888759613037 + Math.abs(Math.sin(t));
-    screen_2Ref.current.scale.y = Math.abs(Math.sin(t / 10)) * 6 + 1;
-    screen_2Ref.current.scale.z = Math.abs(Math.sin(t / 10)) * 6 + 1;
+    screen_2Ref.current.position.y =
+      -6.968888759613037 + Math.abs(Math.sin(t)) * 2.25;
+    if (Math.random() > 0.9 && seed === 2) {
+      screen_2Ref.current.scale.y = Math.abs(Math.sin(t / 10)) * 25 + 1;
+    } else {
+      screen_2Ref.current.scale.y = Math.abs(Math.sin(t / 10)) * 1.75 + 1;
+    }
+    screen_2Ref.current.scale.z = Math.abs(Math.sin(t / 20)) * 1.75 + 1;
 
-    screen_3Ref.current.position.y = -6.968888759613037 + Math.abs(Math.sin(t));
-    screen_3Ref.current.scale.y = Math.abs(Math.sin(t / 10)) * 5 + 1;
-    screen_3Ref.current.scale.z = Math.abs(Math.sin(t / 10)) * 5 + 1;
+    screen_3Ref.current.position.y =
+      -6.968888759613037 + Math.abs(Math.sin(t)) * 2;
+    if (Math.random() > 0.9 && seed === 3) {
+      screen_3Ref.current.scale.y = Math.abs(Math.sin(t / 10)) * 30 + 1;
+    } else {
+      screen_3Ref.current.scale.y = Math.abs(Math.sin(t / 10)) * 1.5 + 1;
+    }
+    screen_3Ref.current.scale.z = Math.abs(Math.sin(t / 20)) * 1.5 + 1;
 
-    screen_4Ref.current.position.y = -6.968888759613037 + Math.abs(Math.sin(t));
-    screen_4Ref.current.scale.y = Math.abs(Math.sin(t / 10)) * 4 + 1;
-    screen_4Ref.current.scale.z = Math.abs(Math.sin(t / 10)) * 4 + 1;
+    screen_4Ref.current.position.y =
+      -6.968888759613037 + Math.abs(Math.sin(t)) * 1.75;
+    if (Math.random() > 0.9 && seed === 4) {
+      screen_4Ref.current.scale.y = Math.abs(Math.sin(t / 10)) * 35 + 1;
+    } else {
+      screen_4Ref.current.scale.y = Math.abs(Math.sin(t / 10)) * 1.25 + 1;
+    }
+    screen_4Ref.current.scale.z = Math.abs(Math.sin(t / 20)) * 1.25 + 1;
 
-    screen_5Ref.current.position.y = -6.968888759613037 + Math.abs(Math.sin(t));
-    screen_5Ref.current.scale.y = Math.abs(Math.sin(t / 10)) * 3 + 1;
-    screen_5Ref.current.scale.z = Math.abs(Math.sin(t / 10)) * 3 + 1;
+    screen_5Ref.current.position.y =
+      -6.968888759613037 + Math.abs(Math.sin(t)) * 1.5;
+    if (Math.random() > 0.9 && seed === 5) {
+      screen_5Ref.current.scale.y = Math.abs(Math.sin(t / 10)) * 40 + 1;
+    } else {
+      screen_5Ref.current.scale.y = Math.abs(Math.sin(t / 10)) * 1 + 1;
+    }
+    screen_5Ref.current.scale.z = Math.abs(Math.sin(t / 20)) * 1 + 1;
 
-    screen_6Ref.current.position.y = -6.968888759613037 + Math.abs(Math.sin(t));
-    screen_6Ref.current.scale.y = Math.abs(Math.sin(t / 10)) * 2 + 1;
-    screen_6Ref.current.scale.z = Math.abs(Math.sin(t / 10)) * 2 + 1;
+    screen_6Ref.current.position.y =
+      -6.968888759613037 + Math.abs(Math.sin(t)) * 1.25;
+    if (Math.random() > 0.9 && seed === 6) {
+      screen_6Ref.current.scale.y = Math.abs(Math.sin(t / 10)) * 45 + 1;
+    } else {
+      screen_6Ref.current.scale.y = Math.abs(Math.sin(t / 10)) * 0.75 + 1;
+    }
+    screen_6Ref.current.scale.z = Math.abs(Math.sin(t / 20)) * 0.75 + 1;
 
-    screen_7Ref.current.position.y = -6.968888759613037 + Math.abs(Math.sin(t));
-    screen_7Ref.current.scale.y = Math.abs(Math.sin(t / 10)) * 1 + 1;
-    screen_7Ref.current.scale.z = Math.abs(Math.sin(t / 10)) * 1 + 1;
-
-    screen_1Ref.current.material.color.r = Math.abs(Math.sin(t));
-    screen_1Ref.current.material.color.g = Math.abs(Math.sin(t));
-    screen_1Ref.current.material.color.b = Math.abs(Math.sin(t));
+    screen_7Ref.current.position.y =
+      -6.968888759613037 + Math.abs(Math.sin(t)) * 1;
+    if (Math.random() > 0.9 && seed === 7) {
+      screen_7Ref.current.scale.y = Math.abs(Math.sin(t / 10)) * 50 + 1;
+    } else {
+      screen_7Ref.current.scale.y = Math.abs(Math.sin(t / 10)) * 0.5 + 1;
+    }
+    screen_7Ref.current.scale.z = Math.abs(Math.sin(t / 20)) * 0.5 + 1;
   });
 
   useEffect(() => {
     screen_1Ref.current.material.wireframe = true;
-    screen_1Ref.current.material.wireframeLinecap = "square";
-
-    // console.log(screen_1Ref.current);
+    screen_1Ref.current.material.color.r = 0;
+    screen_1Ref.current.material.color.g = 0;
+    screen_1Ref.current.material.color.b = 0;
   }, []);
 
   return (
@@ -127,6 +164,13 @@ const No005 = () => {
         {...nodes.screen_7}
         castShadow={true}
         receiveShadow={true}
+      />
+      <PointLight pointLightConfig={pointLightJson.pointLight1} />
+      <HemisphereLight
+        hemisphereLightConfig={hemisphereLightJson.hemisphereLight1}
+      />
+      <AmbientLight
+        ambientLightConfig={ambientLightJson.ambientLight1}
       />
       <PerspectiveCamera
         ref={mainCameraRef}
